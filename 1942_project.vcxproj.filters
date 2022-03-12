@@ -16,6 +16,9 @@
     <Filter Include="소스 파일\function">
       <UniqueIdentifier>{0d197cb8-ce5b-4f68-b7be-024990981cfe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\game">
+      <UniqueIdentifier>{d69ced28-3b53-4a40-8258-d662bcb20e62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cursor.c">
@@ -32,6 +35,18 @@
     </ClCompile>
     <ClCompile Include="draw_content.c">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="login.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ranking.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="shop.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="game.c">
+      <Filter>소스 파일\game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
