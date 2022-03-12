@@ -1,0 +1,6 @@
+﻿  game.c
+  login.c
+C:\Users\chm209\Desktop\학교\C언어\기말 프로젝트\1942\login.c(28,3): error C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\chm209\Desktop\학교\C언어\기말 프로젝트\1942\login.c(31,3): error C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\chm209\Desktop\학교\C언어\기말 프로젝트\1942\login.c(52,3): error C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\chm209\Desktop\학교\C언어\기말 프로젝트\1942\login.c(55,3): error C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
