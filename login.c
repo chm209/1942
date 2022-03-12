@@ -30,10 +30,10 @@ int login(int screen_num)
 		scanf("%s", user_password);
 		cursor(0);
 		/*
+		* 회원가입후 로그인 과정을 위해 break 생략
 		* DB 데이터에서 ID 중복 확인 필요함
 		* DB 저장 기능 필요함
 		*/
-		break;
 	case 1:
 		gotoxy(39, 18);
 		printf("                            ");

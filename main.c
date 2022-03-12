@@ -53,17 +53,18 @@ int main(void)
 
 		switch (position_y)
 		{
-		// 로그인
+		// 0번 로그인 1번 게임시작
 		case 18:
 			menu_num = login(1);
+			// menu_num % 2 == 0 ? menu_num = login(1) : game();
 			break;
-		// 회원가입
+		// 0번 회원가입 1번 상점
 		case 20:
-			menu_num = login(0);
+			menu_num % 2 == 0 ? menu_num = login(0) : shop();
 			break;
-		// 랭킹확인
+		// 랭킹확인 0번 비회원 1번 회원
 		case 22:
-
+			menu_num % 2 == 0 ? ranking(0) : ranking(1);
 			break;
 		// 게임종료
 		case 24:

@@ -141,10 +141,13 @@
   <ItemGroup>
     <ClCompile Include="cursor.c" />
     <ClCompile Include="draw_content.c" />
+    <ClCompile Include="game.c" />
     <ClCompile Include="gotoxy.c" />
     <ClCompile Include="login.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="action.c" />
+    <ClCompile Include="ranking.c" />
+    <ClCompile Include="shop.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
