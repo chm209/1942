@@ -55,8 +55,7 @@ int main(void)
 		{
 		// 0번 로그인 1번 게임시작
 		case 18:
-			menu_num = login(1);
-			// menu_num % 2 == 0 ? menu_num = login(1) : game();
+			menu_num % 2 == 0 ? menu_num = login(1) : game();
 			break;
 		// 0번 회원가입 1번 상점
 		case 20:

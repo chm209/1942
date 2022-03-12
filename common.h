@@ -5,6 +5,7 @@ void draw_content(int);
 int login(int);
 void ranking(void);
 void shop(void);
+void game(void);
 
 enum ControlKey
 {

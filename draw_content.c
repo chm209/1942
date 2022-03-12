@@ -88,5 +88,16 @@ void draw_content(int screen_number)
 		printf("1705095 이창민 기말 프로젝트");
 		gotoxy(2, 29);
 		printf("조작방법: 방향 ↑ ↓ ← → 선택 ENTER 아이템 Z X C");
+		break;
+	// 게임 화면
+	case 1:
+		for (int i = 0; i < 30; i += 1)
+		{
+			gotoxy(9, i);
+			printf(":");
+			gotoxy(89, i);
+			printf(":");
+		}
+		break;
 	}
 }
