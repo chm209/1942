@@ -2,6 +2,7 @@ void cursor(int);
 void gotoxy(int, int);
 int action(int, int, int, int);
 void draw_content(int);
+int login(int);
 
 enum ControlKey
 {
