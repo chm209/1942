@@ -1,7 +1,7 @@
 void cursor(int);
 void gotoxy(int, int);
-int action(int, int, int, int);
-void draw_content(int);
+int move(int, int, int, int);
+void drawContent(int);
 int login(int);
 void ranking(void);
 void shop(void);

@@ -1,9 +1,11 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "common.h"
 
-void draw_content(int screen_number)
+// 화면번호를 입력받아 상황에 맞게 그려줌
+void drawContent(int scr_num)
 {
-	switch (screen_number)
+	switch (scr_num)
 	{
 	// 메인 화면
 	case 0:

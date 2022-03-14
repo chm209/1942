@@ -65,7 +65,7 @@ void game(void)
 	int bullet_count = 0;
 	
 	system("cls");
-	draw_content(1);
+	drawContent(1);
 	draw_stat(stat_array);
 	gotoxy(player_pos_x, player_pos_y);
 	puts("<-*->");

@@ -27,13 +27,13 @@
     <ClCompile Include="gotoxy.c">
       <Filter>소스 파일\function</Filter>
     </ClCompile>
-    <ClCompile Include="action.c">
+    <ClCompile Include="move.c">
       <Filter>소스 파일\function</Filter>
     </ClCompile>
     <ClCompile Include="main.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="draw_content.c">
+    <ClCompile Include="drawContent.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="login.c">
