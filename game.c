@@ -80,7 +80,7 @@ void game(void)
 	int bomb_speed2 = 5;
 
 	system("cls");
-	draw_content(1);
+	drawContent(1);
 	draw_stat(stat_array);
 	
 	// 플레이어 움직임

@@ -99,7 +99,7 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -140,12 +140,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cursor.c" />
-    <ClCompile Include="draw_content.c" />
+    <ClCompile Include="drawContent.c" />
     <ClCompile Include="game.c" />
     <ClCompile Include="gotoxy.c" />
     <ClCompile Include="login.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="action.c" />
+    <ClCompile Include="move.c" />
     <ClCompile Include="ranking.c" />
     <ClCompile Include="shop.c" />
   </ItemGroup>
