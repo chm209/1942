@@ -1,387 +1,355 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 #include <windows.h> // GetAsyncKeyState 사용을 위함
-#include <time.h>
 #include "common.h"
-#define STATSIZE 4
-#define BULLETSIZE 6
-#define BOMBBULLETSIZE 5
-#define TRUE 1
-#define FALSE 0
+#include "game.h"
 
-typedef struct
-{
-	int position_x;
-	int position_y;
-	int condition;
-} BULLET;
-
-typedef struct
-{
-	int position_x;
-	int position_y;
-	int condition;
-} BOMB_BULLET;
-
-draw_stat(int* stat_array)
-{
-	int position_x = 17;
-
-	gotoxy(12, 29);
-	printf("LIFE");
-	for (int i = 0; i < stat_array[0]; i++)
-	{
-		gotoxy(position_x, 29);
-		printf("♥");
-		position_x += 2;
-	}
-	gotoxy(30, 29);
-	printf("BOMB");
-	position_x = 35;
-	for (int i = 0; i < stat_array[1]; i++)
-	{
-		gotoxy(position_x, 29);
-		printf("◎");
-		position_x += 2;
-	}
-	gotoxy(44, 29);
-	printf("HP");
-	position_x = 47;
-	for (int i = 0; i < stat_array[2]; i++)
-	{
-		gotoxy(position_x, 29);
-		printf("■");
-		position_x += 2;
-	}
-	gotoxy(68, 29);
-	printf("SCORE : %11d", stat_array[3]);
-}
+// 1. 게임 시작전 DB에 접속해서 상점 아이템 개수 불러오기 필요
+// 2. 게임 종료시 사용한 상점 아이템 차감, 점수, 획득한 포인트, 랭킹 업데이트 필요
 
 void game(void)
 {
-	/*
-	* 1. 게임 시작전 아이템 불러오기 필요
-	* 2. 게임 종료시 아이디, 비밀번호 정보로 DB연동해서 포인트, 점수, 랭킹 업데이트 필요
-	*/
+	// 생명, 폭탄, 체력, 점수
+	int stat_list[STAT_SIZE] = { 5, 3, 5, 0 };
 
-	// life, bomb, hp, score 순서
-	int stat_array[STATSIZE] = {5, 3, 5, 0};
-	int player_pos_x = 44, player_pos_y = 26;
-	int key = 0;
-	BULLET bullet[BULLETSIZE] = { 0, };
-	BOMB_BULLET bomb_bullet[BOMBBULLETSIZE] = { 0, };
-	BOMB_BULLET bomb_bullet2[BOMBBULLETSIZE] = { 0, };
-	// 잔량, 발사 확인용, X, Y
-	int bomb[4] = { 3, 0, 51, 24 };
-	// x, y, 확인용
-	int bomb2[3] = { 19, 24, 0 };
-	int bomb_speed = 5;
-	int bomb_speed2 = 5;
+	// 플레이어 => 위치, 총알, 폭탄, 스킬
+	PLAYER player;
+	BULLET bullet[BULLET_SIZE] = { 0, };
+	BOMB bomb[BOMB_SIZE] = { 0, };
+	BOMB_BULLET bomb_bullet[BOMB_BUL_SIZE] = { 0, };
+	BOMB_BULLET bomb_bullet2[BOMB_BUL_SIZE] = { 0, };
+
+	player.pos_x = 44;
+	player.pos_y = 26;
+	bomb[0].pos_x = 51;
+	bomb[0].pos_y = 24;
+	bomb[0].count = 3;
+	bomb[0].speed = 5;
+	bomb[0].con = FALSE;
+	bomb[1].pos_x = 19;
+	bomb[1].pos_y = 24;
+	bomb[1].speed = 5;
+	bomb[1].con = FALSE;
 
 	system("cls");
 	drawContent(1);
-	draw_stat(stat_array);
 	
-	// 플레이어 움직임
 	while (1)
 	{
-		gotoxy(player_pos_x, player_pos_y);
+		// 반복할때마다 스탯과 플레이어 새로 그려줌
+		drawStat(stat_list);
+		gotoxy(player.pos_x, player.pos_y);
 		puts("[-*-]");
+		
+		// ★ 키보드 입력 받는 기능들 함수로 분리하거나
+		// ★ kbhit으로 묶어서 처리하면반응속도가 떨어짐
+		
+		// 플레이어 움직임
+		{
+			if (GetAsyncKeyState(VK_LEFT) && player.pos_x > 10) { //왼쪽
+				gotoxy(player.pos_x, player.pos_y);
+				printf("     ");
+				player.pos_x--;
+				gotoxy(player.pos_x, player.pos_y);
+				puts("[-*-]");
+			}
+			if (GetAsyncKeyState(VK_RIGHT) && player.pos_x < 84) { //오른쪽
+				gotoxy(player.pos_x, player.pos_y);
+				printf("     ");
+				player.pos_x++;
+				gotoxy(player.pos_x, player.pos_y);
+				puts("[-*-]");
+			}
+			if (GetAsyncKeyState(VK_UP) && player.pos_y > 10) { //위
+				gotoxy(player.pos_x, player.pos_y);
+				printf("     ");
+				player.pos_y--;
+				gotoxy(player.pos_x, player.pos_y);
+				puts("[-*-]");
+			}
+			if (GetAsyncKeyState(VK_DOWN) && player.pos_y < 26) { //아래
+				gotoxy(player.pos_x, player.pos_y);
+				printf("     ");
+				player.pos_y++;
+				gotoxy(player.pos_x, player.pos_y);
+				puts("[-*-]");
+			}
+		}
 
-		if (GetAsyncKeyState(VK_LEFT) && player_pos_x > 10) { //왼쪽
-			gotoxy(player_pos_x, player_pos_y);
-			printf("     ");
-			player_pos_x--;
-			gotoxy(player_pos_x, player_pos_y);
-			puts("[-*-]");
-		}
-		if (GetAsyncKeyState(VK_RIGHT) && player_pos_x < 84) { //오른쪽
-			gotoxy(player_pos_x, player_pos_y);
-			printf("     ");
-			player_pos_x++;
-			gotoxy(player_pos_x, player_pos_y);
-			puts("[-*-]");
-		}
-		if (GetAsyncKeyState(VK_UP) && player_pos_y > 10) { //위
-			gotoxy(player_pos_x, player_pos_y);
-			printf("     ");
-			player_pos_y--;
-			gotoxy(player_pos_x, player_pos_y);
-			puts("[-*-]");
-		}
-		if (GetAsyncKeyState(VK_DOWN) && player_pos_y < 26) { //아래
-			gotoxy(player_pos_x, player_pos_y);
-			printf("     ");
-			player_pos_y++;
-			gotoxy(player_pos_x, player_pos_y);
-			puts("[-*-]");
-		}
-		// 공격
+		// 플레이어 총알 공격
 		if ((GetAsyncKeyState(VK_SPACE)))
 		{
-			for (int i = 0; i < BULLETSIZE; i++)
+			for (int i = 0; i < BULLET_SIZE; i++)
 			{
-				if (bullet[i].condition == FALSE)
+				if (bullet[i].con == FALSE)
 				{
-					bullet[i].position_x = player_pos_x + 1;
-					bullet[i].position_y = player_pos_y - 1;
-					bullet[i].condition = TRUE;
+					bullet[i].pos_x = player.pos_x + 1;
+					bullet[i].pos_y = player.pos_y - 1;
+					bullet[i].con = TRUE;
 					break; // 없으면 나중에 눈물이 나는 상황이 생김
 				}
 			}
 		}
 
-		// 폭탄
+		// 폭탄 발사
 		if ((GetAsyncKeyState(0x5A)))
 		{
-			if (bomb[0] > 0 && (bomb[1] == FALSE && bomb2[2] == FALSE))
+			if (bomb[0].count > 0 && (bomb[0].con == FALSE && bomb[1].con == FALSE))
 			{
-				bomb[0]--;
-				stat_array[1]--;
-				bomb[1] = TRUE;
-				bomb2[2] = TRUE;
+				bomb[0].count--;
+				stat_list[1]--;
+				bomb[0].con = TRUE;
+				bomb[1].con = TRUE;
 			}
 		}
 
-		// 폭탄 총알 발사
-		for (int i = 0; i < BOMBBULLETSIZE; i++)
+		// 폭탄 이동
+		if (bomb[0].con == TRUE || bomb[1].con == TRUE)
 		{
-			if ((bomb[3] >= 10 && bomb[3] <= 18) && bomb_bullet[i].condition == FALSE)
+			int pos_x = 0;
+			int pos_y = 0;
+
+			pos_x = bomb[0].pos_x;
+			pos_y = bomb[0].pos_y;
+
+			// 폭탄 0번이 TRUE 상태인지 한번 더 검사하는 이유는
+			// 폭탄 1번이 0번보다 느리게 끝나기 때문에
+			// 한번 더 검사하지 않으면 폭탄 1번이 끝나는 시점에서
+			// 하단에 폭탄 0번이 찍혀버리기 때문
+			if (bomb[0].con == TRUE)
 			{
-				bomb_bullet[i].position_x = bomb[2];
-				bomb_bullet[i].position_y = bomb[3] - 2;
-				bomb_bullet[i].condition = TRUE;
+				// 폭탄 0번 느리게 움직일때
+				if ((pos_y >= 10 && pos_y <= 18) && bomb[0].speed < 1)
+				{
+					gotoxy(pos_x, pos_y);
+					puts("                             ");
+					gotoxy(pos_x, pos_y + 1);
+					puts("                             ");
+					gotoxy(pos_x, pos_y + 2);
+					puts("                             ");
+					gotoxy(pos_x, pos_y + 3);
+					puts("                             ");
+					gotoxy(pos_x, pos_y + 4);
+					puts("                             ");
+					bomb[0].pos_y--;
+					pos_y = bomb[0].pos_y;
+					gotoxy(pos_x, pos_y);
+					puts("<<[[*]]::=::{-*-}::=::[[*]]>>");
+					gotoxy(pos_x, pos_y + 1);
+					puts("             | |             ");
+					gotoxy(pos_x, pos_y + 2);
+					puts("             | |             ");
+					gotoxy(pos_x, pos_y + 3);
+					puts("             | |             ");
+					gotoxy(pos_x, pos_y + 4);
+					puts("         <[[::=::]]>         ");
+					bomb[0].speed = 20;
+				}
+
+				// 폭탄 0번 빠르게 움직일때
+				if (pos_y > 18 || pos_y < 10)
+				{
+					gotoxy(pos_x, pos_y);
+					puts("                             ");
+					gotoxy(pos_x, pos_y + 1);
+					puts("                             ");
+					gotoxy(pos_x, pos_y + 2);
+					puts("                             ");
+					gotoxy(pos_x, pos_y + 3);
+					puts("                             ");
+					gotoxy(pos_x, pos_y + 4);
+					puts("                             ");
+					bomb[0].pos_y--;
+					pos_y = bomb[0].pos_y;
+					gotoxy(pos_x, pos_y);
+					puts("<<[[*]]::=::{-*-}::=::[[*]]>>");
+					gotoxy(pos_x, pos_y + 1);
+					puts("             | |             ");
+					gotoxy(pos_x, pos_y + 2);
+					puts("             | |             ");
+					gotoxy(pos_x, pos_y + 3);
+					puts("             | |             ");
+					gotoxy(pos_x, pos_y + 4);
+					puts("         <[[::=::]]>         ");
+				}
 			}
+
+			// 폭탄 0번이 특정 위치까지 갔을때 폭탄 1번 이동
+			if (pos_y < 25)
+			{
+				pos_x = bomb[1].pos_x;
+				pos_y = bomb[1].pos_y;
+
+				if ((pos_y >= 12 && pos_y <= 20) && bomb[1].speed < 1)
+				{
+					gotoxy(pos_x, pos_y);
+					puts("                             ");
+					gotoxy(pos_x, pos_y + 1);
+					puts("                             ");
+					gotoxy(pos_x, pos_y + 2);
+					puts("                             ");
+					gotoxy(pos_x, pos_y + 3);
+					puts("                             ");
+					gotoxy(pos_x, pos_y + 4);
+					puts("                             ");
+					bomb[1].pos_y--;
+					pos_y = bomb[1].pos_y;
+					gotoxy(pos_x, pos_y);
+					puts("<<[[*]]::=::{-*-}::=::[[*]]>>");
+					gotoxy(pos_x, pos_y + 1);
+					puts("             | |             ");
+					gotoxy(pos_x, pos_y + 2);
+					puts("             | |             ");
+					gotoxy(pos_x, pos_y + 3);
+					puts("             | |             ");
+					gotoxy(pos_x, pos_y + 4);
+					puts("         <[[::=::]]>         ");
+					bomb[1].speed = 20;
+				}
+				if (pos_y > 20 || pos_y < 12)
+				{
+					gotoxy(pos_x, pos_y);
+					puts("                             ");
+					gotoxy(pos_x, pos_y + 1);
+					puts("                             ");
+					gotoxy(pos_x, pos_y + 2);
+					puts("                             ");
+					gotoxy(pos_x, pos_y + 3);
+					puts("                             ");
+					gotoxy(pos_x, pos_y + 4);
+					puts("                             ");
+					bomb[1].pos_y--;
+					pos_y = bomb[1].pos_y;
+					gotoxy(pos_x, pos_y);
+					puts("<<[[*]]::=::{-*-}::=::[[*]]>>");
+					gotoxy(pos_x, pos_y + 1);
+					puts("             | |             ");
+					gotoxy(pos_x, pos_y + 2);
+					puts("             | |             ");
+					gotoxy(pos_x, pos_y + 3);
+					puts("             | |             ");
+					gotoxy(pos_x, pos_y + 4);
+					puts("         <[[::=::]]>         ");
+				}
+				bomb[1].speed--;
+			}
+			bomb[0].speed--;
 		}
 
-		// 폭탄 총알 발사2
-		for (int i = 0; i < BOMBBULLETSIZE; i++)
+		// 총알 이동
+		for (int i = 0; i < BULLET_SIZE; i++)
 		{
-			if ((bomb2[1] >= 12 && bomb2[1] <= 20) && bomb_bullet2[i].condition == FALSE)
+			if (bullet[i].con == TRUE)
 			{
-				bomb_bullet2[i].position_x = bomb2[0];
-				bomb_bullet2[i].position_y = bomb2[1] - 2;
-				bomb_bullet2[i].condition = TRUE;
-			}
-		}
-
-		// 총알 움직임 & 출력
-		for (int i = 0; i < BULLETSIZE; i++)
-		{
-			if (bullet[i].condition == TRUE)
-			{
-				gotoxy(bullet[i].position_x, bullet[i].position_y);
+				gotoxy(bullet[i].pos_x, bullet[i].pos_y);
 				puts("  ");
-				bullet[i].position_y--;
-				gotoxy(bullet[i].position_x, bullet[i].position_y);
+				bullet[i].pos_y--;
+				gotoxy(bullet[i].pos_x, bullet[i].pos_y);
 				puts("ⅰ");
 			}
 		}
 
-		// 폭탄 움직임 & 출력
-		if (bomb[1] == TRUE)
+		// 폭탄 총알 발사
+		for (int i = 0; i < BOMB_BUL_SIZE; i++)
 		{
-			if ((bomb[3] >= 10 && bomb[3] <= 18) && bomb_speed < 1)
+			if ((bomb[0].pos_y >= 10 && bomb[0].pos_y <= 18) && bomb_bullet[i].con == FALSE)
 			{
-				gotoxy(bomb[2], bomb[3]);
-				puts("                             ");
-				gotoxy(bomb[2], bomb[3] + 1);
-				puts("                             ");
-				gotoxy(bomb[2], bomb[3] + 2);
-				puts("                             ");
-				gotoxy(bomb[2], bomb[3] + 3);
-				puts("                             ");
-				gotoxy(bomb[2], bomb[3] + 4);
-				puts("                             ");
-				bomb[3]--;
-				gotoxy(bomb[2], bomb[3]);
-				puts("<<[[*]]::=::{-*-}::=::[[*]]>>");
-				gotoxy(bomb[2], bomb[3] + 1);
-				puts("             | |             ");
-				gotoxy(bomb[2], bomb[3] + 2);
-				puts("             | |             ");
-				gotoxy(bomb[2], bomb[3] + 3);
-				puts("             | |             ");
-				gotoxy(bomb[2], bomb[3] + 4);
-				puts("         <[[::=::]]>         ");
-				bomb_speed = 20;
+				bomb_bullet[i].pos_x = bomb[0].pos_x;
+				bomb_bullet[i].pos_y = bomb[0].pos_y - 2;
+				bomb_bullet[i].con = TRUE;
 			}
-			if (bomb[3] > 18 || bomb[3] < 10)
-			{
-				gotoxy(bomb[2], bomb[3]);
-				puts("                             ");
-				gotoxy(bomb[2], bomb[3] + 1);
-				puts("                             ");
-				gotoxy(bomb[2], bomb[3] + 2);
-				puts("                             ");
-				gotoxy(bomb[2], bomb[3] + 3);
-				puts("                             ");
-				gotoxy(bomb[2], bomb[3] + 4);
-				puts("                             ");
-				bomb[3]--;
-				gotoxy(bomb[2], bomb[3]);
-				puts("<<[[*]]::=::{-*-}::=::[[*]]>>");
-				gotoxy(bomb[2], bomb[3] + 1);
-				puts("             | |             ");
-				gotoxy(bomb[2], bomb[3] + 2);
-				puts("             | |             ");
-				gotoxy(bomb[2], bomb[3] + 3);
-				puts("             | |             ");
-				gotoxy(bomb[2], bomb[3] + 4);
-				puts("         <[[::=::]]>         ");
-			}
-			bomb_speed--;
-		}
 
-		// 폭탄2
-		if (bomb2[2] == TRUE)
-		{
-			if (bomb[3] < 25)
+			if ((bomb[1].pos_y >= 12 && bomb[1].pos_y <= 20) && bomb_bullet2[i].con == FALSE)
 			{
-				if ((bomb2[1] >= 12 && bomb2[1] <= 20) && bomb_speed2 < 1)
-				{
-					gotoxy(bomb2[0], bomb2[1]);
-					puts("                             ");
-					gotoxy(bomb2[0], bomb2[1] + 1);
-					puts("                             ");
-					gotoxy(bomb2[0], bomb2[1] + 2);
-					puts("                             ");
-					gotoxy(bomb2[0], bomb2[1] + 3);
-					puts("                             ");
-					gotoxy(bomb2[0], bomb2[1] + 4);
-					puts("                             ");
-					bomb2[1]--;
-					gotoxy(bomb2[0], bomb2[1]);
-					puts("<<[[*]]::=::{-*-}::=::[[*]]>>");
-					gotoxy(bomb2[0], bomb2[1] + 1);
-					puts("             | |             ");
-					gotoxy(bomb2[0], bomb2[1] + 2);
-					puts("             | |             ");
-					gotoxy(bomb2[0], bomb2[1] + 3);
-					puts("             | |             ");
-					gotoxy(bomb2[0], bomb2[1] + 4);
-					puts("         <[[::=::]]>         ");
-					bomb_speed2 = 20;
-				}
-				if (bomb2[1] > 20 || bomb2[1] < 12)
-				{
-					gotoxy(bomb2[0], bomb2[1]);
-					puts("                             ");
-					gotoxy(bomb2[0], bomb2[1] + 1);
-					puts("                             ");
-					gotoxy(bomb2[0], bomb2[1] + 2);
-					puts("                             ");
-					gotoxy(bomb2[0], bomb2[1] + 3);
-					puts("                             ");
-					gotoxy(bomb2[0], bomb2[1] + 4);
-					puts("                             ");
-					bomb2[1]--;
-					gotoxy(bomb2[0], bomb2[1]);
-					puts("<<[[*]]::=::{-*-}::=::[[*]]>>");
-					gotoxy(bomb2[0], bomb2[1] + 1);
-					puts("             | |             ");
-					gotoxy(bomb2[0], bomb2[1] + 2);
-					puts("             | |             ");
-					gotoxy(bomb2[0], bomb2[1] + 3);
-					puts("             | |             ");
-					gotoxy(bomb2[0], bomb2[1] + 4);
-					puts("         <[[::=::]]>         ");
-				}
-				bomb_speed2--;
+				bomb_bullet2[i].pos_x = bomb[1].pos_x;
+				bomb_bullet2[i].pos_y = bomb[1].pos_y - 2;
+				bomb_bullet2[i].con = TRUE;
 			}
 		}
 
-		// 폭탄 총알 움직임 & 출력
-		for (int i = 0; i < BOMBBULLETSIZE; i++)
+		// 폭탄 총알 이동
+		for (int i = 0; i < BOMB_BUL_SIZE; i++)
 		{
-			if (bomb_bullet[i].condition == TRUE)
+			if (bomb_bullet[i].con == TRUE)
 			{
-				gotoxy(bomb_bullet[i].position_x, bomb_bullet[i].position_y);
+				gotoxy(bomb_bullet[i].pos_x, bomb_bullet[i].pos_y);
 				puts("                          ");
-				bomb_bullet[i].position_y--;
-				gotoxy(bomb_bullet[i].position_x, bomb_bullet[i].position_y);
+				bomb_bullet[i].pos_y--;
+				gotoxy(bomb_bullet[i].pos_x, bomb_bullet[i].pos_y);
 				puts("   ㅆ                   ㅆ");
 			}
-		}
 
-		// 폭탄 총알 움직임 & 출력2
-		for (int i = 0; i < BOMBBULLETSIZE; i++)
-		{
-			if (bomb_bullet2[i].condition == TRUE)
+			if (bomb_bullet2[i].con == TRUE)
 			{
-				gotoxy(bomb_bullet2[i].position_x, bomb_bullet2[i].position_y);
+				gotoxy(bomb_bullet2[i].pos_x, bomb_bullet2[i].pos_y);
 				puts("                          ");
-				bomb_bullet2[i].position_y--;
-				gotoxy(bomb_bullet2[i].position_x, bomb_bullet2[i].position_y);
+				bomb_bullet2[i].pos_y--;
+				gotoxy(bomb_bullet2[i].pos_x, bomb_bullet2[i].pos_y);
 				puts("   ㅆ                   ㅆ");
-			}
-		}
-
-		// 총알이 천장에 닿으면 사라짐
-		for (int i = 0; i < BULLETSIZE; i++)
-		{
-			if (bullet[i].condition == TRUE && bullet[i].position_y == 0)
-			{
-				gotoxy(bullet[i].position_x, bullet[i].position_y);
-				puts("  ");
-				bullet[i].condition = FALSE;
 			}
 		}
 		
-		// 폭탄이 천장에 닿으면 사라짐
-		if (bomb[1] == TRUE && bomb[3] == 0)
+		// 총알이 천장에 도달하면 삭제
+		for (int i = 0; i < BULLET_SIZE; i++)
 		{
-			gotoxy(bomb[2], bomb[3]);
-			puts("                             ");
-			gotoxy(bomb[2], bomb[3] + 1);
-			puts("                             ");
-			gotoxy(bomb[2], bomb[3] + 2);
-			puts("                             ");
-			gotoxy(bomb[2], bomb[3] + 3);
-			puts("                             ");
-			gotoxy(bomb[2], bomb[3] + 4);
-			puts("                             ");
-			bomb[3] = 24;
-			bomb[1] = FALSE;
-		}
-
-		// 폭탄2이 천장에 닿으면 사라짐
-		if (bomb2[2] == TRUE && bomb2[1] == 0)
-		{
-			gotoxy(bomb2[0], bomb2[1]);
-			puts("                             ");
-			gotoxy(bomb2[0], bomb2[1] + 1);
-			puts("                             ");
-			gotoxy(bomb2[0], bomb2[1] + 2);
-			puts("                             ");
-			gotoxy(bomb2[0], bomb2[1] + 3);
-			puts("                             ");
-			gotoxy(bomb2[0], bomb2[1] + 4);
-			puts("                             ");
-			bomb2[1] = 24;
-			bomb2[2] = FALSE;
-		}
-
-		// 폭탄 총알이 천장에 닿으면 사라짐
-		for (int i = 0; i < BOMBBULLETSIZE; i++)
-		{
-			if (bomb_bullet[i].condition == TRUE && bomb_bullet[i].position_y == 0)
+			if (bullet[i].con == TRUE && bullet[i].pos_y == 0)
 			{
-				gotoxy(bomb_bullet[i].position_x, bomb_bullet[i].position_y);
-				puts("                          ");
-				bomb_bullet[i].condition = FALSE;
+				gotoxy(bullet[i].pos_x, bullet[i].pos_y);
+				puts("  ");
+				bullet[i].con = FALSE;
+			}
+		}
+		
+		// 폭탄이 천장에 도달하면 삭제
+		{
+			if (bomb[0].con == TRUE && bomb[0].pos_y == 0)
+			{
+				gotoxy(bomb[0].pos_x, bomb[0].pos_y);
+				puts("                             ");
+				gotoxy(bomb[0].pos_x, bomb[0].pos_y + 1);
+				puts("                             ");
+				gotoxy(bomb[0].pos_x, bomb[0].pos_y + 2);
+				puts("                             ");
+				gotoxy(bomb[0].pos_x, bomb[0].pos_y + 3);
+				puts("                             ");
+				gotoxy(bomb[0].pos_x, bomb[0].pos_y + 4);
+				puts("                             ");
+				bomb[0].pos_y = 24;
+				bomb[0].con = FALSE;
+			}
+
+			if (bomb[1].con == TRUE && bomb[1].pos_y == 0)
+			{
+				gotoxy(bomb[1].pos_x, bomb[1].pos_y);
+				puts("                             ");
+				gotoxy(bomb[1].pos_x, bomb[1].pos_y + 1);
+				puts("                             ");
+				gotoxy(bomb[1].pos_x, bomb[1].pos_y + 2);
+				puts("                             ");
+				gotoxy(bomb[1].pos_x, bomb[1].pos_y + 3);
+				puts("                             ");
+				gotoxy(bomb[1].pos_x, bomb[1].pos_y + 4);
+				puts("                             ");
+				bomb[1].pos_y = 24;
+				bomb[1].con = FALSE;
 			}
 		}
 
-		// 폭탄 총알이 천장에 닿으면 사라짐2
-		for (int i = 0; i < BOMBBULLETSIZE; i++)
+		// 폭탄 총알이 천장에 도달하면 삭제
+		for (int i = 0; i < BOMB_BUL_SIZE; i++)
 		{
-			if (bomb_bullet2[i].condition == TRUE && bomb_bullet2[i].position_y == 0)
+			if (bomb_bullet[i].con == TRUE && bomb_bullet[i].pos_y == 0)
 			{
-				gotoxy(bomb_bullet2[i].position_x, bomb_bullet2[i].position_y);
+				gotoxy(bomb_bullet[i].pos_x, bomb_bullet[i].pos_y);
 				puts("                          ");
-				bomb_bullet2[i].condition = FALSE;
+				bomb_bullet[i].con = FALSE;
+			}
+
+			if (bomb_bullet2[i].con == TRUE && bomb_bullet2[i].pos_y == 0)
+			{
+				gotoxy(bomb_bullet2[i].pos_x, bomb_bullet2[i].pos_y);
+				puts("                          ");
+				bomb_bullet2[i].con = FALSE;
 			}
 		}
 

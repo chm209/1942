@@ -38,7 +38,7 @@ int main(void) // int형을 반환하는 main 함수, 매개변수는 없기에 void 작성
 	system("title 1705095 이창민 - 1942 프로젝트"); // 콘솔창의 제목을 변경하기 위해 system 함수에 작성
 	cursor(0); // 콘솔창에서 깜빡이는 커서를 숨기기 위해 함수로 작성후 호출함
 	
-	int login_check = 0; // 로그인전, 로그인후 화면을 구별하기 위해 사용, 0은 비로그인, 1은 로그인이다.
+	int login_chk = 0; // 로그인전, 로그인후 화면을 구별하기 위해 사용, 0은 비로그인, 1은 로그인이다.
 	int menu_num = 18; // 선택한 메뉴 항목을 저장하기 위해 선언, 메뉴 구별은 콘솔창의 Y 값으로 구별
 	int key = 0; // getch 로 입력받은 키 값을 저장하기 위해 사용
 
@@ -47,7 +47,7 @@ int main(void) // int형을 반환하는 main 함수, 매개변수는 없기에 void 작성
 		system("cls"); // 콘솔창의 화면을 지워주는 명령어, 메인화면을 그리기전에 호출하여 모두 지워준다.
 		drawContent(0); // 화면에 그림을 배치하기 위해 작성한 함수, 매개변수의 정수값을 통해 상황에 맞는 출력을 해준다.
 
-		switch (login_check) // 로그인 유무를 구별하기 위한 switch문
+		switch (login_chk) // 로그인 유무를 구별하기 위한 switch문
 		{
 		default: // 로그인(1) 상태가 아니라면 전부 비로그인으로 구별한다.
 			gotoxy(39, 18); // 콘솔창의 x,y 좌표 이동을 위해 선언한 gotoxy 함수
@@ -95,21 +95,21 @@ int main(void) // int형을 반환하는 main 함수, 매개변수는 없기에 void 작성
 		switch (menu_num)
 		{
 		case 18: // 메뉴목록으로는 첫번째 항목, Y값이 18이어서 18로 구별한다.
-			// login_check 변수를 2로 나눠서 나머지 값을 보고 로그인 상태인지 비로그인 상태인지 구별한다.
+			// login_chk 변수를 2로 나눠서 나머지 값을 보고 로그인 상태인지 비로그인 상태인지 구별한다.
 			// 나머지 값이 0이라면 비로그인 상태로 보고 login 함수를 호출하여 로그인 화면으로 넘긴다.
 			// 나머지 갑이 1이라면 로그인 상태로 보고 game 함수를 호출한다.
-			login_check % 2 == 0 ? login_check = login(1) : game();
+			login_chk % 2 == 0 ? login_chk = login(1) : game();
 			break;
 		case 20: // 두번째 메뉴 항목
 			// 나머지 값이 0이라면 비로그인 상태로 보고 login 함수를 호출하여 회원가입 화면으로 넘긴다.
 			// 나머지 갑이 1이라면 로그인 상태로 보고 shop 함수를 호출하여 상점 화면으로 넘긴다.
-			login_check % 2 == 0 ? login_check = login(0) : shop();
+			login_chk % 2 == 0 ? login_chk = login(0) : shop();
 			break;
 		case 22:
 			// 나머지 값이 0이라면 ranking 함수를 호출하여 비로그인 상태의 랭킹 화면으로 넘긴다.
 			// 나머지 갑이 1이라면 로그인 상태의 랭킹 화면으로 넘긴다.
 			// ranking 함수의 매개변수로 정수값 0, 1을 넘겨서 구별한다.
-			login_check % 2 == 0 ? ranking(0) : ranking(1);
+			login_chk % 2 == 0 ? ranking(0) : ranking(1);
 			break;
 		case 24: // 게임 종료 항목
 			break;

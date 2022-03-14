@@ -48,9 +48,15 @@
     <ClCompile Include="game.c">
       <Filter>소스 파일\game</Filter>
     </ClCompile>
+    <ClCompile Include="drawStat.c">
+      <Filter>소스 파일\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
