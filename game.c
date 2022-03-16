@@ -9,6 +9,8 @@
 
 void game(void)
 {
+	system("mode con: cols=80 lines=40");
+
 	// »ý¸í, ÆøÅº, Ã¼·Â, Á¡¼ö
 	int stat_list[STAT_SIZE] = { 5, 3, 5, 0 };
 
@@ -19,15 +21,15 @@ void game(void)
 	BOMB_BULLET bomb_bullet[BOMB_BUL_SIZE] = { 0, };
 	BOMB_BULLET bomb_bullet2[BOMB_BUL_SIZE] = { 0, };
 
-	player.pos_x = 44;
-	player.pos_y = 26;
-	bomb[0].pos_x = 51;
-	bomb[0].pos_y = 24;
+	player.pos_x = 28;
+	player.pos_y = 34;
+	bomb[0].pos_x = 29;
+	bomb[0].pos_y = 34;
 	bomb[0].count = 3;
 	bomb[0].speed = 5;
 	bomb[0].con = FALSE;
-	bomb[1].pos_x = 19;
-	bomb[1].pos_y = 24;
+	bomb[1].pos_x = 6;
+	bomb[1].pos_y = 34;
 	bomb[1].speed = 5;
 	bomb[1].con = FALSE;
 
@@ -46,14 +48,14 @@ void game(void)
 		
 		// ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ
 		{
-			if (GetAsyncKeyState(VK_LEFT) && player.pos_x > 10) { //¿ÞÂÊ
+			if (GetAsyncKeyState(VK_LEFT) && player.pos_x > 5) { //¿ÞÂÊ
 				gotoxy(player.pos_x, player.pos_y);
 				printf("     ");
 				player.pos_x--;
 				gotoxy(player.pos_x, player.pos_y);
 				puts("[-*-]");
 			}
-			if (GetAsyncKeyState(VK_RIGHT) && player.pos_x < 84) { //¿À¸¥ÂÊ
+			if (GetAsyncKeyState(VK_RIGHT) && player.pos_x < 51) { //¿À¸¥ÂÊ
 				gotoxy(player.pos_x, player.pos_y);
 				printf("     ");
 				player.pos_x++;
@@ -67,7 +69,7 @@ void game(void)
 				gotoxy(player.pos_x, player.pos_y);
 				puts("[-*-]");
 			}
-			if (GetAsyncKeyState(VK_DOWN) && player.pos_y < 26) { //¾Æ·¡
+			if (GetAsyncKeyState(VK_DOWN) && player.pos_y < 38) { //¾Æ·¡
 				gotoxy(player.pos_x, player.pos_y);
 				printf("     ");
 				player.pos_y++;
@@ -119,117 +121,119 @@ void game(void)
 			if (bomb[0].con == TRUE)
 			{
 				// ÆøÅº 0¹ø ´À¸®°Ô ¿òÁ÷ÀÏ¶§
-				if ((pos_y >= 10 && pos_y <= 18) && bomb[0].speed < 1)
+				if ((pos_y >= 16 && pos_y <= 24) && bomb[0].speed < 1)
 				{
 					gotoxy(pos_x, pos_y);
-					puts("                             ");
-					gotoxy(pos_x, pos_y + 1);
-					puts("                             ");
-					gotoxy(pos_x, pos_y + 2);
-					puts("                             ");
-					gotoxy(pos_x, pos_y + 3);
-					puts("                             ");
-					gotoxy(pos_x, pos_y + 4);
-					puts("                             ");
+					puts("                           ");
+					gotoxy(pos_x + 11, pos_y + 1);
+					puts("   ");
+					gotoxy(pos_x + 11, pos_y + 2);
+					puts("   ");
+					gotoxy(pos_x +11, pos_y + 3);
+					puts("   ");
+					gotoxy(pos_x+7, pos_y + 4);
+					puts("           ");
 					bomb[0].pos_y--;
 					pos_y = bomb[0].pos_y;
 					gotoxy(pos_x, pos_y);
-					puts("<<[[*]]::=::{-*-}::=::[[*]]>>");
-					gotoxy(pos_x, pos_y + 1);
-					puts("             | |             ");
-					gotoxy(pos_x, pos_y + 2);
-					puts("             | |             ");
-					gotoxy(pos_x, pos_y + 3);
-					puts("             | |             ");
-					gotoxy(pos_x, pos_y + 4);
-					puts("         <[[::=::]]>         ");
+					puts("<<[[*]]:=:{-*-}:=:[[*]]>>");
+					gotoxy(pos_x + 11, pos_y + 1);
+					puts("| |");
+					gotoxy(pos_x + 11, pos_y + 2);
+					puts("| |");
+					gotoxy(pos_x+11, pos_y + 3);
+					puts("| |");
+					gotoxy(pos_x+7, pos_y + 4);
+					puts("<[[::=::]]>");
 					bomb[0].speed = 20;
 				}
 
 				// ÆøÅº 0¹ø ºü¸£°Ô ¿òÁ÷ÀÏ¶§
-				if (pos_y > 18 || pos_y < 10)
+				if (pos_y > 24 || pos_y < 16)
 				{
 					gotoxy(pos_x, pos_y);
-					puts("                             ");
-					gotoxy(pos_x, pos_y + 1);
-					puts("                             ");
-					gotoxy(pos_x, pos_y + 2);
-					puts("                             ");
-					gotoxy(pos_x, pos_y + 3);
-					puts("                             ");
-					gotoxy(pos_x, pos_y + 4);
-					puts("                             ");
+					puts("                           ");
+					gotoxy(pos_x + 11, pos_y + 1);
+					puts("   ");
+					gotoxy(pos_x + 11, pos_y + 2);
+					puts("   ");
+					gotoxy(pos_x + 11, pos_y + 3);
+					puts("   ");
+					gotoxy(pos_x+7, pos_y + 4);
+					puts("           ");
 					bomb[0].pos_y--;
 					pos_y = bomb[0].pos_y;
 					gotoxy(pos_x, pos_y);
-					puts("<<[[*]]::=::{-*-}::=::[[*]]>>");
-					gotoxy(pos_x, pos_y + 1);
-					puts("             | |             ");
-					gotoxy(pos_x, pos_y + 2);
-					puts("             | |             ");
-					gotoxy(pos_x, pos_y + 3);
-					puts("             | |             ");
-					gotoxy(pos_x, pos_y + 4);
-					puts("         <[[::=::]]>         ");
+					puts("<<[[*]]:=:{-*-}:=:[[*]]>>");
+					gotoxy(pos_x + 11, pos_y + 1);
+					puts("| |");
+					gotoxy(pos_x + 11, pos_y + 2);
+					puts("| |");
+					gotoxy(pos_x+11, pos_y + 3);
+					puts("| |");
+					gotoxy(pos_x+7, pos_y + 4);
+					puts("<[[::=::]]>");
 				}
 			}
 
 			// ÆøÅº 0¹øÀÌ Æ¯Á¤ À§Ä¡±îÁö °¬À»¶§ ÆøÅº 1¹ø ÀÌµ¿
-			if (pos_y < 25)
+			if (pos_y < 30 || (bomb[0].con == FALSE && bomb[1].con == TRUE))
 			{
 				pos_x = bomb[1].pos_x;
 				pos_y = bomb[1].pos_y;
 
-				if ((pos_y >= 12 && pos_y <= 20) && bomb[1].speed < 1)
+				// ÃµÃµÈ÷
+				if ((pos_y >= 18 && pos_y <= 26) && bomb[1].speed < 1)
 				{
 					gotoxy(pos_x, pos_y);
-					puts("                             ");
-					gotoxy(pos_x, pos_y + 1);
-					puts("                             ");
-					gotoxy(pos_x, pos_y + 2);
-					puts("                             ");
-					gotoxy(pos_x, pos_y + 3);
-					puts("                             ");
-					gotoxy(pos_x, pos_y + 4);
-					puts("                             ");
+					puts("                         ");
+					gotoxy(pos_x + 11, pos_y + 1);
+					puts("   ");
+					gotoxy(pos_x+11, pos_y + 2);
+					puts("   ");
+					gotoxy(pos_x+11, pos_y + 3);
+					puts("   ");
+					gotoxy(pos_x+7, pos_y + 4);
+					puts("           ");
 					bomb[1].pos_y--;
 					pos_y = bomb[1].pos_y;
 					gotoxy(pos_x, pos_y);
-					puts("<<[[*]]::=::{-*-}::=::[[*]]>>");
-					gotoxy(pos_x, pos_y + 1);
-					puts("             | |             ");
-					gotoxy(pos_x, pos_y + 2);
-					puts("             | |             ");
-					gotoxy(pos_x, pos_y + 3);
-					puts("             | |             ");
-					gotoxy(pos_x, pos_y + 4);
-					puts("         <[[::=::]]>         ");
+					puts("<<[[*]]:=:{-*-}:=:[[*]]>>");
+					gotoxy(pos_x + 11, pos_y + 1);
+					puts("| |");
+					gotoxy(pos_x + 11, pos_y + 2);
+					puts("| |");
+					gotoxy(pos_x + 11, pos_y + 3);
+					puts("| |");
+					gotoxy(pos_x + 7, pos_y + 4);
+					puts("<[[::=::]]>");
 					bomb[1].speed = 20;
 				}
-				if (pos_y > 20 || pos_y < 12)
+				//»¡¸®
+				if (pos_y > 26 || pos_y < 18)
 				{
 					gotoxy(pos_x, pos_y);
-					puts("                             ");
-					gotoxy(pos_x, pos_y + 1);
-					puts("                             ");
-					gotoxy(pos_x, pos_y + 2);
-					puts("                             ");
-					gotoxy(pos_x, pos_y + 3);
-					puts("                             ");
-					gotoxy(pos_x, pos_y + 4);
-					puts("                             ");
+					puts("                         ");
+					gotoxy(pos_x+11, pos_y + 1);
+					puts("   ");
+					gotoxy(pos_x+11, pos_y + 2);
+					puts("   ");
+					gotoxy(pos_x+11, pos_y + 3);
+					puts("   ");
+					gotoxy(pos_x+7, pos_y + 4);
+					puts("           ");
 					bomb[1].pos_y--;
 					pos_y = bomb[1].pos_y;
 					gotoxy(pos_x, pos_y);
-					puts("<<[[*]]::=::{-*-}::=::[[*]]>>");
-					gotoxy(pos_x, pos_y + 1);
-					puts("             | |             ");
-					gotoxy(pos_x, pos_y + 2);
-					puts("             | |             ");
-					gotoxy(pos_x, pos_y + 3);
-					puts("             | |             ");
-					gotoxy(pos_x, pos_y + 4);
-					puts("         <[[::=::]]>         ");
+					puts("<<[[*]]:=:{-*-}:=:[[*]]>>");
+					gotoxy(pos_x+11, pos_y + 1);
+					puts("| |");
+					gotoxy(pos_x + 11, pos_y + 2);
+					puts("| |");
+					gotoxy(pos_x + 11, pos_y + 3);
+					puts("| |");
+					gotoxy(pos_x+7, pos_y + 4);
+					puts("<[[::=::]]>");
 				}
 				bomb[1].speed--;
 			}
@@ -252,14 +256,14 @@ void game(void)
 		// ÆøÅº ÃÑ¾Ë ¹ß»ç
 		for (int i = 0; i < BOMB_BUL_SIZE; i++)
 		{
-			if ((bomb[0].pos_y >= 10 && bomb[0].pos_y <= 18) && bomb_bullet[i].con == FALSE)
+			if ((bomb[0].pos_y >= 15 && bomb[0].pos_y <= 23) && bomb_bullet[i].con == FALSE)
 			{
 				bomb_bullet[i].pos_x = bomb[0].pos_x;
 				bomb_bullet[i].pos_y = bomb[0].pos_y - 2;
 				bomb_bullet[i].con = TRUE;
 			}
 
-			if ((bomb[1].pos_y >= 12 && bomb[1].pos_y <= 20) && bomb_bullet2[i].con == FALSE)
+			if ((bomb[1].pos_y >= 17 && bomb[1].pos_y <= 25) && bomb_bullet2[i].con == FALSE)
 			{
 				bomb_bullet2[i].pos_x = bomb[1].pos_x;
 				bomb_bullet2[i].pos_y = bomb[1].pos_y - 2;
@@ -273,19 +277,19 @@ void game(void)
 			if (bomb_bullet[i].con == TRUE)
 			{
 				gotoxy(bomb_bullet[i].pos_x, bomb_bullet[i].pos_y);
-				puts("                          ");
+				puts("                      ");
 				bomb_bullet[i].pos_y--;
 				gotoxy(bomb_bullet[i].pos_x, bomb_bullet[i].pos_y);
-				puts("   ¤¶                   ¤¶");
+				puts("    ¤¶              ¤¶");
 			}
 
 			if (bomb_bullet2[i].con == TRUE)
 			{
 				gotoxy(bomb_bullet2[i].pos_x, bomb_bullet2[i].pos_y);
-				puts("                          ");
+				puts("                      ");
 				bomb_bullet2[i].pos_y--;
 				gotoxy(bomb_bullet2[i].pos_x, bomb_bullet2[i].pos_y);
-				puts("   ¤¶                   ¤¶");
+				puts("    ¤¶              ¤¶");
 			}
 		}
 		
@@ -305,32 +309,32 @@ void game(void)
 			if (bomb[0].con == TRUE && bomb[0].pos_y == 0)
 			{
 				gotoxy(bomb[0].pos_x, bomb[0].pos_y);
-				puts("                             ");
-				gotoxy(bomb[0].pos_x, bomb[0].pos_y + 1);
-				puts("                             ");
-				gotoxy(bomb[0].pos_x, bomb[0].pos_y + 2);
-				puts("                             ");
-				gotoxy(bomb[0].pos_x, bomb[0].pos_y + 3);
-				puts("                             ");
-				gotoxy(bomb[0].pos_x, bomb[0].pos_y + 4);
-				puts("                             ");
-				bomb[0].pos_y = 24;
+				puts("                         ");
+				gotoxy(bomb[0].pos_x + 11, bomb[0].pos_y + 1);
+				puts("   ");
+				gotoxy(bomb[0].pos_x + 11, bomb[0].pos_y + 2);
+				puts("   ");
+				gotoxy(bomb[0].pos_x+11, bomb[0].pos_y + 3);
+				puts("   ");
+				gotoxy(bomb[0].pos_x+7, bomb[0].pos_y + 4);
+				puts("           ");
+				bomb[0].pos_y = 34;
 				bomb[0].con = FALSE;
 			}
 
 			if (bomb[1].con == TRUE && bomb[1].pos_y == 0)
 			{
 				gotoxy(bomb[1].pos_x, bomb[1].pos_y);
-				puts("                             ");
-				gotoxy(bomb[1].pos_x, bomb[1].pos_y + 1);
-				puts("                             ");
-				gotoxy(bomb[1].pos_x, bomb[1].pos_y + 2);
-				puts("                             ");
-				gotoxy(bomb[1].pos_x, bomb[1].pos_y + 3);
-				puts("                             ");
-				gotoxy(bomb[1].pos_x, bomb[1].pos_y + 4);
-				puts("                             ");
-				bomb[1].pos_y = 24;
+				puts("                         ");
+				gotoxy(bomb[1].pos_x+11, bomb[1].pos_y + 1);
+				puts("   ");
+				gotoxy(bomb[1].pos_x + 11, bomb[1].pos_y + 2);
+				puts("   ");
+				gotoxy(bomb[1].pos_x + 11, bomb[1].pos_y + 3);
+				puts("   ");
+				gotoxy(bomb[1].pos_x+7, bomb[1].pos_y + 4);
+				puts("           ");
+				bomb[1].pos_y = 34;
 				bomb[1].con = FALSE;
 			}
 		}

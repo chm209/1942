@@ -1,19 +1,16 @@
 #include <stdio.h>
 #include "game.h"
 
-void drawSymbol(int pos_x, int symbol, int num)
+void drawSymbol(int pos_y, int symbol, int num)
 {
-	if (pos_x != 44)
-		pos_x += 5;
-	else
-		pos_x += 3;
+	int pos_x = 58;
 
-	gotoxy(pos_x, 29);
+	gotoxy(58, pos_y+1);
 	printf("          ");
 
 	for (int i = 0; i < num; i++)
 	{
-		gotoxy(pos_x, 29);
+		gotoxy(pos_x, pos_y + 1);
 		if (symbol == 1)
 			printf("\u2665");
 		else if (symbol == 2)
@@ -26,28 +23,29 @@ void drawSymbol(int pos_x, int symbol, int num)
 
 void drawStat(int* stat_list)
 {
-	int pos_x = 0;
+	int pos_y = 0;
 	
-
 	// »ý¸í
-	pos_x = 12;
-	gotoxy(pos_x, 29);
+	pos_y = 5;
+	gotoxy(58, pos_y);
 	printf("LIFE");
-	drawSymbol(pos_x, 1, stat_list[0]);
+	drawSymbol(pos_y, 1, stat_list[0]);
 
 	// ÆøÅº
-	pos_x = 30;
-	gotoxy(pos_x, 29);
+	pos_y = 8;
+	gotoxy(58, pos_y);
 	printf("BOMB");
-	drawSymbol(pos_x, 2, stat_list[1]);
+	drawSymbol(pos_y, 2, stat_list[1]);
 
 	// Ã¼·Â
-	pos_x = 44;
-	gotoxy(pos_x, 29);
+	pos_y = 11;
+	gotoxy(58, pos_y);
 	printf("HP");
-	drawSymbol(pos_x, 3, stat_list[2]);
+	drawSymbol(pos_y, 3, stat_list[2]);
 
 	// Á¡¼ö
-	gotoxy(68, 29);
-	printf("SCORE : %11d", stat_list[3]);
+	gotoxy(58, 2);
+	printf("SCORE");
+	gotoxy(58, 3);
+	printf("%d", stat_list[3]);
 }
