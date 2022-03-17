@@ -7,6 +7,60 @@
 // 1. 게임 시작전 DB에 접속해서 상점 아이템 개수 불러오기 필요
 // 2. 게임 종료시 사용한 상점 아이템 차감, 점수, 획득한 포인트, 랭킹 업데이트 필요
 
+ENEMY enemy[ENEMY_SIZE] = { 0, };
+
+void stage(int stage_count)
+{
+	for (int i = 0; i < ENEMY_SIZE; i++)
+	{
+		if ((stage_count >= 45 && stage_count <= 315) && stage_count % 90 == 0)
+		{
+			enemy[i].pos_x = 6;
+			enemy[i].pos_y = 0;
+			// <[W]> * * * * * * *
+			enemy[i].type = 0;
+			// 대각선 이동
+			enemy[i].move_pattern = 0;
+			enemy[i].con = TRUE;
+			gotoxy(enemy[i].pos_x, enemy[i].pos_y);
+			switch (enemy[i].type)
+			{
+			case 0:
+				printf("<[W]>");
+				break;
+			}
+			break;
+		}
+		if ((stage_count >= 90 && stage_count <= 360) && stage_count % 90 == 0)
+		{
+			enemy[i].pos_x = 50;
+			enemy[i].pos_y = 0;
+			// <[W]> * * * * * * *
+			enemy[i].type = 0;
+			// 대각선 이동
+			enemy[i].move_pattern = 0;
+			enemy[i].con = TRUE;
+			gotoxy(enemy[i].pos_x, enemy[i].pos_y);
+			switch (enemy[i].type)
+			{
+			case 0:
+				printf("<[W]>");
+				break;
+			}
+			break;
+		}
+	}
+
+	// 스테이지별로 적군 생성
+	// 메인하뭇에서 f_cnt가 증가하여 45~315동안 90으로 나누어 떨어질때 적군 생성
+	// n_enemy(x좌표, y좌표, 타입, 이동패턴, 방향)으로 생성
+	// 아이템 생성도 스테이지 함수에 맏겨야함 
+	// 5 ~ 55 사이에 위치해야함
+	// printf("<[W]>");
+	// printf("<WvvW>");
+	// printf("[-|-]");;
+}
+
 void game(void)
 {
 	system("mode con: cols=80 lines=40");
@@ -40,6 +94,11 @@ void game(void)
 	bomb[1].pos_y = 34;
 	bomb[1].speed = 5;
 	bomb[1].con = FALSE;
+
+	// 적군
+	int stage_count = 0;
+	int enemy_speed = 0;
+	
 
 	system("cls");
 	drawContent(1);
@@ -140,6 +199,37 @@ void game(void)
 			// 적군 만들고 나서 만들어야함
 			// 적군이나 총알이 유저한테 충돌해도 데미지 없음
 		}
+
+		// 적군 생성
+		stage(stage_count);
+
+		// 적군 이동
+		for (int i = 0; i < ENEMY_SIZE; i++)
+		{
+			if (enemy[i].con == TRUE && enemy_speed == 40)
+			{
+				gotoxy(enemy[i].pos_x, enemy[i].pos_y);
+				printf("     ");
+				// 이동패턴
+				// 대각선
+				if (enemy[i].move_pattern == 0)
+				{
+					enemy[i].pos_x += 4;
+					enemy[i].pos_y += 2;
+				}
+				gotoxy(enemy[i].pos_x, enemy[i].pos_y);
+				switch (enemy[i].type)
+				{
+				case 0:
+					printf("%d, %d", enemy[i].pos_x, enemy[i].pos_y);
+					//printf("<[W]>");
+					break;
+				}
+			}
+		}
+
+		if (enemy_speed == 40)
+			enemy_speed = 0;
 
 		// 폭탄 이동
 		if (bomb[0].con == TRUE || bomb[1].con == TRUE)
@@ -403,6 +493,8 @@ void game(void)
 		if (skill.life_count > 0)
 			skill.life_count--;
 
+		stage_count++;
+		enemy_speed++;
 		Sleep(20);
 		// Sleep(18);
 	}

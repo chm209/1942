@@ -4,12 +4,22 @@
 #define BULLET_SIZE 6
 #define BOMB_SIZE 2
 #define BOMB_BUL_SIZE 5
+#define ENEMY_SIZE 30
 #define LEFT_LIMIT 
 #define RIGHT_LIMIT 
 #define UP_LIMIT 
 #define DOWN_LIMIT 
 
 void drawStat(int*);
+
+typedef struct _ENEMY
+{
+	int pos_x;
+	int pos_y;
+	int type;
+	int move_pattern;
+	int con;
+} ENEMY;
 
 typedef struct _SKILL
 {
