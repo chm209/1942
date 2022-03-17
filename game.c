@@ -20,9 +20,17 @@ void game(void)
 	BOMB bomb[BOMB_SIZE] = { 0, };
 	BOMB_BULLET bomb_bullet[BOMB_BUL_SIZE] = { 0, };
 	BOMB_BULLET bomb_bullet2[BOMB_BUL_SIZE] = { 0, };
+	SKILL skill;
 
 	player.pos_x = 28;
 	player.pos_y = 34;
+	player.life = 3;
+	player.health = 3;
+	player.score = 0;
+	skill.life_plus = 3;
+	skill.invincible = 3;
+	skill.life_count = 0;
+	skill.invin_count = 0;
 	bomb[0].pos_x = 29;
 	bomb[0].pos_y = 34;
 	bomb[0].count = 3;
@@ -78,7 +86,7 @@ void game(void)
 			}
 		}
 
-		// 플레이어 총알 공격
+		// 플레이어 총알 공격 스페이스바
 		if ((GetAsyncKeyState(VK_SPACE)))
 		{
 			for (int i = 0; i < BULLET_SIZE; i++)
@@ -93,16 +101,44 @@ void game(void)
 			}
 		}
 
-		// 폭탄 발사
+		// 폭탄 발사 Z키
 		if ((GetAsyncKeyState(0x5A)))
 		{
 			if (bomb[0].count > 0 && (bomb[0].con == FALSE && bomb[1].con == FALSE))
 			{
 				bomb[0].count--;
-				stat_list[1]--;
 				bomb[0].con = TRUE;
 				bomb[1].con = TRUE;
 			}
+		}
+
+		// 스킬 X키 - 생명 추가
+		// STAT UI에 반영해야함
+		if ((GetAsyncKeyState(0x58) && skill.life_plus > 0) && skill.life_count == 0)
+		{
+			player.life++;
+			skill.life_plus--;
+
+			if (bomb[0].count > 0 && (bomb[0].con == FALSE && bomb[1].con == FALSE))
+			{
+				bomb[0].con = TRUE;
+				bomb[1].con = TRUE;
+				// 스킬 재사용 시간 조정 필요
+				skill.life_count = 1000;
+			}
+			else
+			{
+				bomb[0].count++;
+				// 스킬 재사용 시간 조정 필요
+				skill.life_count = 1000;
+			}
+		}
+
+		// 스킬 C키 - 무적 기능
+		if ((GetAsyncKeyState(0x43)))
+		{
+			// 적군 만들고 나서 만들어야함
+			// 적군이나 총알이 유저한테 충돌해도 데미지 없음
 		}
 
 		// 폭탄 이동
@@ -356,6 +392,16 @@ void game(void)
 				bomb_bullet2[i].con = FALSE;
 			}
 		}
+
+		// 플레이어 스탯 동기화
+		stat_list[0] = player.life; // 생명
+		stat_list[1] = bomb[0].count; // 폭탄
+		// stat_list[2] = ; // 체력
+		// stat_list[3] = ; // 점수
+
+		// 스킬 재사용 대기
+		if (skill.life_count > 0)
+			skill.life_count--;
 
 		Sleep(20);
 		// Sleep(18);

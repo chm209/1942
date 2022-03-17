@@ -11,10 +11,21 @@
 
 void drawStat(int*);
 
+typedef struct _SKILL
+{
+	int life_plus;
+	int invincible;
+	int life_count;
+	int invin_count;
+} SKILL;
+
 typedef struct _PLAYER
 {
 	int pos_x;
 	int pos_y;
+	int life;
+	int health;
+	int score;
 } PLAYER;
 
 typedef struct _BULLET
