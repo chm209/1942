@@ -13,7 +13,7 @@ void stage(int stage_count)
 {
 	for (int i = 0; i < ENEMY_SIZE; i++)
 	{
-		if((enemy[i].con == FALSE && (stage_count >= 45 && stage_count <= 315) && (stage_count - 45) % 90 == 0))
+		if ((enemy[i].con == FALSE && (stage_count >= 45 && stage_count <= 315) && (stage_count - 45) % 90 == 0))
 		{
 			enemy[i].pos_x = 6;
 			enemy[i].pos_y = 0;
@@ -28,7 +28,7 @@ void stage(int stage_count)
 			switch (enemy[i].type)
 			{
 			case 0:
-				printf("<[W]>");
+				printf("<WvW>");
 				break;
 			}
 			break;
@@ -48,12 +48,12 @@ void stage(int stage_count)
 			switch (enemy[i].type)
 			{
 			case 0:
-				printf("<[W]>");
+				printf("<WvW>");
 				break;
 			}
 			break;
 		}
-		
+
 	}
 
 	// 스테이지별로 적군 생성
@@ -105,7 +105,7 @@ void game(void)
 
 	system("cls");
 	drawContent(1);
-	
+
 	while (1)
 	{
 		gotoxy(2, 2);
@@ -115,10 +115,10 @@ void game(void)
 		drawStat(stat_list);
 		gotoxy(player.pos_x, player.pos_y);
 		puts("[-*-]");
-		
+
 		// ★ 키보드 입력 받는 기능들 함수로 분리하거나
 		// ★ kbhit으로 묶어서 처리하면반응속도가 떨어짐
-		
+
 		// 플레이어 움직임
 		{
 			if (GetAsyncKeyState(VK_LEFT) && player.pos_x > 5) { //왼쪽
@@ -236,7 +236,7 @@ void game(void)
 								enemy[i].pos_y++;
 							else
 							{
-								enemy[i].pos_x ++;
+								enemy[i].pos_x++;
 								enemy[i].move_count++;
 							}
 						}
@@ -285,7 +285,7 @@ void game(void)
 				switch (enemy[i].type)
 				{
 				case 0:
-					printf("[|+|]");
+					printf("<WvW>");
 					break;
 				}
 			}
@@ -315,9 +315,9 @@ void game(void)
 					puts("   ");
 					gotoxy(pos_x + 11, pos_y + 2);
 					puts("   ");
-					gotoxy(pos_x +11, pos_y + 3);
+					gotoxy(pos_x + 11, pos_y + 3);
 					puts("   ");
-					gotoxy(pos_x+7, pos_y + 4);
+					gotoxy(pos_x + 7, pos_y + 4);
 					puts("           ");
 					bomb[0].pos_y--;
 					pos_y = bomb[0].pos_y;
@@ -327,9 +327,9 @@ void game(void)
 					puts("| |");
 					gotoxy(pos_x + 11, pos_y + 2);
 					puts("| |");
-					gotoxy(pos_x+11, pos_y + 3);
+					gotoxy(pos_x + 11, pos_y + 3);
 					puts("| |");
-					gotoxy(pos_x+7, pos_y + 4);
+					gotoxy(pos_x + 7, pos_y + 4);
 					puts("<[[::=::]]>");
 					bomb[0].speed = 20;
 				}
@@ -345,7 +345,7 @@ void game(void)
 					puts("   ");
 					gotoxy(pos_x + 11, pos_y + 3);
 					puts("   ");
-					gotoxy(pos_x+7, pos_y + 4);
+					gotoxy(pos_x + 7, pos_y + 4);
 					puts("           ");
 					bomb[0].pos_y--;
 					pos_y = bomb[0].pos_y;
@@ -355,9 +355,9 @@ void game(void)
 					puts("| |");
 					gotoxy(pos_x + 11, pos_y + 2);
 					puts("| |");
-					gotoxy(pos_x+11, pos_y + 3);
+					gotoxy(pos_x + 11, pos_y + 3);
 					puts("| |");
-					gotoxy(pos_x+7, pos_y + 4);
+					gotoxy(pos_x + 7, pos_y + 4);
 					puts("<[[::=::]]>");
 				}
 			}
@@ -375,11 +375,11 @@ void game(void)
 					puts("                         ");
 					gotoxy(pos_x + 11, pos_y + 1);
 					puts("   ");
-					gotoxy(pos_x+11, pos_y + 2);
+					gotoxy(pos_x + 11, pos_y + 2);
 					puts("   ");
-					gotoxy(pos_x+11, pos_y + 3);
+					gotoxy(pos_x + 11, pos_y + 3);
 					puts("   ");
-					gotoxy(pos_x+7, pos_y + 4);
+					gotoxy(pos_x + 7, pos_y + 4);
 					puts("           ");
 					bomb[1].pos_y--;
 					pos_y = bomb[1].pos_y;
@@ -400,25 +400,25 @@ void game(void)
 				{
 					gotoxy(pos_x, pos_y);
 					puts("                         ");
-					gotoxy(pos_x+11, pos_y + 1);
+					gotoxy(pos_x + 11, pos_y + 1);
 					puts("   ");
-					gotoxy(pos_x+11, pos_y + 2);
+					gotoxy(pos_x + 11, pos_y + 2);
 					puts("   ");
-					gotoxy(pos_x+11, pos_y + 3);
+					gotoxy(pos_x + 11, pos_y + 3);
 					puts("   ");
-					gotoxy(pos_x+7, pos_y + 4);
+					gotoxy(pos_x + 7, pos_y + 4);
 					puts("           ");
 					bomb[1].pos_y--;
 					pos_y = bomb[1].pos_y;
 					gotoxy(pos_x, pos_y);
 					puts("<<[[*]]:=:{-*-}:=:[[*]]>>");
-					gotoxy(pos_x+11, pos_y + 1);
+					gotoxy(pos_x + 11, pos_y + 1);
 					puts("| |");
 					gotoxy(pos_x + 11, pos_y + 2);
 					puts("| |");
 					gotoxy(pos_x + 11, pos_y + 3);
 					puts("| |");
-					gotoxy(pos_x+7, pos_y + 4);
+					gotoxy(pos_x + 7, pos_y + 4);
 					puts("<[[::=::]]>");
 				}
 				bomb[1].speed--;
@@ -436,6 +436,27 @@ void game(void)
 				bullet[i].pos_y--;
 				gotoxy(bullet[i].pos_x, bullet[i].pos_y);
 				puts("ⅰ");
+			}
+		}
+
+		// 총알 - 적 충돌
+		for (int i = 0; i < BULLET_SIZE; i++)
+		{
+			for (int j = 0; j < ENEMY_SIZE; j++)
+			{
+				if ((bullet[i].con == TRUE && enemy[j].con == TRUE) && bullet[i].pos_y == enemy[j].pos_y)
+				{
+					if ((enemy[j].pos_x <= bullet[i].pos_x - 1) && (enemy[j].pos_x + 5) >= bullet[i].pos_x + 1)
+					{
+						gotoxy(enemy[j].pos_x, enemy[j].pos_y);
+						puts("      ");
+						enemy[j].con = FALSE;
+
+						gotoxy(bullet[i].pos_x, bullet[i].pos_y);
+						puts("  ");
+						bullet[i].con = FALSE;
+					}
+				}
 			}
 		}
 
@@ -478,7 +499,45 @@ void game(void)
 				puts("    ㅆ              ㅆ");
 			}
 		}
-		
+
+		// 폭탄 - 적 충돌
+		if (bomb[0].con == TRUE && bomb[1].con == TRUE)
+		{
+			for (int i = 0; i < BOMB_SIZE; i++)
+			{
+				for (int j = 0; j < ENEMY_SIZE; j++)
+				{
+					if (bomb[i].pos_y == enemy[j].pos_y || (enemy[j].pos_y - bomb[i].pos_y > 0))
+					{
+						gotoxy(enemy[j].pos_x, enemy[j].pos_y);
+						puts("      ");
+						enemy[j].con = FALSE;
+					}
+				}
+			}
+		}
+
+		// 폭탄 총알 - 적 충돌
+		for (int i = 0; i < ENEMY_SIZE; i++)
+		{
+			for (int j = 0; j < BOMB_BUL_SIZE; j++)
+			{
+				if ((bomb_bullet[j].con == TRUE && enemy[i].con == TRUE) && bomb_bullet[j].pos_y == enemy[i].pos_y)
+				{
+					gotoxy(enemy[i].pos_x, enemy[i].pos_y);
+					puts("      ");
+					enemy[i].con = FALSE;
+				}
+
+				if ((bomb_bullet2[j].con == TRUE && enemy[i].con == TRUE) && bomb_bullet2[j].pos_y == enemy[i].pos_y)
+				{
+					gotoxy(enemy[i].pos_x, enemy[i].pos_y);
+					puts("      ");
+					enemy[i].con = FALSE;
+				}
+			}
+		}
+
 		// 총알이 천장에 도달하면 삭제
 		for (int i = 0; i < BULLET_SIZE; i++)
 		{
@@ -489,7 +548,7 @@ void game(void)
 				bullet[i].con = FALSE;
 			}
 		}
-		
+
 		// 폭탄이 천장에 도달하면 삭제
 		{
 			if (bomb[0].con == TRUE && bomb[0].pos_y == 0)
@@ -500,11 +559,11 @@ void game(void)
 				puts("   ");
 				gotoxy(bomb[0].pos_x + 11, bomb[0].pos_y + 2);
 				puts("   ");
-				gotoxy(bomb[0].pos_x+11, bomb[0].pos_y + 3);
+				gotoxy(bomb[0].pos_x + 11, bomb[0].pos_y + 3);
 				puts("   ");
-				gotoxy(bomb[0].pos_x+7, bomb[0].pos_y + 4);
+				gotoxy(bomb[0].pos_x + 7, bomb[0].pos_y + 4);
 				puts("           ");
-				bomb[0].pos_y = 34;
+				bomb[0].pos_y = 24;
 				bomb[0].con = FALSE;
 			}
 
@@ -512,15 +571,15 @@ void game(void)
 			{
 				gotoxy(bomb[1].pos_x, bomb[1].pos_y);
 				puts("                         ");
-				gotoxy(bomb[1].pos_x+11, bomb[1].pos_y + 1);
+				gotoxy(bomb[1].pos_x + 11, bomb[1].pos_y + 1);
 				puts("   ");
 				gotoxy(bomb[1].pos_x + 11, bomb[1].pos_y + 2);
 				puts("   ");
 				gotoxy(bomb[1].pos_x + 11, bomb[1].pos_y + 3);
 				puts("   ");
-				gotoxy(bomb[1].pos_x+7, bomb[1].pos_y + 4);
+				gotoxy(bomb[1].pos_x + 7, bomb[1].pos_y + 4);
 				puts("           ");
-				bomb[1].pos_y = 34;
+				bomb[1].pos_y = 24;
 				bomb[1].con = FALSE;
 			}
 		}
