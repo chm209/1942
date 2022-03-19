@@ -68,7 +68,7 @@ void stage(int stage_count)
 
 void game(void)
 {
-	system("mode con: cols=80 lines=30");
+	system("mode con: cols=80 lines=31");
 
 	// 생명, 폭탄, 체력, 점수
 	int stat_list[STAT_SIZE] = { 5, 3, 5, 0 };
@@ -110,6 +110,12 @@ void game(void)
 	{
 		gotoxy(2, 2);
 		printf("%d", stage_count);
+		gotoxy(2, 3);
+		printf("%d", player.pos_y);
+		gotoxy(2, 4);
+		printf("%d", bomb[0].pos_y);
+		gotoxy(2, 5);
+		printf("%d", bomb[1].pos_y);
 
 		// 반복할때마다 스탯과 플레이어 새로 그려줌
 		drawStat(stat_list);
@@ -142,7 +148,7 @@ void game(void)
 				gotoxy(player.pos_x, player.pos_y);
 				puts("[-*-]");
 			}
-			if (GetAsyncKeyState(VK_DOWN) && player.pos_y < 28) { //아래
+			if (GetAsyncKeyState(VK_DOWN) && player.pos_y < 29) { //아래
 				gotoxy(player.pos_x, player.pos_y);
 				printf("     ");
 				player.pos_y++;
@@ -444,15 +450,24 @@ void game(void)
 		{
 			if (player.pos_y == enemy[i].pos_y)
 			{
-				if (player.pos_x >= enemy[i].pos_x && player.pos_x <= enemy[i].pos_x)
+				if ((enemy[i].pos_x <= player.pos_x && enemy[i].pos_x + 5 >= player.pos_x) && enemy[i].pos_x - 4 <= player.pos_x)
 				{
-					player.life--;
-					bomb[0].con = TRUE;
-					bomb[1].con = TRUE;
-					player.pos_x = 28;
-					player.pos_y = 28;
-					gotoxy(player.pos_x, player.pos_y);
-					puts("[-*-]");
+					if (player.life > 0)
+					{
+						player.life--;
+						player.pos_x = 26;
+						player.pos_y = 26;
+						gotoxy(enemy[i].pos_x, enemy[i].pos_y);
+						puts("      ");
+						enemy[i].con = FALSE;
+						bomb[0].con = TRUE;
+						bomb[1].con = TRUE;
+						break;
+					}
+					else
+					{
+						// 게임오버
+					}
 					break;
 				}
 			}
@@ -643,7 +658,6 @@ void game(void)
 			skill.life_count--;
 
 		stage_count++;
-		Sleep(20);
-		// Sleep(18);
+		Sleep(18);
 	}
 }
