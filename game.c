@@ -439,6 +439,25 @@ void game(void)
 			}
 		}
 
+		// 플레이어 - 적 충돌
+		for (int i = 0; i < ENEMY_SIZE; i++)
+		{
+			if (player.pos_y == enemy[i].pos_y)
+			{
+				if (player.pos_x >= enemy[i].pos_x && player.pos_x <= enemy[i].pos_x)
+				{
+					player.life--;
+					bomb[0].con = TRUE;
+					bomb[1].con = TRUE;
+					player.pos_x = 28;
+					player.pos_y = 28;
+					gotoxy(player.pos_x, player.pos_y);
+					puts("[-*-]");
+					break;
+				}
+			}
+		}
+
 		// 총알 - 적 충돌
 		for (int i = 0; i < BULLET_SIZE; i++)
 		{
