@@ -18,7 +18,9 @@ typedef struct _ENEMY
 	int pos_y;
 	int type;
 	int move_pattern;
+	int move_count;
 	int con;
+	int speed;
 } ENEMY;
 
 typedef struct _SKILL

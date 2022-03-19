@@ -13,15 +13,17 @@ void stage(int stage_count)
 {
 	for (int i = 0; i < ENEMY_SIZE; i++)
 	{
-		if ((stage_count >= 45 && stage_count <= 315) && stage_count % 90 == 0)
+		if((enemy[i].con == FALSE && (stage_count >= 45 && stage_count <= 315) && (stage_count - 45) % 90 == 0))
 		{
 			enemy[i].pos_x = 6;
 			enemy[i].pos_y = 0;
 			// <[W]> * * * * * * *
 			enemy[i].type = 0;
-			// 대각선 이동
+			// 오른쪽 대각선 이동
 			enemy[i].move_pattern = 0;
 			enemy[i].con = TRUE;
+			enemy[i].move_count = 0;
+			enemy[i].speed = 0;
 			gotoxy(enemy[i].pos_x, enemy[i].pos_y);
 			switch (enemy[i].type)
 			{
@@ -31,15 +33,17 @@ void stage(int stage_count)
 			}
 			break;
 		}
-		if ((stage_count >= 90 && stage_count <= 360) && stage_count % 90 == 0)
+		if ((enemy[i].con == FALSE && (stage_count >= 90 && stage_count <= 360) && (stage_count - 90) % 90 == 0))
 		{
 			enemy[i].pos_x = 50;
-			enemy[i].pos_y = 0;
+			enemy[i].pos_y = 1;
 			// <[W]> * * * * * * *
 			enemy[i].type = 0;
-			// 대각선 이동
-			enemy[i].move_pattern = 0;
+			// 왼쪽 대각선으로 이동
+			enemy[i].move_pattern = 1;
 			enemy[i].con = TRUE;
+			enemy[i].move_count = 0;
+			enemy[i].speed = 0;
 			gotoxy(enemy[i].pos_x, enemy[i].pos_y);
 			switch (enemy[i].type)
 			{
@@ -49,6 +53,7 @@ void stage(int stage_count)
 			}
 			break;
 		}
+		
 	}
 
 	// 스테이지별로 적군 생성
@@ -63,7 +68,7 @@ void stage(int stage_count)
 
 void game(void)
 {
-	system("mode con: cols=80 lines=40");
+	system("mode con: cols=80 lines=30");
 
 	// 생명, 폭탄, 체력, 점수
 	int stat_list[STAT_SIZE] = { 5, 3, 5, 0 };
@@ -77,7 +82,7 @@ void game(void)
 	SKILL skill;
 
 	player.pos_x = 28;
-	player.pos_y = 34;
+	player.pos_y = 28;
 	player.life = 3;
 	player.health = 3;
 	player.score = 0;
@@ -86,25 +91,26 @@ void game(void)
 	skill.life_count = 0;
 	skill.invin_count = 0;
 	bomb[0].pos_x = 29;
-	bomb[0].pos_y = 34;
+	bomb[0].pos_y = 24;
 	bomb[0].count = 3;
 	bomb[0].speed = 5;
 	bomb[0].con = FALSE;
 	bomb[1].pos_x = 6;
-	bomb[1].pos_y = 34;
+	bomb[1].pos_y = 24;
 	bomb[1].speed = 5;
 	bomb[1].con = FALSE;
 
 	// 적군
-	int stage_count = 0;
-	int enemy_speed = 0;
-	
+	int stage_count = 1;
 
 	system("cls");
 	drawContent(1);
 	
 	while (1)
 	{
+		gotoxy(2, 2);
+		printf("%d", stage_count);
+
 		// 반복할때마다 스탯과 플레이어 새로 그려줌
 		drawStat(stat_list);
 		gotoxy(player.pos_x, player.pos_y);
@@ -129,14 +135,14 @@ void game(void)
 				gotoxy(player.pos_x, player.pos_y);
 				puts("[-*-]");
 			}
-			if (GetAsyncKeyState(VK_UP) && player.pos_y > 10) { //위
+			if (GetAsyncKeyState(VK_UP) && player.pos_y > 4) { //위
 				gotoxy(player.pos_x, player.pos_y);
 				printf("     ");
 				player.pos_y--;
 				gotoxy(player.pos_x, player.pos_y);
 				puts("[-*-]");
 			}
-			if (GetAsyncKeyState(VK_DOWN) && player.pos_y < 38) { //아래
+			if (GetAsyncKeyState(VK_DOWN) && player.pos_y < 28) { //아래
 				gotoxy(player.pos_x, player.pos_y);
 				printf("     ");
 				player.pos_y++;
@@ -206,30 +212,84 @@ void game(void)
 		// 적군 이동
 		for (int i = 0; i < ENEMY_SIZE; i++)
 		{
-			if (enemy[i].con == TRUE && enemy_speed == 40)
+			if (enemy[i].con == TRUE)
 			{
 				gotoxy(enemy[i].pos_x, enemy[i].pos_y);
 				printf("     ");
-				// 이동패턴
-				// 대각선
+
+				// 오른쪽 대각선 이동
 				if (enemy[i].move_pattern == 0)
 				{
-					enemy[i].pos_x += 4;
-					enemy[i].pos_y += 2;
+					// 자기 턴이 오면 진행
+					if (enemy[i].speed == 6)
+					{
+						// 아래로 내려갈 차례인지 옆으로 갈 차례인지 검사
+						if (enemy[i].move_count == 3)
+						{
+							enemy[i].pos_y++;
+							enemy[i].move_count = 0;
+						}
+						else
+						{
+							// 벽쪽으로 갔는지 검사, 벽쪽으로 갔으면 move_count 올릴 필요 없음
+							if (enemy[i].pos_x > 48)
+								enemy[i].pos_y++;
+							else
+							{
+								enemy[i].pos_x ++;
+								enemy[i].move_count++;
+							}
+						}
+						// 턴 초기화
+						enemy[i].speed = 0;
+					}
+					else
+					{
+						enemy[i].speed++;
+					}
 				}
+
+				// 왼쪽 대각선 이동
+				if (enemy[i].move_pattern == 1)
+				{
+					// 자기 턴이 오면 진행
+					if (enemy[i].speed == 9)
+					{
+						// 아래로 내려갈 차례인지 옆으로 갈 차례인지 검사
+						if (enemy[i].move_count == 2)
+						{
+							enemy[i].pos_y++;
+							enemy[i].move_count = 0;
+						}
+						else
+						{
+							// 벽쪽으로 갔는지 검사, 벽쪽으로 갔으면 move_count 올릴 필요 없음
+							if (enemy[i].pos_x < 10)
+								enemy[i].pos_y++;
+							else
+							{
+								enemy[i].pos_x -= 2;
+								enemy[i].move_count++;
+							}
+						}
+						// 턴 초기화
+						enemy[i].speed = 0;
+					}
+					else
+					{
+						enemy[i].speed++;
+					}
+				}
+
 				gotoxy(enemy[i].pos_x, enemy[i].pos_y);
 				switch (enemy[i].type)
 				{
 				case 0:
-					printf("%d, %d", enemy[i].pos_x, enemy[i].pos_y);
-					//printf("<[W]>");
+					printf("[|+|]");
 					break;
 				}
 			}
 		}
-
-		if (enemy_speed == 40)
-			enemy_speed = 0;
 
 		// 폭탄 이동
 		if (bomb[0].con == TRUE || bomb[1].con == TRUE)
@@ -247,7 +307,7 @@ void game(void)
 			if (bomb[0].con == TRUE)
 			{
 				// 폭탄 0번 느리게 움직일때
-				if ((pos_y >= 16 && pos_y <= 24) && bomb[0].speed < 1)
+				if ((pos_y >= 13 && pos_y <= 18) && bomb[0].speed < 1)
 				{
 					gotoxy(pos_x, pos_y);
 					puts("                           ");
@@ -275,7 +335,7 @@ void game(void)
 				}
 
 				// 폭탄 0번 빠르게 움직일때
-				if (pos_y > 24 || pos_y < 16)
+				if (pos_y > 18 || pos_y < 13)
 				{
 					gotoxy(pos_x, pos_y);
 					puts("                           ");
@@ -303,13 +363,13 @@ void game(void)
 			}
 
 			// 폭탄 0번이 특정 위치까지 갔을때 폭탄 1번 이동
-			if (pos_y < 30 || (bomb[0].con == FALSE && bomb[1].con == TRUE))
+			if (pos_y < 18 || (bomb[0].con == FALSE && bomb[1].con == TRUE))
 			{
 				pos_x = bomb[1].pos_x;
 				pos_y = bomb[1].pos_y;
 
 				// 천천히
-				if ((pos_y >= 18 && pos_y <= 26) && bomb[1].speed < 1)
+				if ((pos_y >= 14 && pos_y <= 19) && bomb[1].speed < 1)
 				{
 					gotoxy(pos_x, pos_y);
 					puts("                         ");
@@ -336,7 +396,7 @@ void game(void)
 					bomb[1].speed = 20;
 				}
 				//빨리
-				if (pos_y > 26 || pos_y < 18)
+				if (pos_y > 19 || pos_y < 14)
 				{
 					gotoxy(pos_x, pos_y);
 					puts("                         ");
@@ -382,14 +442,14 @@ void game(void)
 		// 폭탄 총알 발사
 		for (int i = 0; i < BOMB_BUL_SIZE; i++)
 		{
-			if ((bomb[0].pos_y >= 15 && bomb[0].pos_y <= 23) && bomb_bullet[i].con == FALSE)
+			if ((bomb[0].pos_y >= 13 && bomb[0].pos_y <= 18) && bomb_bullet[i].con == FALSE)
 			{
 				bomb_bullet[i].pos_x = bomb[0].pos_x;
 				bomb_bullet[i].pos_y = bomb[0].pos_y - 2;
 				bomb_bullet[i].con = TRUE;
 			}
 
-			if ((bomb[1].pos_y >= 17 && bomb[1].pos_y <= 25) && bomb_bullet2[i].con == FALSE)
+			if ((bomb[1].pos_y >= 14 && bomb[1].pos_y <= 19) && bomb_bullet2[i].con == FALSE)
 			{
 				bomb_bullet2[i].pos_x = bomb[1].pos_x;
 				bomb_bullet2[i].pos_y = bomb[1].pos_y - 2;
@@ -483,6 +543,17 @@ void game(void)
 			}
 		}
 
+		// 적군이 바닥에 도달하면 삭제
+		for (int i = 0; i < ENEMY_SIZE; i++)
+		{
+			if (enemy[i].con == TRUE && enemy[i].pos_y == 29)
+			{
+				gotoxy(enemy[i].pos_x, enemy[i].pos_y);
+				printf("     ");
+				enemy[i].con = FALSE;
+			}
+		}
+
 		// 플레이어 스탯 동기화
 		stat_list[0] = player.life; // 생명
 		stat_list[1] = bomb[0].count; // 폭탄
@@ -494,7 +565,6 @@ void game(void)
 			skill.life_count--;
 
 		stage_count++;
-		enemy_speed++;
 		Sleep(20);
 		// Sleep(18);
 	}

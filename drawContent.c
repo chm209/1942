@@ -93,7 +93,7 @@ void drawContent(int scr_num)
 		break;
 	// 게임 화면
 	case 1:
-		for (int i = 0; i < 40; i += 1)
+		for (int i = 0; i < 30; i += 1)
 		{
 			gotoxy(4, i);
 			printf(":");
