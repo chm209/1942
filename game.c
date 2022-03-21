@@ -1,131 +1,46 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h> // GetAsyncKeyState 사용을 위함
+#include <Windows.h> // GetAsyncKeyState 사용을 위함
 #include "common.h"
 #include "game.h"
 
-// 1. 게임 시작전 DB에 접속해서 상점 아이템 개수 불러오기 필요
-// 2. 게임 종료시 사용한 상점 아이템 차감, 점수, 획득한 포인트, 랭킹 업데이트 필요
+// 함수
+void stage(int);
 
-ENEMY enemy[ENEMY_SIZE] = { 0, };
-
-void stage(int stage_count)
-{
-	for (int i = 0; i < ENEMY_SIZE; i++)
-	{
-		if ((enemy[i].con == FALSE && (stage_count >= 45 && stage_count <= 315) && (stage_count - 45) % 90 == 0))
-		{
-			enemy[i].pos_x = 6;
-			enemy[i].pos_y = 0;
-			// <[W]> * * * * * * *
-			enemy[i].type = 0;
-			// 오른쪽 대각선 이동
-			enemy[i].move_pattern = 0;
-			enemy[i].con = TRUE;
-			enemy[i].move_count = 0;
-			enemy[i].speed = 0;
-			gotoxy(enemy[i].pos_x, enemy[i].pos_y);
-			switch (enemy[i].type)
-			{
-			case 0:
-				printf("<WvW>");
-				break;
-			}
-			break;
-		}
-		if ((enemy[i].con == FALSE && (stage_count >= 90 && stage_count <= 360) && (stage_count - 90) % 90 == 0))
-		{
-			enemy[i].pos_x = 50;
-			enemy[i].pos_y = 1;
-			// <[W]> * * * * * * *
-			enemy[i].type = 0;
-			// 왼쪽 대각선으로 이동
-			enemy[i].move_pattern = 1;
-			enemy[i].con = TRUE;
-			enemy[i].move_count = 0;
-			enemy[i].speed = 0;
-			gotoxy(enemy[i].pos_x, enemy[i].pos_y);
-			switch (enemy[i].type)
-			{
-			case 0:
-				printf("<WvW>");
-				break;
-			}
-			break;
-		}
-
-	}
-
-	// 스테이지별로 적군 생성
-	// 메인하뭇에서 f_cnt가 증가하여 45~315동안 90으로 나누어 떨어질때 적군 생성
-	// n_enemy(x좌표, y좌표, 타입, 이동패턴, 방향)으로 생성
-	// 아이템 생성도 스테이지 함수에 맏겨야함 
-	// 5 ~ 55 사이에 위치해야함
-	// printf("<[W]>");
-	// printf("<WvvW>");
-	// printf("[-|-]");;
-}
+// 전역 변수
+Enemy enemy[ENEMY_SIZE] = { 0, };
 
 void game(void)
 {
 	system("mode con: cols=80 lines=31");
+	system("cls");
 
 	// 생명, 폭탄, 체력, 점수
-	int stat_list[STAT_SIZE] = { 5, 3, 5, 0 };
+	int stat_list[STAT] = { 5, 3, 5, 0 };
 
-	// 플레이어 => 위치, 총알, 폭탄, 스킬
-	PLAYER player;
-	BULLET bullet[BULLET_SIZE] = { 0, };
-	BOMB bomb[BOMB_SIZE] = { 0, };
-	BOMB_BULLET bomb_bullet[BOMB_BUL_SIZE] = { 0, };
-	BOMB_BULLET bomb_bullet2[BOMB_BUL_SIZE] = { 0, };
-	SKILL skill;
-
-	player.pos_x = 28;
-	player.pos_y = 28;
-	player.life = 3;
-	player.health = 3;
-	player.score = 0;
-	skill.life_plus = 3;
-	skill.invincible = 3;
-	skill.life_count = 0;
-	skill.invin_count = 0;
-	bomb[0].pos_x = 29;
-	bomb[0].pos_y = 24;
-	bomb[0].count = 3;
-	bomb[0].speed = 5;
-	bomb[0].con = FALSE;
-	bomb[1].pos_x = 6;
-	bomb[1].pos_y = 24;
-	bomb[1].speed = 5;
-	bomb[1].con = FALSE;
-
+	// 플레이어
+	// 위치, 총알, 폭탄, 스킬 관련
+	Player player = { 28, 28, 1, 3, 0 }; // X값, Y값, 생명, 체력, 점수
+	Bullet bullet[BULLET_SIZE] = { 0, }; // X값, Y값, 확인
+	Skill skill = { 3, 3, 0, 0 };
+	Bomb bomb[BOMB_SIZE] = { 29, 24, 3, 5, FALSE, 6, 24, 0, 5, FALSE }; // // X값, Y값, 잔량, 속도, 확인
+	Bomb_blt bomb_bul[BOMB_BUL_SIZE] = { 0, };
+	Bomb_blt bomb_bul2[BOMB_BUL_SIZE] = { 0, };
+	
 	// 적군
-	int stage_count = 1;
-
-	system("cls");
-	drawContent(1);
+	int frame_cnt = 0;
 
 	while (1)
 	{
-		gotoxy(2, 2);
-		printf("%d", stage_count);
-		gotoxy(2, 3);
-		printf("%d", player.pos_y);
-		gotoxy(2, 4);
-		printf("%d", bomb[0].pos_y);
-		gotoxy(2, 5);
-		printf("%d", bomb[1].pos_y);
-
-		// 반복할때마다 스탯과 플레이어 새로 그려줌
+		// 반복할때마다 UI와 스탯을 새로 그려줌
+		drawContent(1);
 		drawStat(stat_list);
 		gotoxy(player.pos_x, player.pos_y);
 		puts("[-*-]");
 
-		// ★ 키보드 입력 받는 기능들 함수로 분리하거나
-		// ★ kbhit으로 묶어서 처리하면반응속도가 떨어짐
-
-		// 플레이어 움직임
+		// 유저 키보드 감지
+		// GetAsyncKeyState()로 상시 감지하기 위해 함수화 X
+		// 함수화 하거나 getch()로 돌리면 반응속도가 떨어짐
 		{
 			if (GetAsyncKeyState(VK_LEFT) && player.pos_x > 5) { //왼쪽
 				gotoxy(player.pos_x, player.pos_y);
@@ -167,13 +82,13 @@ void game(void)
 					bullet[i].pos_x = player.pos_x + 1;
 					bullet[i].pos_y = player.pos_y - 1;
 					bullet[i].con = TRUE;
-					break; // 없으면 나중에 눈물이 나는 상황이 생김
+					break;
 				}
 			}
 		}
 
-		// 폭탄 발사 Z키
-		if ((GetAsyncKeyState(0x5A)))
+		// 폭탄 발사 Z키, frame_cnt > 1은 게임 시작하기전 Z키가 눌렸을대 스킬이 써지는걸 방지하기위함
+		if (GetAsyncKeyState(0x5A) && frame_cnt > 1)
 		{
 			if (bomb[0].count > 0 && (bomb[0].con == FALSE && bomb[1].con == FALSE))
 			{
@@ -185,7 +100,7 @@ void game(void)
 
 		// 스킬 X키 - 생명 추가
 		// STAT UI에 반영해야함
-		if ((GetAsyncKeyState(0x58) && skill.life_plus > 0) && skill.life_count == 0)
+		if ((GetAsyncKeyState(0x58) && frame_cnt > 1 ) && (skill.life_count == 0 && skill.life_plus > 0 ))
 		{
 			player.life++;
 			skill.life_plus--;
@@ -206,14 +121,14 @@ void game(void)
 		}
 
 		// 스킬 C키 - 무적 기능
-		if ((GetAsyncKeyState(0x43)))
+		if ((GetAsyncKeyState(0x43) && frame_cnt > 1))
 		{
 			// 적군 만들고 나서 만들어야함
 			// 적군이나 총알이 유저한테 충돌해도 데미지 없음
 		}
 
 		// 적군 생성
-		stage(stage_count);
+		stage(frame_cnt);
 
 		// 적군 이동
 		for (int i = 0; i < ENEMY_SIZE; i++)
@@ -459,6 +374,8 @@ void game(void)
 						player.pos_y = 26;
 						gotoxy(enemy[i].pos_x, enemy[i].pos_y);
 						puts("      ");
+						enemy[i].pos_x = 0;
+						enemy[i].pos_y = 0;
 						enemy[i].con = FALSE;
 						bomb[0].con = TRUE;
 						bomb[1].con = TRUE;
@@ -484,6 +401,8 @@ void game(void)
 					{
 						gotoxy(enemy[j].pos_x, enemy[j].pos_y);
 						puts("      ");
+						enemy[j].pos_x = 0;
+						enemy[j].pos_y = 0;
 						enemy[j].con = FALSE;
 
 						gotoxy(bullet[i].pos_x, bullet[i].pos_y);
@@ -497,39 +416,39 @@ void game(void)
 		// 폭탄 총알 발사
 		for (int i = 0; i < BOMB_BUL_SIZE; i++)
 		{
-			if ((bomb[0].pos_y >= 13 && bomb[0].pos_y <= 18) && bomb_bullet[i].con == FALSE)
+			if ((bomb[0].pos_y >= 13 && bomb[0].pos_y <= 18) && bomb_bul[i].con == FALSE)
 			{
-				bomb_bullet[i].pos_x = bomb[0].pos_x;
-				bomb_bullet[i].pos_y = bomb[0].pos_y - 2;
-				bomb_bullet[i].con = TRUE;
+				bomb_bul[i].pos_x = bomb[0].pos_x;
+				bomb_bul[i].pos_y = bomb[0].pos_y - 2;
+				bomb_bul[i].con = TRUE;
 			}
 
-			if ((bomb[1].pos_y >= 14 && bomb[1].pos_y <= 19) && bomb_bullet2[i].con == FALSE)
+			if ((bomb[1].pos_y >= 14 && bomb[1].pos_y <= 19) && bomb_bul2[i].con == FALSE)
 			{
-				bomb_bullet2[i].pos_x = bomb[1].pos_x;
-				bomb_bullet2[i].pos_y = bomb[1].pos_y - 2;
-				bomb_bullet2[i].con = TRUE;
+				bomb_bul2[i].pos_x = bomb[1].pos_x;
+				bomb_bul2[i].pos_y = bomb[1].pos_y - 2;
+				bomb_bul2[i].con = TRUE;
 			}
 		}
 
 		// 폭탄 총알 이동
 		for (int i = 0; i < BOMB_BUL_SIZE; i++)
 		{
-			if (bomb_bullet[i].con == TRUE)
+			if (bomb_bul[i].con == TRUE)
 			{
-				gotoxy(bomb_bullet[i].pos_x, bomb_bullet[i].pos_y);
+				gotoxy(bomb_bul[i].pos_x, bomb_bul[i].pos_y);
 				puts("                      ");
-				bomb_bullet[i].pos_y--;
-				gotoxy(bomb_bullet[i].pos_x, bomb_bullet[i].pos_y);
+				bomb_bul[i].pos_y--;
+				gotoxy(bomb_bul[i].pos_x, bomb_bul[i].pos_y);
 				puts("    ㅆ              ㅆ");
 			}
 
-			if (bomb_bullet2[i].con == TRUE)
+			if (bomb_bul2[i].con == TRUE)
 			{
-				gotoxy(bomb_bullet2[i].pos_x, bomb_bullet2[i].pos_y);
+				gotoxy(bomb_bul2[i].pos_x, bomb_bul2[i].pos_y);
 				puts("                      ");
-				bomb_bullet2[i].pos_y--;
-				gotoxy(bomb_bullet2[i].pos_x, bomb_bullet2[i].pos_y);
+				bomb_bul2[i].pos_y--;
+				gotoxy(bomb_bul2[i].pos_x, bomb_bul2[i].pos_y);
 				puts("    ㅆ              ㅆ");
 			}
 		}
@@ -545,6 +464,8 @@ void game(void)
 					{
 						gotoxy(enemy[j].pos_x, enemy[j].pos_y);
 						puts("      ");
+						enemy[j].pos_x = 0;
+						enemy[j].pos_y = 0;
 						enemy[j].con = FALSE;
 					}
 				}
@@ -556,17 +477,21 @@ void game(void)
 		{
 			for (int j = 0; j < BOMB_BUL_SIZE; j++)
 			{
-				if ((bomb_bullet[j].con == TRUE && enemy[i].con == TRUE) && bomb_bullet[j].pos_y == enemy[i].pos_y)
+				if ((bomb_bul[j].con == TRUE && enemy[i].con == TRUE) && bomb_bul[j].pos_y == enemy[i].pos_y)
 				{
 					gotoxy(enemy[i].pos_x, enemy[i].pos_y);
 					puts("      ");
+					enemy[i].pos_x = 0;
+					enemy[i].pos_y = 0;
 					enemy[i].con = FALSE;
 				}
 
-				if ((bomb_bullet2[j].con == TRUE && enemy[i].con == TRUE) && bomb_bullet2[j].pos_y == enemy[i].pos_y)
+				if ((bomb_bul2[j].con == TRUE && enemy[i].con == TRUE) && bomb_bul2[j].pos_y == enemy[i].pos_y)
 				{
 					gotoxy(enemy[i].pos_x, enemy[i].pos_y);
 					puts("      ");
+					enemy[i].pos_x = 0;
+					enemy[i].pos_y = 0;
 					enemy[i].con = FALSE;
 				}
 			}
@@ -621,18 +546,18 @@ void game(void)
 		// 폭탄 총알이 천장에 도달하면 삭제
 		for (int i = 0; i < BOMB_BUL_SIZE; i++)
 		{
-			if (bomb_bullet[i].con == TRUE && bomb_bullet[i].pos_y == 0)
+			if (bomb_bul[i].con == TRUE && bomb_bul[i].pos_y == 0)
 			{
-				gotoxy(bomb_bullet[i].pos_x, bomb_bullet[i].pos_y);
+				gotoxy(bomb_bul[i].pos_x, bomb_bul[i].pos_y);
 				puts("                          ");
-				bomb_bullet[i].con = FALSE;
+				bomb_bul[i].con = FALSE;
 			}
 
-			if (bomb_bullet2[i].con == TRUE && bomb_bullet2[i].pos_y == 0)
+			if (bomb_bul2[i].con == TRUE && bomb_bul2[i].pos_y == 0)
 			{
-				gotoxy(bomb_bullet2[i].pos_x, bomb_bullet2[i].pos_y);
+				gotoxy(bomb_bul2[i].pos_x, bomb_bul2[i].pos_y);
 				puts("                          ");
-				bomb_bullet2[i].con = FALSE;
+				bomb_bul2[i].con = FALSE;
 			}
 		}
 
@@ -643,6 +568,8 @@ void game(void)
 			{
 				gotoxy(enemy[i].pos_x, enemy[i].pos_y);
 				printf("     ");
+				enemy[i].pos_x = 0;
+				enemy[i].pos_y = 0;
 				enemy[i].con = FALSE;
 			}
 		}
@@ -657,7 +584,61 @@ void game(void)
 		if (skill.life_count > 0)
 			skill.life_count--;
 
-		stage_count++;
-		Sleep(18);
+		frame_cnt++;
+		Sleep(15);
 	}
+}
+
+void stage(int frame_cnt)
+{
+	for (int i = 0; i < ENEMY_SIZE; i++)
+	{
+		if ((enemy[i].con == FALSE && (frame_cnt >= 45 && frame_cnt <= 315) && (frame_cnt - 45) % 90 == 0))
+		{
+			enemy[i].pos_x = 6;
+			enemy[i].pos_y = 0;
+			enemy[i].type = 0; // <[W]> * * * * * * *
+			enemy[i].move_pattern = 0; // 오른쪽 대각선 이동
+			enemy[i].move_count = 0;
+			enemy[i].speed = 0;
+			enemy[i].con = TRUE;
+			gotoxy(enemy[i].pos_x, enemy[i].pos_y);
+			switch (enemy[i].type)
+			{
+			case 0:
+				printf("<WvW>");
+				break;
+			}
+			break;
+		}
+		if ((enemy[i].con == FALSE && (frame_cnt >= 90 && frame_cnt <= 360) && (frame_cnt - 90) % 90 == 0))
+		{
+			enemy[i].pos_x = 50;
+			enemy[i].pos_y = 1;
+			// <[W]> * * * * * * *
+			enemy[i].type = 0;
+			// 왼쪽 대각선으로 이동
+			enemy[i].move_pattern = 1;
+			enemy[i].con = TRUE;
+			enemy[i].move_count = 0;
+			enemy[i].speed = 0;
+			gotoxy(enemy[i].pos_x, enemy[i].pos_y);
+			switch (enemy[i].type)
+			{
+			case 0:
+				printf("<WvW>");
+				break;
+			}
+			break;
+		}
+	}
+
+	// 스테이지별로 적군 생성
+	// 메인하뭇에서 f_cnt가 증가하여 45~315동안 90으로 나누어 떨어질때 적군 생성
+	// n_enemy(x좌표, y좌표, 타입, 이동패턴, 방향)으로 생성
+	// 아이템 생성도 스테이지 함수에 맏겨야함 
+	// 5 ~ 55 사이에 위치해야함
+	// printf("<[W]>");
+	// printf("<WvvW>");
+	// printf("[-|-]");;
 }

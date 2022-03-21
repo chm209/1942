@@ -99,6 +99,7 @@ int main(void) // int형을 반환하는 main 함수, 매개변수는 없기에 void 작성
 			// 나머지 값이 0이라면 비로그인 상태로 보고 login 함수를 호출하여 로그인 화면으로 넘긴다.
 			// 나머지 갑이 1이라면 로그인 상태로 보고 game 함수를 호출한다.
 			login_chk % 2 == 0 ? login_chk = login(1) : game();
+			system("mode con: cols=100 lines=30");
 			break;
 		case 20: // 두번째 메뉴 항목
 			// 나머지 값이 0이라면 비로그인 상태로 보고 login 함수를 호출하여 회원가입 화면으로 넘긴다.
