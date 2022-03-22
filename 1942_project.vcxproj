@@ -139,9 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bombBulMove.c" />
+    <ClCompile Include="bombMove.c" />
+    <ClCompile Include="bulletMove.c" />
     <ClCompile Include="cursor.c" />
     <ClCompile Include="drawContent.c" />
     <ClCompile Include="drawStat.c" />
+    <ClCompile Include="enemyGen.c" />
+    <ClCompile Include="enemyMove.c" />
     <ClCompile Include="game.c" />
     <ClCompile Include="gotoxy.c" />
     <ClCompile Include="login.c" />

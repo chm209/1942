@@ -1,3 +1,4 @@
+#pragma once
 void cursor(int);
 void gotoxy(int, int);
 int move(int, int, int, int);

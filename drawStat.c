@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "game.h"
+#include "common.h"
 
 void drawSymbol(int pos_y, int symbol, int num)
 {

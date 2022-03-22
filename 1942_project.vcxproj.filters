@@ -51,6 +51,21 @@
     <ClCompile Include="drawStat.c">
       <Filter>소스 파일\game</Filter>
     </ClCompile>
+    <ClCompile Include="enemyGen.c">
+      <Filter>소스 파일\game</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyMove.c">
+      <Filter>소스 파일\game</Filter>
+    </ClCompile>
+    <ClCompile Include="bombMove.c">
+      <Filter>소스 파일\game</Filter>
+    </ClCompile>
+    <ClCompile Include="bulletMove.c">
+      <Filter>소스 파일\game</Filter>
+    </ClCompile>
+    <ClCompile Include="bombBulMove.c">
+      <Filter>소스 파일\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">

@@ -4,12 +4,6 @@
 #include "common.h"
 #include "game.h"
 
-// 함수
-void stage(int);
-
-// 전역 변수
-Enemy enemy[ENEMY_SIZE] = { 0, };
-
 void game(void)
 {
 	system("mode con: cols=80 lines=31");
@@ -29,6 +23,7 @@ void game(void)
 	
 	// 적군
 	int frame_cnt = 0;
+	Enemy enemy[ENEMY_SIZE] = { 0, };
 
 	while (1)
 	{
@@ -128,237 +123,17 @@ void game(void)
 		}
 
 		// 적군 생성
-		stage(frame_cnt);
+		enemyGen(enemy, frame_cnt);
 
 		// 적군 이동
-		for (int i = 0; i < ENEMY_SIZE; i++)
-		{
-			if (enemy[i].con == TRUE)
-			{
-				gotoxy(enemy[i].pos_x, enemy[i].pos_y);
-				printf("     ");
-
-				// 오른쪽 대각선 이동
-				if (enemy[i].move_pattern == 0)
-				{
-					// 자기 턴이 오면 진행
-					if (enemy[i].speed == 6)
-					{
-						// 아래로 내려갈 차례인지 옆으로 갈 차례인지 검사
-						if (enemy[i].move_count == 3)
-						{
-							enemy[i].pos_y++;
-							enemy[i].move_count = 0;
-						}
-						else
-						{
-							// 벽쪽으로 갔는지 검사, 벽쪽으로 갔으면 move_count 올릴 필요 없음
-							if (enemy[i].pos_x > 48)
-								enemy[i].pos_y++;
-							else
-							{
-								enemy[i].pos_x++;
-								enemy[i].move_count++;
-							}
-						}
-						// 턴 초기화
-						enemy[i].speed = 0;
-					}
-					else
-					{
-						enemy[i].speed++;
-					}
-				}
-
-				// 왼쪽 대각선 이동
-				if (enemy[i].move_pattern == 1)
-				{
-					// 자기 턴이 오면 진행
-					if (enemy[i].speed == 9)
-					{
-						// 아래로 내려갈 차례인지 옆으로 갈 차례인지 검사
-						if (enemy[i].move_count == 2)
-						{
-							enemy[i].pos_y++;
-							enemy[i].move_count = 0;
-						}
-						else
-						{
-							// 벽쪽으로 갔는지 검사, 벽쪽으로 갔으면 move_count 올릴 필요 없음
-							if (enemy[i].pos_x < 10)
-								enemy[i].pos_y++;
-							else
-							{
-								enemy[i].pos_x -= 2;
-								enemy[i].move_count++;
-							}
-						}
-						// 턴 초기화
-						enemy[i].speed = 0;
-					}
-					else
-					{
-						enemy[i].speed++;
-					}
-				}
-
-				gotoxy(enemy[i].pos_x, enemy[i].pos_y);
-				switch (enemy[i].type)
-				{
-				case 0:
-					printf("<WvW>");
-					break;
-				}
-			}
-		}
-
+		enemyMove(enemy);
+		
 		// 폭탄 이동
 		if (bomb[0].con == TRUE || bomb[1].con == TRUE)
-		{
-			int pos_x = 0;
-			int pos_y = 0;
-
-			pos_x = bomb[0].pos_x;
-			pos_y = bomb[0].pos_y;
-
-			// 폭탄 0번이 TRUE 상태인지 한번 더 검사하는 이유는
-			// 폭탄 1번이 0번보다 느리게 끝나기 때문에
-			// 한번 더 검사하지 않으면 폭탄 1번이 끝나는 시점에서
-			// 하단에 폭탄 0번이 찍혀버리기 때문
-			if (bomb[0].con == TRUE)
-			{
-				// 폭탄 0번 느리게 움직일때
-				if ((pos_y >= 13 && pos_y <= 18) && bomb[0].speed < 1)
-				{
-					gotoxy(pos_x, pos_y);
-					puts("                           ");
-					gotoxy(pos_x + 11, pos_y + 1);
-					puts("   ");
-					gotoxy(pos_x + 11, pos_y + 2);
-					puts("   ");
-					gotoxy(pos_x + 11, pos_y + 3);
-					puts("   ");
-					gotoxy(pos_x + 7, pos_y + 4);
-					puts("           ");
-					bomb[0].pos_y--;
-					pos_y = bomb[0].pos_y;
-					gotoxy(pos_x, pos_y);
-					puts("<<[[*]]:=:{-*-}:=:[[*]]>>");
-					gotoxy(pos_x + 11, pos_y + 1);
-					puts("| |");
-					gotoxy(pos_x + 11, pos_y + 2);
-					puts("| |");
-					gotoxy(pos_x + 11, pos_y + 3);
-					puts("| |");
-					gotoxy(pos_x + 7, pos_y + 4);
-					puts("<[[::=::]]>");
-					bomb[0].speed = 20;
-				}
-
-				// 폭탄 0번 빠르게 움직일때
-				if (pos_y > 18 || pos_y < 13)
-				{
-					gotoxy(pos_x, pos_y);
-					puts("                           ");
-					gotoxy(pos_x + 11, pos_y + 1);
-					puts("   ");
-					gotoxy(pos_x + 11, pos_y + 2);
-					puts("   ");
-					gotoxy(pos_x + 11, pos_y + 3);
-					puts("   ");
-					gotoxy(pos_x + 7, pos_y + 4);
-					puts("           ");
-					bomb[0].pos_y--;
-					pos_y = bomb[0].pos_y;
-					gotoxy(pos_x, pos_y);
-					puts("<<[[*]]:=:{-*-}:=:[[*]]>>");
-					gotoxy(pos_x + 11, pos_y + 1);
-					puts("| |");
-					gotoxy(pos_x + 11, pos_y + 2);
-					puts("| |");
-					gotoxy(pos_x + 11, pos_y + 3);
-					puts("| |");
-					gotoxy(pos_x + 7, pos_y + 4);
-					puts("<[[::=::]]>");
-				}
-			}
-
-			// 폭탄 0번이 특정 위치까지 갔을때 폭탄 1번 이동
-			if (pos_y < 18 || (bomb[0].con == FALSE && bomb[1].con == TRUE))
-			{
-				pos_x = bomb[1].pos_x;
-				pos_y = bomb[1].pos_y;
-
-				// 천천히
-				if ((pos_y >= 14 && pos_y <= 19) && bomb[1].speed < 1)
-				{
-					gotoxy(pos_x, pos_y);
-					puts("                         ");
-					gotoxy(pos_x + 11, pos_y + 1);
-					puts("   ");
-					gotoxy(pos_x + 11, pos_y + 2);
-					puts("   ");
-					gotoxy(pos_x + 11, pos_y + 3);
-					puts("   ");
-					gotoxy(pos_x + 7, pos_y + 4);
-					puts("           ");
-					bomb[1].pos_y--;
-					pos_y = bomb[1].pos_y;
-					gotoxy(pos_x, pos_y);
-					puts("<<[[*]]:=:{-*-}:=:[[*]]>>");
-					gotoxy(pos_x + 11, pos_y + 1);
-					puts("| |");
-					gotoxy(pos_x + 11, pos_y + 2);
-					puts("| |");
-					gotoxy(pos_x + 11, pos_y + 3);
-					puts("| |");
-					gotoxy(pos_x + 7, pos_y + 4);
-					puts("<[[::=::]]>");
-					bomb[1].speed = 20;
-				}
-				//빨리
-				if (pos_y > 19 || pos_y < 14)
-				{
-					gotoxy(pos_x, pos_y);
-					puts("                         ");
-					gotoxy(pos_x + 11, pos_y + 1);
-					puts("   ");
-					gotoxy(pos_x + 11, pos_y + 2);
-					puts("   ");
-					gotoxy(pos_x + 11, pos_y + 3);
-					puts("   ");
-					gotoxy(pos_x + 7, pos_y + 4);
-					puts("           ");
-					bomb[1].pos_y--;
-					pos_y = bomb[1].pos_y;
-					gotoxy(pos_x, pos_y);
-					puts("<<[[*]]:=:{-*-}:=:[[*]]>>");
-					gotoxy(pos_x + 11, pos_y + 1);
-					puts("| |");
-					gotoxy(pos_x + 11, pos_y + 2);
-					puts("| |");
-					gotoxy(pos_x + 11, pos_y + 3);
-					puts("| |");
-					gotoxy(pos_x + 7, pos_y + 4);
-					puts("<[[::=::]]>");
-				}
-				bomb[1].speed--;
-			}
-			bomb[0].speed--;
-		}
+			bombMove(bomb);
 
 		// 총알 이동
-		for (int i = 0; i < BULLET_SIZE; i++)
-		{
-			if (bullet[i].con == TRUE)
-			{
-				gotoxy(bullet[i].pos_x, bullet[i].pos_y);
-				puts("  ");
-				bullet[i].pos_y--;
-				gotoxy(bullet[i].pos_x, bullet[i].pos_y);
-				puts("ⅰ");
-			}
-		}
+		bulletMove(bullet);
 
 		// 플레이어 - 적 충돌
 		for (int i = 0; i < ENEMY_SIZE; i++)
@@ -414,45 +189,11 @@ void game(void)
 		}
 
 		// 폭탄 총알 발사
-		for (int i = 0; i < BOMB_BUL_SIZE; i++)
-		{
-			if ((bomb[0].pos_y >= 13 && bomb[0].pos_y <= 18) && bomb_bul[i].con == FALSE)
-			{
-				bomb_bul[i].pos_x = bomb[0].pos_x;
-				bomb_bul[i].pos_y = bomb[0].pos_y - 2;
-				bomb_bul[i].con = TRUE;
-			}
-
-			if ((bomb[1].pos_y >= 14 && bomb[1].pos_y <= 19) && bomb_bul2[i].con == FALSE)
-			{
-				bomb_bul2[i].pos_x = bomb[1].pos_x;
-				bomb_bul2[i].pos_y = bomb[1].pos_y - 2;
-				bomb_bul2[i].con = TRUE;
-			}
-		}
+		bombBul(bomb, bomb_bul, bomb_bul2, 0);
 
 		// 폭탄 총알 이동
-		for (int i = 0; i < BOMB_BUL_SIZE; i++)
-		{
-			if (bomb_bul[i].con == TRUE)
-			{
-				gotoxy(bomb_bul[i].pos_x, bomb_bul[i].pos_y);
-				puts("                      ");
-				bomb_bul[i].pos_y--;
-				gotoxy(bomb_bul[i].pos_x, bomb_bul[i].pos_y);
-				puts("    ㅆ              ㅆ");
-			}
-
-			if (bomb_bul2[i].con == TRUE)
-			{
-				gotoxy(bomb_bul2[i].pos_x, bomb_bul2[i].pos_y);
-				puts("                      ");
-				bomb_bul2[i].pos_y--;
-				gotoxy(bomb_bul2[i].pos_x, bomb_bul2[i].pos_y);
-				puts("    ㅆ              ㅆ");
-			}
-		}
-
+		bombBul(bomb, bomb_bul, bomb_bul2, 1);
+		
 		// 폭탄 - 적 충돌
 		if (bomb[0].con == TRUE && bomb[1].con == TRUE)
 		{
@@ -587,58 +328,4 @@ void game(void)
 		frame_cnt++;
 		Sleep(15);
 	}
-}
-
-void stage(int frame_cnt)
-{
-	for (int i = 0; i < ENEMY_SIZE; i++)
-	{
-		if ((enemy[i].con == FALSE && (frame_cnt >= 45 && frame_cnt <= 315) && (frame_cnt - 45) % 90 == 0))
-		{
-			enemy[i].pos_x = 6;
-			enemy[i].pos_y = 0;
-			enemy[i].type = 0; // <[W]> * * * * * * *
-			enemy[i].move_pattern = 0; // 오른쪽 대각선 이동
-			enemy[i].move_count = 0;
-			enemy[i].speed = 0;
-			enemy[i].con = TRUE;
-			gotoxy(enemy[i].pos_x, enemy[i].pos_y);
-			switch (enemy[i].type)
-			{
-			case 0:
-				printf("<WvW>");
-				break;
-			}
-			break;
-		}
-		if ((enemy[i].con == FALSE && (frame_cnt >= 90 && frame_cnt <= 360) && (frame_cnt - 90) % 90 == 0))
-		{
-			enemy[i].pos_x = 50;
-			enemy[i].pos_y = 1;
-			// <[W]> * * * * * * *
-			enemy[i].type = 0;
-			// 왼쪽 대각선으로 이동
-			enemy[i].move_pattern = 1;
-			enemy[i].con = TRUE;
-			enemy[i].move_count = 0;
-			enemy[i].speed = 0;
-			gotoxy(enemy[i].pos_x, enemy[i].pos_y);
-			switch (enemy[i].type)
-			{
-			case 0:
-				printf("<WvW>");
-				break;
-			}
-			break;
-		}
-	}
-
-	// 스테이지별로 적군 생성
-	// 메인하뭇에서 f_cnt가 증가하여 45~315동안 90으로 나누어 떨어질때 적군 생성
-	// n_enemy(x좌표, y좌표, 타입, 이동패턴, 방향)으로 생성
-	// 아이템 생성도 스테이지 함수에 맏겨야함 
-	// 5 ~ 55 사이에 위치해야함
-	// printf("<[W]>");
-	// printf("<WvvW>");
-	// printf("[-|-]");;
 }

@@ -1,3 +1,4 @@
+#pragma once
 #define TRUE 1
 #define FALSE 0
 #define STAT 4
@@ -9,8 +10,6 @@
 #define RIGHT_LIMIT 
 #define UP_LIMIT 
 #define DOWN_LIMIT 
-
-void drawStat(int*);
 
 // 플레이어 관련
 typedef struct _PLAYER
@@ -65,3 +64,10 @@ typedef struct _ENEMY
 	int speed;
 	int con;
 } Enemy;
+
+void drawStat(int*);
+void enemyGen(Enemy*, int);
+void enemyMove(Enemy*);
+void bombMove(Bomb*);
+void bulletMove(Bullet*);
+void bombBul(Bomb*, Bomb_blt*, Bomb_blt*, int);
