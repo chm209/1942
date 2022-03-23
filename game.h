@@ -6,10 +6,7 @@
 #define BOMB_SIZE 2
 #define BOMB_BUL_SIZE 5
 #define ENEMY_SIZE 30
-#define LEFT_LIMIT 
-#define RIGHT_LIMIT 
-#define UP_LIMIT 
-#define DOWN_LIMIT 
+#define ENEMY_BUL_SIZE 30
 
 // 플레이어 관련
 typedef struct _PLAYER
@@ -63,6 +60,11 @@ typedef struct _ENEMY
 	int move_count;
 	int speed;
 	int con;
+	int bullet[10];
+	int bul_pos_x[10];
+	int bul_pos_y[10];
+	int bul_con[10];
+	int bul_speed;
 } Enemy;
 
 void drawStat(int*);

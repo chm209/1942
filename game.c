@@ -20,7 +20,7 @@ void game(void)
 	Bomb bomb[BOMB_SIZE] = { 29, 24, 3, 5, FALSE, 6, 24, 0, 5, FALSE }; // // X값, Y값, 잔량, 속도, 확인
 	Bomb_blt bomb_bul[BOMB_BUL_SIZE] = { 0, };
 	Bomb_blt bomb_bul2[BOMB_BUL_SIZE] = { 0, };
-	
+
 	// 적군
 	int frame_cnt = 0;
 	Enemy enemy[ENEMY_SIZE] = { 0, };
@@ -95,7 +95,7 @@ void game(void)
 
 		// 스킬 X키 - 생명 추가
 		// STAT UI에 반영해야함
-		if ((GetAsyncKeyState(0x58) && frame_cnt > 1 ) && (skill.life_count == 0 && skill.life_plus > 0 ))
+		if ((GetAsyncKeyState(0x58) && frame_cnt > 1) && (skill.life_count == 0 && skill.life_plus > 0))
 		{
 			player.life++;
 			skill.life_plus--;
@@ -127,13 +127,64 @@ void game(void)
 
 		// 적군 이동
 		enemyMove(enemy);
-		
+
 		// 폭탄 이동
 		if (bomb[0].con == TRUE || bomb[1].con == TRUE)
 			bombMove(bomb);
 
 		// 총알 이동
 		bulletMove(bullet);
+
+		// 적군 총알 발사
+		for (int i = 0; i < ENEMY_SIZE; i++)
+		{
+			if (enemy[i].con == TRUE)
+			{
+				for (int j = 0; j < 10; j++)
+				{
+					if (enemy[i].bul_speed > 60 && (enemy[i].move_count == 1 || enemy[i].move_count == 3))
+					{
+						enemy[i].bul_pos_x[j] = enemy[i].pos_x + 2;
+						enemy[i].bul_pos_y[j] = enemy[i].pos_y + 1;
+						enemy[i].bul_con[j] = TRUE;
+						enemy[i].bul_speed = 0;
+						gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
+						printf("*");
+					}
+				}
+				enemy[i].bul_speed++;
+			}
+		}
+
+		// 적 총알 이동
+		for (int i = 0; i < ENEMY_SIZE; i++)
+		{
+			for (int j = 0; j < 10; j++)
+			{
+				if (enemy[i].bul_con[j] == TRUE)
+				{
+					gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
+					puts("  ");
+					enemy[i].bul_pos_y[j]++;
+					gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
+					printf("*");
+				}
+			}
+		}
+
+		// 적 총알 바닥 도달
+		for (int i = 0; i < ENEMY_SIZE; i++)
+		{
+			for (int j = 0; j < 10; j++)
+			{
+				if (enemy[i].bul_pos_y[j] == 29)
+				{
+					gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
+					puts("  ");
+					enemy[i].bul_con[j] = FALSE;
+				}
+			}
+		}
 
 		// 플레이어 - 적 충돌
 		for (int i = 0; i < ENEMY_SIZE; i++)
@@ -176,6 +227,7 @@ void game(void)
 					{
 						gotoxy(enemy[j].pos_x, enemy[j].pos_y);
 						puts("      ");
+
 						enemy[j].pos_x = 0;
 						enemy[j].pos_y = 0;
 						enemy[j].con = FALSE;
@@ -193,7 +245,7 @@ void game(void)
 
 		// 폭탄 총알 이동
 		bombBul(bomb, bomb_bul, bomb_bul2, 1);
-		
+
 		// 폭탄 - 적 충돌
 		if (bomb[0].con == TRUE && bomb[1].con == TRUE)
 		{

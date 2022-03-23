@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="bombBulMove.c" />
+    <ClCompile Include="bombBul.c" />
     <ClCompile Include="bombMove.c" />
     <ClCompile Include="bulletMove.c" />
     <ClCompile Include="cursor.c" />
