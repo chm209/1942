@@ -20,6 +20,7 @@ void game(void)
 	Bomb bomb[BOMB_SIZE] = { 29, 24, 1, 5, FALSE, 6, 24, 0, 5, FALSE }; // // X값, Y값, 잔량, 속도, 확인
 	Bomb_blt bomb_bul[BOMB_BUL_SIZE] = { 0, };
 	Bomb_blt bomb_bul2[BOMB_BUL_SIZE] = { 0, };
+	Item item[ITEM_SIZE] = { 0, };
 
 	// 적군
 	int frame_cnt = 0;
@@ -125,6 +126,9 @@ void game(void)
 		// 적군 생성
 		enemyGen(enemy, frame_cnt);
 
+		// 아이템 생성
+		itemGen(item, frame_cnt);
+
 		// 적군 이동
 		enemyMove(enemy);
 
@@ -140,7 +144,7 @@ void game(void)
 		{
 			if (enemy[i].con == TRUE)
 			{
-				for (int j = 0; j < 10; j++)
+				for (int j = 0; j < ENEMY_BUL_SIZE; j++)
 				{
 					if (enemy[i].move_pattern == 1 || enemy[i].move_pattern == 0)
 					{
@@ -162,7 +166,7 @@ void game(void)
 		// 적 총알 이동
 		for (int i = 0; i < ENEMY_SIZE; i++)
 		{
-			for (int j = 0; j < 10; j++)
+			for (int j = 0; j < ENEMY_BUL_SIZE; j++)
 			{
 				if (enemy[i].move_pattern == 1 || enemy[i].move_pattern == 0)
 				{
@@ -178,10 +182,83 @@ void game(void)
 			}
 		}
 
+		// 아이템 이동
+		for (int i = 0; i < ITEM_SIZE; i++)
+		{
+			if (item[i].con == TRUE)
+			{
+				if (item[i].speed == 15)
+				{
+					item[i].speed = 0;
+					gotoxy(item[i].pos_x, item[i].pos_y);
+					puts("   ");
+					item[i].pos_y++;
+					gotoxy(item[i].pos_x, item[i].pos_y);
+					switch (item[i].type)
+					{
+					case 0:
+						printf("[P]");
+						break;
+					}
+				}
+				else
+					item[i].speed++;
+				
+			}
+		}
+
+		// 아이템 유저 충돌
+		for (int i = 0; i < ITEM_SIZE; i++)
+		{
+			if (item[i].con == TRUE)
+			{
+				if (item[i].pos_y == player.pos_y)
+				{
+					if (item[i].pos_x >= player.pos_x && item[i].pos_x <= player.pos_x + 5)
+					{
+						gotoxy(item[i].pos_x, item[i].pos_y);
+						puts("   ");
+						item[i].con = FALSE;
+						
+						switch (item[i].type)
+						{
+						// 무기 업
+						case 0:
+							bullet[0].type = 1;
+							bullet[1].type = 1;
+							bullet[2].type = 1;
+							bullet[3].type = 1;
+							break;
+						case 1:
+							bullet[0].type = 2;
+							bullet[1].type = 2;
+							bullet[2].type = 2;
+							bullet[3].type = 2;
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		// 아이템 바닥 충돌
+		for (int i = 0; i < ITEM_SIZE; i++)
+		{
+			if (item[i].con == TRUE)
+			{
+				if (item[i].pos_y == 30)
+				{
+					gotoxy(item[i].pos_x, item[i].pos_y);
+					puts("   ");
+					item[i].con = FALSE;
+				}
+			}
+		}
+
 		// 적 총알 플레이어 충돌
 		for (int i = 0; i < ENEMY_SIZE; i++)
 		{
-			for (int j = 0; j < 10; j++)
+			for (int j = 0; j < ENEMY_BUL_SIZE; j++)
 			{
 				if (enemy[i].bul_con[j] == TRUE && enemy[i].bul_pos_y[j] == player.pos_y)
 				{
@@ -199,6 +276,8 @@ void game(void)
 							{
 								player.life--;
 								player.health = 3;
+								bomb[0].con = TRUE;
+								bomb[1].con = TRUE;
 							}
 							else
 							{
@@ -215,13 +294,54 @@ void game(void)
 		// 적 총알 바닥 도달
 		for (int i = 0; i < ENEMY_SIZE; i++)
 		{
-			for (int j = 0; j < 10; j++)
+			for (int j = 0; j < ENEMY_BUL_SIZE; j++)
 			{
-				if (enemy[i].bul_pos_y[j] > 29)
+				if (enemy[i].bul_con[j] == TRUE && enemy[i].bul_pos_y[j] > 29)
 				{
 					gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
 					puts("  ");
 					enemy[i].bul_con[j] = FALSE;
+				}
+			}
+		}
+
+		// 적 총알 플레이어 총알 충돌
+		for (int i = 0; i < ENEMY_SIZE; i++)
+		{
+			for (int j = 0; j < ENEMY_BUL_SIZE; j++)
+			{
+				for (int k = 0; k < BULLET_SIZE; k++)
+				{
+					if (enemy[i].bul_con[j] == TRUE && bullet[k].con == TRUE)
+					{
+						if (enemy[i].bul_pos_y[j] == bullet[k].pos_y)
+						{
+							if (enemy[i].bul_pos_x[j] == bullet[k].pos_x)
+							{
+								gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
+								puts("  ");
+								enemy[i].bul_con[j] = FALSE;
+								bullet[k].con = FALSE;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// 폭탄 발사시 적 총알 폭탄 앞에서 삭제
+		if (bomb[0].con == TRUE || bomb[1].con == TRUE)
+		{
+			for (int i = 0; i < ENEMY_SIZE; i++)
+			{
+				for (int j = 0; j < ENEMY_BUL_SIZE; j++)
+				{
+					if (enemy[i].bul_con[j] == TRUE && (enemy[i].bul_pos_y[j] >= bomb[0].pos_y || enemy[i].bul_pos_y[j] >= bomb[1].pos_y))
+					{
+						gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
+						puts("  ");
+						enemy[i].bul_con[j] = FALSE;
+					}
 				}
 			}
 		}

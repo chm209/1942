@@ -12,7 +12,18 @@ void bulletMove(Bullet* bullet)
 			puts("  ");
 			bullet[i].pos_y--;
 			gotoxy(bullet[i].pos_x, bullet[i].pos_y);
-			puts("ァ");
+			switch (bullet[i].type)
+			{
+			case 0:
+				puts("ァ");
+				break;
+			case 1:
+				puts("ア");
+				break;
+			case 2:
+				puts("ィ");
+				break;
+			}
 		}
 	}
 }

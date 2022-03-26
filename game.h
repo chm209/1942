@@ -5,6 +5,7 @@
 #define BULLET_SIZE 4
 #define BOMB_SIZE 2
 #define BOMB_BUL_SIZE 5
+#define ITEM_SIZE 5
 #define ENEMY_SIZE 30
 #define ENEMY_BUL_SIZE 10
 
@@ -23,6 +24,7 @@ typedef struct _BULLET
 	int pos_x;
 	int pos_y;
 	int con;
+	int type;
 } Bullet;
 
 typedef struct _SKILL
@@ -49,6 +51,15 @@ typedef struct _BOMB_BULLET
 	int con;
 } Bomb_blt;
 
+typedef struct _ITEM
+{
+	int pos_x;
+	int pos_y;
+	int con;
+	int type;
+	int speed;
+} Item;
+
 // 적군 관련
 
 typedef struct _ENEMY
@@ -68,6 +79,7 @@ typedef struct _ENEMY
 } Enemy;
 
 void drawStat(int*);
+void itemGen(Item*, int);
 void enemyGen(Enemy*, int);
 void enemyMove(Enemy*);
 void bombMove(Bomb*);

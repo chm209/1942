@@ -66,6 +66,9 @@
     <ClCompile Include="bombBul.c">
       <Filter>소스 파일\game</Filter>
     </ClCompile>
+    <ClCompile Include="itemGen.c">
+      <Filter>소스 파일\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
