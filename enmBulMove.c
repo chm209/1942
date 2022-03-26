@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include "game.h"
+#include "common.h"
+
+void enmBulMove(Enemy* enemy)
+{
+	for (int i = 0; i < ENEMY_SIZE; i++)
+	{
+		for (int j = 0; j < ENEMY_BUL_SIZE; j++)
+		{
+			if (enemy[i].move_pattern == 1 || enemy[i].move_pattern == 0)
+			{
+				if (enemy[i].bul_con[j] == TRUE)
+				{
+					gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
+					puts("  ");
+					enemy[i].bul_pos_y[j]++;
+					gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
+					printf("*");
+				}
+			}
+		}
+	}
+}

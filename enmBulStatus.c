@@ -9,6 +9,31 @@ Player enmBulStatus(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, int
 	case 0:
 		for (int i = 0; i < ENEMY_SIZE; i++)
 		{
+			if (enemy[i].con == TRUE)
+			{
+				for (int j = 0; j < ENEMY_BUL_SIZE; j++)
+				{
+					if (enemy[i].move_pattern == 1 || enemy[i].move_pattern == 0)
+					{
+						if (enemy[i].bul_speed > 60 && (enemy[i].move_count == 1 || enemy[i].move_count == 3))
+						{
+							enemy[i].bul_pos_x[j] = enemy[i].pos_x + 2;
+							enemy[i].bul_pos_y[j] = enemy[i].pos_y + 1;
+							enemy[i].bul_con[j] = TRUE;
+							enemy[i].bul_speed = 0;
+							gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
+							printf("*");
+						}
+					}
+				}
+				enemy[i].bul_speed++;
+			}
+		}
+		break;
+		break;
+	case 1:
+		for (int i = 0; i < ENEMY_SIZE; i++)
+		{
 			for (int j = 0; j < ENEMY_BUL_SIZE; j++)
 			{
 				if (enemy[i].bul_con[j] == TRUE && enemy[i].bul_pos_y[j] == player.pos_y)
@@ -27,6 +52,8 @@ Player enmBulStatus(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, int
 							{
 								player.life--;
 								player.health = 3;
+								player.pos_x = 26;
+								player.pos_y = 26;
 								bomb[0].con = TRUE;
 								bomb[1].con = TRUE;
 							}
@@ -37,7 +64,7 @@ Player enmBulStatus(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, int
 			}
 		}
 		break;
-	case 1:
+	case 2:
 		for (int i = 0; i < ENEMY_SIZE; i++)
 		{
 			for (int j = 0; j < ENEMY_BUL_SIZE; j++)
@@ -51,7 +78,7 @@ Player enmBulStatus(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, int
 			}
 		}
 		break;
-	case 2:
+	case 3:
 		for (int i = 0; i < ENEMY_SIZE; i++)
 		{
 			for (int j = 0; j < ENEMY_BUL_SIZE; j++)
@@ -75,7 +102,7 @@ Player enmBulStatus(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, int
 			}
 		}
 		break;
-	case 3:
+	case 4:
 		if (bomb[0].con == TRUE || bomb[1].con == TRUE)
 		{
 			for (int i = 0; i < ENEMY_SIZE; i++)

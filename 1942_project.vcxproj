@@ -140,16 +140,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="bombBul.c" />
+    <ClCompile Include="bombBulStatus.c" />
     <ClCompile Include="bombMove.c" />
+    <ClCompile Include="bombStatus.c" />
     <ClCompile Include="bulletMove.c" />
+    <ClCompile Include="bulletStatus.c" />
     <ClCompile Include="cursor.c" />
     <ClCompile Include="drawContent.c" />
     <ClCompile Include="drawStat.c" />
     <ClCompile Include="drawSymbol.c" />
     <ClCompile Include="enemyGen.c" />
     <ClCompile Include="enemyMove.c" />
-    <ClCompile Include="enemyBul.c" />
+    <ClCompile Include="enmBulMove.c" />
     <ClCompile Include="enmBulStatus.c" />
+    <ClCompile Include="enmStatus.c" />
     <ClCompile Include="game.c" />
     <ClCompile Include="gotoxy.c" />
     <ClCompile Include="itemGen.c" />

@@ -19,6 +19,18 @@
     <Filter Include="소스 파일\game">
       <UniqueIdentifier>{d69ced28-3b53-4a40-8258-d662bcb20e62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\game\player">
+      <UniqueIdentifier>{b071589c-0389-48ae-9085-79278541dbb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\game\bomb">
+      <UniqueIdentifier>{aeeba708-e398-4457-8db8-687ea1811141}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\game\enemy">
+      <UniqueIdentifier>{4bc7bf23-efe9-475a-a4d3-66dc0dc6395f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\game\item">
+      <UniqueIdentifier>{4ab61f7c-de4c-4257-8a46-d87bd3e99b48}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cursor.c">
@@ -48,40 +60,52 @@
     <ClCompile Include="game.c">
       <Filter>소스 파일\game</Filter>
     </ClCompile>
+    <ClCompile Include="enemyGen.c">
+      <Filter>소스 파일\game\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyMove.c">
+      <Filter>소스 파일\game\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="enmBulMove.c">
+      <Filter>소스 파일\game\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="enmBulStatus.c">
+      <Filter>소스 파일\game\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="enmStatus.c">
+      <Filter>소스 파일\game\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="bombBul.c">
+      <Filter>소스 파일\game\bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="bombBulStatus.c">
+      <Filter>소스 파일\game\bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="bombMove.c">
+      <Filter>소스 파일\game\bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="bombStatus.c">
+      <Filter>소스 파일\game\bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="itemStatus.c">
+      <Filter>소스 파일\game\item</Filter>
+    </ClCompile>
+    <ClCompile Include="itemGen.c">
+      <Filter>소스 파일\game\item</Filter>
+    </ClCompile>
+    <ClCompile Include="itemMove.c">
+      <Filter>소스 파일\game\item</Filter>
+    </ClCompile>
+    <ClCompile Include="bulletMove.c">
+      <Filter>소스 파일\game\player</Filter>
+    </ClCompile>
+    <ClCompile Include="bulletStatus.c">
+      <Filter>소스 파일\game\player</Filter>
+    </ClCompile>
     <ClCompile Include="drawStat.c">
       <Filter>소스 파일\game</Filter>
     </ClCompile>
-    <ClCompile Include="enemyGen.c">
-      <Filter>소스 파일\game</Filter>
-    </ClCompile>
-    <ClCompile Include="enemyMove.c">
-      <Filter>소스 파일\game</Filter>
-    </ClCompile>
-    <ClCompile Include="bombMove.c">
-      <Filter>소스 파일\game</Filter>
-    </ClCompile>
-    <ClCompile Include="bulletMove.c">
-      <Filter>소스 파일\game</Filter>
-    </ClCompile>
-    <ClCompile Include="bombBul.c">
-      <Filter>소스 파일\game</Filter>
-    </ClCompile>
-    <ClCompile Include="itemGen.c">
-      <Filter>소스 파일\game</Filter>
-    </ClCompile>
     <ClCompile Include="drawSymbol.c">
-      <Filter>소스 파일\game</Filter>
-    </ClCompile>
-    <ClCompile Include="enemyBul.c">
-      <Filter>소스 파일\game</Filter>
-    </ClCompile>
-    <ClCompile Include="itemMove.c">
-      <Filter>소스 파일\game</Filter>
-    </ClCompile>
-    <ClCompile Include="itemStatus.c">
-      <Filter>소스 파일\game</Filter>
-    </ClCompile>
-    <ClCompile Include="enmBulStatus.c">
       <Filter>소스 파일\game</Filter>
     </ClCompile>
   </ItemGroup>
