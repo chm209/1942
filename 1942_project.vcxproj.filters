@@ -81,6 +81,9 @@
     <ClCompile Include="itemStatus.c">
       <Filter>소스 파일\game</Filter>
     </ClCompile>
+    <ClCompile Include="enmBulStatus.c">
+      <Filter>소스 파일\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">

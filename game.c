@@ -152,96 +152,17 @@ void game(void)
 		itemStatus(item, player, bullet, 1);
 		
 		// 적 총알 플레이어 충돌
-		for (int i = 0; i < ENEMY_SIZE; i++)
-		{
-			for (int j = 0; j < ENEMY_BUL_SIZE; j++)
-			{
-				if (enemy[i].bul_con[j] == TRUE && enemy[i].bul_pos_y[j] == player.pos_y)
-				{
-					if ((enemy[i].bul_pos_x[j] >= player.pos_x) && (enemy[i].bul_pos_x[j] <= player.pos_x + 5))
-					{
-						gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
-						puts("  ");
-						enemy[i].bul_con[j] = FALSE;
-
-						if (player.health > 0)
-							player.health--;
-						else
-						{
-							if (player.life > 0)
-							{
-								player.life--;
-								player.health = 3;
-								bomb[0].con = TRUE;
-								bomb[1].con = TRUE;
-							}
-							else
-							{
-								// 게임 종료
-								return 0;
-							}
-						}
-						
-					}
-				}
-			}
-		}
+		player = enmBulStatus(enemy, player, bomb, bullet, 0);
 
 		// 적 총알 바닥 도달
-		for (int i = 0; i < ENEMY_SIZE; i++)
-		{
-			for (int j = 0; j < ENEMY_BUL_SIZE; j++)
-			{
-				if (enemy[i].bul_con[j] == TRUE && enemy[i].bul_pos_y[j] > 29)
-				{
-					gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
-					puts("  ");
-					enemy[i].bul_con[j] = FALSE;
-				}
-			}
-		}
-
+		player = enmBulStatus(enemy, player, bomb, bullet, 1);
+		
 		// 적 총알 플레이어 총알 충돌
-		for (int i = 0; i < ENEMY_SIZE; i++)
-		{
-			for (int j = 0; j < ENEMY_BUL_SIZE; j++)
-			{
-				for (int k = 0; k < BULLET_SIZE; k++)
-				{
-					if (enemy[i].bul_con[j] == TRUE && bullet[k].con == TRUE)
-					{
-						if (enemy[i].bul_pos_y[j] == bullet[k].pos_y)
-						{
-							if (enemy[i].bul_pos_x[j] == bullet[k].pos_x)
-							{
-								gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
-								puts("  ");
-								enemy[i].bul_con[j] = FALSE;
-								bullet[k].con = FALSE;
-							}
-						}
-					}
-				}
-			}
-		}
-
+		player = enmBulStatus(enemy, player, bomb, bullet, 2);
+		
 		// 폭탄 발사시 적 총알 폭탄 앞에서 삭제
-		if (bomb[0].con == TRUE || bomb[1].con == TRUE)
-		{
-			for (int i = 0; i < ENEMY_SIZE; i++)
-			{
-				for (int j = 0; j < ENEMY_BUL_SIZE; j++)
-				{
-					if (enemy[i].bul_con[j] == TRUE && (enemy[i].bul_pos_y[j] >= bomb[0].pos_y || enemy[i].bul_pos_y[j] >= bomb[1].pos_y))
-					{
-						gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
-						puts("  ");
-						enemy[i].bul_con[j] = FALSE;
-					}
-				}
-			}
-		}
-
+		player = enmBulStatus(enemy, player, bomb, bullet, 3);
+		
 		// 플레이어 - 적 충돌
 		for (int i = 0; i < ENEMY_SIZE; i++)
 		{

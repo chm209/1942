@@ -87,6 +87,7 @@ void itemStatus(Item*, Player, Bullet*, int);
 void enemyGen(Enemy*, int);
 void enemyMove(Enemy*);
 void enemyBul(Enemy*, int);
+Player enmBulStatus(Enemy*, Player, Bomb*, Bullet*, int);
 void bombMove(Bomb*);
 void bulletMove(Bullet*);
 void bombBul(Bomb*, Bomb_blt*, Bomb_blt*, int);
