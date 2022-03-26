@@ -217,7 +217,7 @@ void game(void)
 		{
 			for (int j = 0; j < 10; j++)
 			{
-				if (enemy[i].bul_pos_y[j] == 29)
+				if (enemy[i].bul_pos_y[j] > 29)
 				{
 					gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
 					puts("  ");

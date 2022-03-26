@@ -6,7 +6,7 @@
 #define BOMB_SIZE 2
 #define BOMB_BUL_SIZE 5
 #define ENEMY_SIZE 30
-#define ENEMY_BUL_SIZE 30
+#define ENEMY_BUL_SIZE 10
 
 // 플레이어 관련
 typedef struct _PLAYER
