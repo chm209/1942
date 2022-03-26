@@ -69,6 +69,18 @@
     <ClCompile Include="itemGen.c">
       <Filter>소스 파일\game</Filter>
     </ClCompile>
+    <ClCompile Include="drawSymbol.c">
+      <Filter>소스 파일\game</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyBul.c">
+      <Filter>소스 파일\game</Filter>
+    </ClCompile>
+    <ClCompile Include="itemMove.c">
+      <Filter>소스 파일\game</Filter>
+    </ClCompile>
+    <ClCompile Include="itemStatus.c">
+      <Filter>소스 파일\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">

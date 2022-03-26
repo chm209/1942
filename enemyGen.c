@@ -15,6 +15,8 @@ void enemyGen(Enemy* enemy, int frame_cnt)
 			enemy[i].move_pattern = 0; // 오른쪽 대각선 이동
 			enemy[i].move_count = 0;
 			enemy[i].speed = 0;
+			enemy[i].health = 5;
+			enemy[i].health = 5;
 			enemy[i].con = TRUE;
 			isCreated = TRUE;
 		}
@@ -25,9 +27,10 @@ void enemyGen(Enemy* enemy, int frame_cnt)
 			enemy[i].pos_y = 1;
 			enemy[i].type = 0;
 			enemy[i].move_pattern = 1; // 왼쪽 대각선으로 이동
-			enemy[i].con = TRUE;
 			enemy[i].move_count = 0;
 			enemy[i].speed = 0;
+			enemy[i].health = 5;
+			enemy[i].con = TRUE;
 			isCreated = TRUE;
 		}
 

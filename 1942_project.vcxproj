@@ -145,11 +145,15 @@
     <ClCompile Include="cursor.c" />
     <ClCompile Include="drawContent.c" />
     <ClCompile Include="drawStat.c" />
+    <ClCompile Include="drawSymbol.c" />
     <ClCompile Include="enemyGen.c" />
     <ClCompile Include="enemyMove.c" />
+    <ClCompile Include="enemyBul.c" />
     <ClCompile Include="game.c" />
     <ClCompile Include="gotoxy.c" />
     <ClCompile Include="itemGen.c" />
+    <ClCompile Include="itemMove.c" />
+    <ClCompile Include="itemStatus.c" />
     <ClCompile Include="login.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="move.c" />

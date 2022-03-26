@@ -70,6 +70,7 @@ typedef struct _ENEMY
 	int move_pattern;
 	int move_count;
 	int speed;
+	int health;
 	int con;
 	int bullet[10];
 	int bul_pos_x[10];
@@ -78,10 +79,14 @@ typedef struct _ENEMY
 	int bul_speed;
 } Enemy;
 
-void drawStat(int*);
+void drawSymbol(int, int, int);
+void drawStat(Player, Bomb*);
 void itemGen(Item*, int);
+void itemMove(Item*);
+void itemStatus(Item*, Player, Bullet*, int);
 void enemyGen(Enemy*, int);
 void enemyMove(Enemy*);
+void enemyBul(Enemy*, int);
 void bombMove(Bomb*);
 void bulletMove(Bullet*);
 void bombBul(Bomb*, Bomb_blt*, Bomb_blt*, int);

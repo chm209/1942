@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <Windows.h> // GetAsyncKeyState 사용을 위함
+#include <time.h>
 #include "common.h"
 #include "game.h"
 
@@ -8,29 +9,25 @@ void game(void)
 {
 	system("mode con: cols=80 lines=32");
 	system("cls");
+	srand(time(NULL));
 
-	// 생명, 폭탄, 체력, 점수
-	int stat_list[STAT] = { 1, 1, 3, 0 };
-
-	// 플레이어
-	// 위치, 총알, 폭탄, 스킬 관련
+	// 플레이어 - 폭탄, 스킬 포함
 	Player player = { 28, 28, 1, 3, 0 }; // X값, Y값, 생명, 체력, 점수
 	Bullet bullet[BULLET_SIZE] = { 0, }; // X값, Y값, 확인
 	Skill skill = { 3, 3, 0, 0 };
+	Item item[ITEM_SIZE] = { 0, };
 	Bomb bomb[BOMB_SIZE] = { 29, 24, 1, 5, FALSE, 6, 24, 0, 5, FALSE }; // // X값, Y값, 잔량, 속도, 확인
 	Bomb_blt bomb_bul[BOMB_BUL_SIZE] = { 0, };
 	Bomb_blt bomb_bul2[BOMB_BUL_SIZE] = { 0, };
-	Item item[ITEM_SIZE] = { 0, };
-
+	
 	// 적군
-	int frame_cnt = 0;
+	int frame_cnt = 0; // 스테이지 생성용
 	Enemy enemy[ENEMY_SIZE] = { 0, };
 
 	while (1)
 	{
-		// 반복할때마다 UI와 스탯을 새로 그려줌
 		drawContent(1);
-		drawStat(stat_list);
+		drawStat(player, bomb);
 		gotoxy(player.pos_x, player.pos_y);
 		puts("[-*-]");
 
@@ -140,121 +137,20 @@ void game(void)
 		bulletMove(bullet);
 
 		// 적군 총알 발사
-		for (int i = 0; i < ENEMY_SIZE; i++)
-		{
-			if (enemy[i].con == TRUE)
-			{
-				for (int j = 0; j < ENEMY_BUL_SIZE; j++)
-				{
-					if (enemy[i].move_pattern == 1 || enemy[i].move_pattern == 0)
-					{
-						if (enemy[i].bul_speed > 60 && (enemy[i].move_count == 1 || enemy[i].move_count == 3))
-						{
-							enemy[i].bul_pos_x[j] = enemy[i].pos_x + 2;
-							enemy[i].bul_pos_y[j] = enemy[i].pos_y + 1;
-							enemy[i].bul_con[j] = TRUE;
-							enemy[i].bul_speed = 0;
-							gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
-							printf("*");
-						}
-					}
-				}
-				enemy[i].bul_speed++;
-			}
-		}
+		enemyBul(enemy, 0);
 
 		// 적 총알 이동
-		for (int i = 0; i < ENEMY_SIZE; i++)
-		{
-			for (int j = 0; j < ENEMY_BUL_SIZE; j++)
-			{
-				if (enemy[i].move_pattern == 1 || enemy[i].move_pattern == 0)
-				{
-					if (enemy[i].bul_con[j] == TRUE)
-					{
-						gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
-						puts("  ");
-						enemy[i].bul_pos_y[j]++;
-						gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
-						printf("*");
-					}
-				}
-			}
-		}
-
+		enemyBul(enemy, 1);
+		
 		// 아이템 이동
-		for (int i = 0; i < ITEM_SIZE; i++)
-		{
-			if (item[i].con == TRUE)
-			{
-				if (item[i].speed == 15)
-				{
-					item[i].speed = 0;
-					gotoxy(item[i].pos_x, item[i].pos_y);
-					puts("   ");
-					item[i].pos_y++;
-					gotoxy(item[i].pos_x, item[i].pos_y);
-					switch (item[i].type)
-					{
-					case 0:
-						printf("[P]");
-						break;
-					}
-				}
-				else
-					item[i].speed++;
-				
-			}
-		}
-
+		itemMove(item);
+		
 		// 아이템 유저 충돌
-		for (int i = 0; i < ITEM_SIZE; i++)
-		{
-			if (item[i].con == TRUE)
-			{
-				if (item[i].pos_y == player.pos_y)
-				{
-					if (item[i].pos_x >= player.pos_x && item[i].pos_x <= player.pos_x + 5)
-					{
-						gotoxy(item[i].pos_x, item[i].pos_y);
-						puts("   ");
-						item[i].con = FALSE;
-						
-						switch (item[i].type)
-						{
-						// 무기 업
-						case 0:
-							bullet[0].type = 1;
-							bullet[1].type = 1;
-							bullet[2].type = 1;
-							bullet[3].type = 1;
-							break;
-						case 1:
-							bullet[0].type = 2;
-							bullet[1].type = 2;
-							bullet[2].type = 2;
-							bullet[3].type = 2;
-							break;
-						}
-					}
-				}
-			}
-		}
+		itemStatus(item, player, bullet, 0);
 
 		// 아이템 바닥 충돌
-		for (int i = 0; i < ITEM_SIZE; i++)
-		{
-			if (item[i].con == TRUE)
-			{
-				if (item[i].pos_y == 30)
-				{
-					gotoxy(item[i].pos_x, item[i].pos_y);
-					puts("   ");
-					item[i].con = FALSE;
-				}
-			}
-		}
-
+		itemStatus(item, player, bullet, 1);
+		
 		// 적 총알 플레이어 충돌
 		for (int i = 0; i < ENEMY_SIZE; i++)
 		{
@@ -385,16 +281,42 @@ void game(void)
 				{
 					if ((enemy[j].pos_x <= bullet[i].pos_x - 1) && (enemy[j].pos_x + 5) >= bullet[i].pos_x + 1)
 					{
-						gotoxy(enemy[j].pos_x, enemy[j].pos_y);
-						puts("      ");
+						if (enemy[i].health > 0)
+						{
+							gotoxy(bullet[i].pos_x, bullet[i].pos_y);
+							switch (rand() % 5 + 1)
+							{
+							case 1:
+								puts("0");
+								break;
+							case 2:
+								puts("o");
+								break;
+							case 3:
+								puts("☆");
+								break;
+							case 4:
+								puts("★");
+								break;
+							case 5:
+								puts("♧");
+								break;
+							}
+							enemy[i].health--;
+						}
+						else
+						{
+							gotoxy(enemy[j].pos_x, enemy[j].pos_y);
+							puts("      ");
 
-						enemy[j].pos_x = 0;
-						enemy[j].pos_y = 0;
-						enemy[j].con = FALSE;
+							enemy[j].pos_x = 0;
+							enemy[j].pos_y = 0;
+							enemy[j].con = FALSE;
 
-						gotoxy(bullet[i].pos_x, bullet[i].pos_y);
-						puts("  ");
-						bullet[i].con = FALSE;
+							gotoxy(bullet[i].pos_x, bullet[i].pos_y);
+							puts("  ");
+							bullet[i].con = FALSE;
+						}
 					}
 				}
 			}
@@ -527,18 +449,11 @@ void game(void)
 			}
 		}
 
-		// 플레이어 스탯 동기화
-		stat_list[0] = player.life; // 생명
-		stat_list[2] = player.health; // 체력
-		stat_list[1] = bomb[0].count; // 폭탄
-		// stat_list[2] = ; // 체력
-		// stat_list[3] = ; // 점수
-
 		// 스킬 재사용 대기
 		if (skill.life_count > 0)
 			skill.life_count--;
 
 		frame_cnt++;
-		Sleep(15);
+		Sleep(22);
 	}
 }
