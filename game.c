@@ -196,7 +196,7 @@ void game(void)
 			skill.life_count--;
 
 		// 게임 종료 검사
-		if (player.life == 0)
+		if (player.life == 0 && player.health == 0)
 		{
 			break;
 		}

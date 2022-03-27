@@ -25,6 +25,7 @@ void bombBulStatus(Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_bul2, int num)
 			}
 		}
 		break;
+	// ÆøÅº ÃÑ¾Ë ÃµÀå µµ´Þ
 	case 1:
 		for (int i = 0; i < BOMB_BUL_SIZE; i++)
 		{

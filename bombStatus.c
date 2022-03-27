@@ -6,6 +6,7 @@ void bombStatus(Bomb* bomb, Enemy* enemy, int num)
 {
 	switch (num)
 	{
+	// 폭탄 - 적 충돌
 	case 0:
 		if (bomb[0].con == TRUE && bomb[1].con == TRUE)
 		{
@@ -25,6 +26,7 @@ void bombStatus(Bomb* bomb, Enemy* enemy, int num)
 			}
 		}
 		break;
+	// 폭탄이 천장에 도달하면 삭제
 	case 1:
 		if (bomb[0].con == TRUE && bomb[0].pos_y == 0)
 		{

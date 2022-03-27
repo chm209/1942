@@ -6,6 +6,7 @@ Player enmBulStatus(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, int
 {
 	switch (num)
 	{
+	// Àû±º ÃÑ¾Ë ¹ß»ç
 	case 0:
 		for (int i = 0; i < ENEMY_SIZE; i++)
 		{
@@ -30,7 +31,7 @@ Player enmBulStatus(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, int
 			}
 		}
 		break;
-		break;
+	// Àû ÃÑ¾Ë ÇÃ·¹ÀÌ¾î Ãæµ¹
 	case 1:
 		for (int i = 0; i < ENEMY_SIZE; i++)
 		{
@@ -52,6 +53,8 @@ Player enmBulStatus(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, int
 							{
 								player.life--;
 								player.health = 3;
+								gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
+								puts("     ");
 								player.pos_x = 26;
 								player.pos_y = 26;
 								bomb[0].con = TRUE;
@@ -64,6 +67,7 @@ Player enmBulStatus(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, int
 			}
 		}
 		break;
+	// Àû ÃÑ¾Ë ¹Ù´Ú µµ´Þ
 	case 2:
 		for (int i = 0; i < ENEMY_SIZE; i++)
 		{
@@ -78,6 +82,7 @@ Player enmBulStatus(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, int
 			}
 		}
 		break;
+	// Àû ÃÑ¾Ë ÇÃ·¹ÀÌ¾î ÃÑ¾Ë Ãæµ¹
 	case 3:
 		for (int i = 0; i < ENEMY_SIZE; i++)
 		{
@@ -102,6 +107,7 @@ Player enmBulStatus(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, int
 			}
 		}
 		break;
+	// ÆøÅº ¹ß»ç½Ã Àû ÃÑ¾Ë ÆøÅº ¾Õ¿¡¼­ »èÁ¦
 	case 4:
 		if (bomb[0].con == TRUE || bomb[1].con == TRUE)
 		{
