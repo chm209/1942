@@ -63,6 +63,35 @@ void game(void)
 			}
 		}
 
+		// 게임 일시 정지
+		if ((GetAsyncKeyState(VK_ESCAPE)))
+		{
+			int menu_num = 23;
+			int key = 0;
+
+			while (key != ENTER)
+			{
+				drawContent(2);
+				gotoxy(menu_num, 14);
+				printf("◎");
+				key = _getch();
+				gotoxy(menu_num, 14);
+				printf("  ");
+				menu_num = move(1, key, menu_num, 14);
+			}
+
+			if (menu_num == 23) // 네
+			{
+				// 게임 스코어 저장
+				break;
+			}
+			else // menu_num == 39 : 아니요
+			{
+				system("cls");
+				continue;
+			}
+		}
+
 		// 플레이어 총알 공격 스페이스바
 		if ((GetAsyncKeyState(VK_SPACE)))
 		{

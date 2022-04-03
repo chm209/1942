@@ -101,5 +101,20 @@ void drawContent(int scr_num)
 			printf(":");
 		}
 		break;
+	// pause 화면
+	case 2:
+		gotoxy(16, 10);
+		puts("PAUSE");
+		gotoxy(15, 11);
+		puts("┌─────────────────────────────┐");
+		gotoxy(15, 12);
+		puts("│  게임을 종료 하시겠습니까?  │");
+		gotoxy(15, 13);
+		puts("├─────────────────────────────┤");
+		gotoxy(15, 14);
+		puts("│   예 (  )  │  아니요 (  )   │");
+		gotoxy(15, 15);
+		puts("└─────────────────────────────┘");
+		break;
 	}
 }

@@ -17,7 +17,17 @@ int move(int scr_num, int key, int pos_x, int pos_y)
 			pos_y = (pos_y >= 24) ? 24 : pos_y + 2;
 			break;
 		}
-		break;
+		return pos_y;
+	case 1:
+		switch (key)
+		{
+		case LEFT:
+			pos_x = (pos_x > 23) ? 23 : pos_x;
+			break;
+		case RIGHT:
+			pos_x = (pos_x < 39) ? 39 : pos_x;
+			break;
+		}
+		return pos_x;
 	}
-	return pos_y;
 }
