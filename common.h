@@ -7,6 +7,7 @@ int login(int);
 void ranking(void);
 void shop(void);
 void game(void);
+void setColor(unsigned short, unsigned short);
 
 enum ControlKey
 {

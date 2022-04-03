@@ -75,11 +75,59 @@ void enemyMove(Enemy* enemy)
 				}
 			}
 
+			// 아래로 직진
+			if (enemy[i].move_pattern == 2 || enemy[i].move_pattern == 3)
+			{
+				if (enemy[i].pos_y > 12)
+				{
+					// 자기 턴이 오면 진행
+					if (enemy[i].speed == 2)
+					{
+						enemy[i].pos_y++;
+
+						if (enemy[i].move_count == 3)
+							enemy[i].move_count = 0;
+						else
+							enemy[i].move_count++;
+
+						// 턴 초기화
+						enemy[i].speed = 0;
+					}
+					else
+					{
+						enemy[i].speed++;
+					}
+				}
+				else
+				{
+					// 자기 턴이 오면 진행
+					if (enemy[i].speed == 20)
+					{
+						enemy[i].pos_y++;
+
+						if (enemy[i].move_count == 3)
+							enemy[i].move_count = 0;
+						else
+							enemy[i].move_count++;
+
+						// 턴 초기화
+						enemy[i].speed = 0;
+					}
+					else
+					{
+						enemy[i].speed++;
+					}
+				}
+			}
+
 			gotoxy(enemy[i].pos_x, enemy[i].pos_y);
 			switch (enemy[i].type)
 			{
 			case 0:
 				printf("<WvW>");
+				break;
+			case 1:
+				printf("<XVX>");
 				break;
 			}
 		}

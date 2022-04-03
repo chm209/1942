@@ -26,8 +26,10 @@ void game(void)
 	{
 		drawContent(1);
 		drawStat(player, bomb);
+		setColor(14, 2);
 		gotoxy(player.pos_x, player.pos_y);
 		puts("[-*-]");
+		setColor(15, 2);
 
 		// 유저 키보드 감지
 		// GetAsyncKeyState()로 상시 감지하기 위해 함수화 X
@@ -138,13 +140,6 @@ void game(void)
 				// 스킬 재사용 시간 조정 필요
 				skill.life_count = 1000;
 			}
-		}
-
-		// 스킬 C키 - 무적 기능
-		if ((GetAsyncKeyState(0x43) && frame_cnt > 1))
-		{
-			// 적군 만들고 나서 만들어야함
-			// 적군이나 총알이 유저한테 충돌해도 데미지 없음
 		}
 
 		// 적군 생성

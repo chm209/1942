@@ -163,6 +163,7 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="move.c" />
     <ClCompile Include="ranking.c" />
+    <ClCompile Include="setColor.c" />
     <ClCompile Include="shop.c" />
   </ItemGroup>
   <ItemGroup>

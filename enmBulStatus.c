@@ -26,6 +26,18 @@ Player enmBulStatus(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, int
 							printf("*");
 						}
 					}
+					else if (enemy[i].move_pattern == 2 || enemy[i].move_pattern == 3)
+					{
+						if (enemy[i].bul_speed > 60 && enemy[i].move_count == 3)
+						{
+							enemy[i].bul_pos_x[j] = enemy[i].pos_x + 2;
+							enemy[i].bul_pos_y[j] = enemy[i].pos_y + 1;
+							enemy[i].bul_con[j] = TRUE;
+							enemy[i].bul_speed = 0;
+							gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
+							printf("¢´");
+						}
+					}
 				}
 				enemy[i].bul_speed++;
 			}

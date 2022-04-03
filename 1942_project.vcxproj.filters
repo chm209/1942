@@ -108,6 +108,9 @@
     <ClCompile Include="drawSymbol.c">
       <Filter>소스 파일\game</Filter>
     </ClCompile>
+    <ClCompile Include="setColor.c">
+      <Filter>소스 파일\function</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">

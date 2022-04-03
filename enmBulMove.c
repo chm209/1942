@@ -16,6 +16,24 @@ void enmBulMove(Enemy* enemy)
 				gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
 				printf("*");
 			}
+			if (enemy[i].bul_con[j] == TRUE && enemy[i].move_pattern == 2)
+			{
+				gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
+				puts("  ");
+				enemy[i].bul_pos_x[j]++;
+				enemy[i].bul_pos_y[j]++;
+				gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
+				printf("¢´");
+			}
+			if (enemy[i].bul_con[j] == TRUE && enemy[i].move_pattern == 3)
+			{
+				gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
+				puts("  ");
+				enemy[i].bul_pos_x[j]--;
+				enemy[i].bul_pos_y[j]++;
+				gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
+				printf("¢´");
+			}
 		}
 	}
 }
