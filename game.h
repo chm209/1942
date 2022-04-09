@@ -30,9 +30,7 @@ typedef struct _BULLET
 typedef struct _SKILL
 {
 	int life_plus;
-	int invincible;
 	int life_count;
-	int invin_count;
 } Skill;
 
 typedef struct _BOMB
@@ -76,22 +74,23 @@ typedef struct _ENEMY
 	int bul_pos_x[10];
 	int bul_pos_y[10];
 	int bul_con[10];
-	int bul_speed;
+	int bul_speed[10];
 } Enemy;
 
-void drawSymbol(int, int, int);
-void drawStat(Player, Bomb*);
-void itemGen(Item*, int);
-void itemMove(Item*);
-void itemStatus(Item*, Player, Bullet*, int);
-void enemyGen(Enemy*, int);
-void enemyMove(Enemy*);
-Player enmStatus(Enemy*, Bomb*, Bomb_blt*, Bomb_blt*, Player, Bullet*, int);
-void enmBulMove(Enemy*);
-Player enmBulStatus(Enemy*, Player, Bomb*, Bullet*, int);
-void bombMove(Bomb*);
-void bulletMove(Bullet*);
-void bulletStatus(Bullet*);
-void bombBulMove(Bomb*, Bomb_blt*, Bomb_blt*);
-void bombStatus(Bomb*, Enemy*, int);
-void bombBulStatus(Bomb*, Bomb_blt*, Bomb_blt*, int);
+void draw_symbol(int, int, int);
+void draw_stat(Player, Bomb*);
+void item_gen(Item*, int);
+void item_move(Item*);
+void item_status(Item*, Player, Bullet*, int);
+void enemy_gen(Enemy*, int);
+void enemy_move(Enemy*);
+Player enm_status(Enemy*, Bomb*, Bomb_blt*, Bomb_blt*, Player, Bullet*, int);
+void enm_bull_move(Enemy*);
+Player enm_bull_status(Enemy*, Player, Bomb*, Bullet*, int);
+void bomb_move(Bomb*);
+void bullet_status(Bullet*);
+void bullet_move(Bullet*);
+void bomb_status(Bullet*);
+void bomb_bull_move(Bomb*, Bomb_blt*, Bomb_blt*);
+void bomb_status(Bomb*, Enemy*, int);
+void bomb_bull_status(Bomb*, Bomb_blt*, Bomb_blt*, int);

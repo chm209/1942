@@ -2,7 +2,7 @@
 #include "common.h"
 #include "game.h"
 
-void bulletMove(Bullet* bullet)
+void bullet_move(Bullet* bullet)
 {
 	for (int i = 0; i < BULLET_SIZE; i++)
 	{

@@ -2,12 +2,12 @@
 void cursor(int);
 void gotoxy(int, int);
 int move(int, int, int, int);
-void drawContent(int);
+void draw_content(int);
 int login(int);
 void ranking(void);
 void shop(void);
 void game(void);
-void setColor(unsigned short, unsigned short);
+void set_color(unsigned short);
 
 enum ControlKey
 {

@@ -2,7 +2,7 @@
 #include "game.h"
 #include "common.h"
 
-Player enmBulStatus(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, int num)
+Player enm_bull_status(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, int num)
 {
 	switch (num)
 	{

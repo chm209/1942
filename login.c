@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include "common.h"
 
-int login(int scr_num)
+int login(int screen_num)
 {
 	char* user_id = malloc(sizeof(char) * 20);
 	char* user_password = malloc(sizeof(char) * 20);
 
-	switch (scr_num)
+	switch (screen_num)
 	{
 	case 0:
 		gotoxy(39, 18);

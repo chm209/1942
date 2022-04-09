@@ -2,7 +2,7 @@
 #include "common.h"
 #include "game.h"
 
-void enemyMove(Enemy* enemy)
+void enemy_move(Enemy* enemy)
 {
 	for (int i = 0; i < ENEMY_SIZE; i++)
 	{

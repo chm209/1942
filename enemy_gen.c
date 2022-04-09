@@ -2,7 +2,7 @@
 #include "common.h"
 #include "game.h"
 
-void enemyGen(Enemy* enemy, int frame_cnt)
+void enemy_gen(Enemy* enemy, int frame_cnt)
 {
 	int isCreated = FALSE;
 	for (int i = 0; i < ENEMY_SIZE; i++)

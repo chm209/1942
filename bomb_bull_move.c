@@ -2,7 +2,7 @@
 #include "common.h"
 #include "game.h"
 
-void bombBulMove(Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_bul2)
+void bomb_bull_move(Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_bul2)
 {
 	for (int i = 0; i < BOMB_BUL_SIZE; i++)
 	{

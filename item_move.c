@@ -2,7 +2,7 @@
 #include "game.h"
 #include "common.h"
 
-void itemMove(Item* item)
+void item_move(Item* item)
 {
 	for (int i = 0; i < ITEM_SIZE; i++)
 	{

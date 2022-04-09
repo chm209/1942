@@ -2,7 +2,7 @@
 #include "game.h"
 #include "common.h"
 
-void enmBulMove(Enemy* enemy)
+void enm_bull_move(Enemy* enemy)
 {
 	for (int i = 0; i < ENEMY_SIZE; i++)
 	{

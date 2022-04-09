@@ -2,7 +2,7 @@
 #include "common.h"
 #include "game.h"
 
-void itemGen(Item* item, int frame_cnt)
+void item_gen(Item* item, int frame_cnt)
 {
 	int isCreated = FALSE;
 

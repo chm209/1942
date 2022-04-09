@@ -2,7 +2,7 @@
 #include "game.h"
 #include "common.h"
 
-void bombStatus(Bomb* bomb, Enemy* enemy, int num)
+void bomb_status(Bomb* bomb, Enemy* enemy, int num)
 {
 	switch (num)
 	{

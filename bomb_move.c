@@ -2,7 +2,7 @@
 #include "common.h"
 #include "game.h"
 
-void bombMove(Bomb* bomb)
+void bomb_move(Bomb* bomb)
 {
 	int pos_x = 0;
 	int pos_y = 0;

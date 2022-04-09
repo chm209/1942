@@ -2,7 +2,7 @@
 #include "common.h"
 #include "game.h"
 
-void itemStatus(Item* item, Player player, Bullet* bullet, int num)
+void item_status(Item* item, Player player, Bullet* bullet, int num)
 {
 	switch (num)
 	{

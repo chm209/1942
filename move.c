@@ -2,32 +2,33 @@
 #include "common.h"
 
 // 화면 번호, 사용자가 입력한 값, X좌표, Y좌표
-int move(int scr_num, int key, int pos_x, int pos_y)
+int move(int screen_num, int key, int POS_X, int POS_Y)
 {
-	switch (scr_num)
+	switch (screen_num)
 	{
 	// 메인화면, 위 아래 동작만 있음
 	case 0:
 		switch (key)
 		{
 		case UP:
-			pos_y = (pos_y <= 18) ? 18 : pos_y - 2;
+			POS_Y = (POS_Y <= 18) ? 18 : POS_Y - 2;
 			break;
 		case DOWN:
-			pos_y = (pos_y >= 24) ? 24 : pos_y + 2;
+			POS_Y = (POS_Y >= 24) ? 24 : POS_Y + 2;
 			break;
 		}
-		return pos_y;
+		return POS_Y;
+	// PAUSE 창
 	case 1:
 		switch (key)
 		{
 		case LEFT:
-			pos_x = (pos_x > 23) ? 23 : pos_x;
+			POS_X = (POS_X > 23) ? 23 : POS_X;
 			break;
 		case RIGHT:
-			pos_x = (pos_x < 39) ? 39 : pos_x;
+			POS_X = (POS_X < 39) ? 39 : POS_X;
 			break;
 		}
-		return pos_x;
+		return POS_X;
 	}
 }

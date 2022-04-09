@@ -2,7 +2,7 @@
 #include "common.h"
 #include "game.h"
 
-void bulletStatus(Bullet* bullet)
+void bullet_status(Bullet* bullet)
 {
 	for (int i = 0; i < BULLET_SIZE; i++)
 	{

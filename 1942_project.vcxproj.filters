@@ -45,7 +45,7 @@
     <ClCompile Include="main.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="drawContent.c">
+    <ClCompile Include="draw_content.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="login.c">
@@ -60,55 +60,55 @@
     <ClCompile Include="game.c">
       <Filter>소스 파일\game</Filter>
     </ClCompile>
-    <ClCompile Include="enemyGen.c">
+    <ClCompile Include="enemy_gen.c">
       <Filter>소스 파일\game\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="enemyMove.c">
+    <ClCompile Include="enemy_move.c">
       <Filter>소스 파일\game\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="enmBulMove.c">
+    <ClCompile Include="enm_bull_move.c">
       <Filter>소스 파일\game\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="enmBulStatus.c">
+    <ClCompile Include="enm_bull_status.c">
       <Filter>소스 파일\game\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="enmStatus.c">
+    <ClCompile Include="enm_status.c">
       <Filter>소스 파일\game\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="bombBul.c">
+    <ClCompile Include="bomb_bull_move.c">
       <Filter>소스 파일\game\bomb</Filter>
     </ClCompile>
-    <ClCompile Include="bombBulStatus.c">
+    <ClCompile Include="bomb_bull_status.c">
       <Filter>소스 파일\game\bomb</Filter>
     </ClCompile>
-    <ClCompile Include="bombMove.c">
+    <ClCompile Include="bomb_move.c">
       <Filter>소스 파일\game\bomb</Filter>
     </ClCompile>
-    <ClCompile Include="bombStatus.c">
+    <ClCompile Include="bomb_status.c">
       <Filter>소스 파일\game\bomb</Filter>
     </ClCompile>
-    <ClCompile Include="itemStatus.c">
+    <ClCompile Include="item_status.c">
       <Filter>소스 파일\game\item</Filter>
     </ClCompile>
-    <ClCompile Include="itemGen.c">
+    <ClCompile Include="item_gen.c">
       <Filter>소스 파일\game\item</Filter>
     </ClCompile>
-    <ClCompile Include="itemMove.c">
+    <ClCompile Include="item_move.c">
       <Filter>소스 파일\game\item</Filter>
     </ClCompile>
-    <ClCompile Include="bulletMove.c">
+    <ClCompile Include="bullet_move.c">
       <Filter>소스 파일\game\player</Filter>
     </ClCompile>
-    <ClCompile Include="bulletStatus.c">
+    <ClCompile Include="bullet_status.c">
       <Filter>소스 파일\game\player</Filter>
     </ClCompile>
-    <ClCompile Include="drawStat.c">
+    <ClCompile Include="draw_stat.c">
       <Filter>소스 파일\game</Filter>
     </ClCompile>
-    <ClCompile Include="drawSymbol.c">
+    <ClCompile Include="draw_symbol.c">
       <Filter>소스 파일\game</Filter>
     </ClCompile>
-    <ClCompile Include="setColor.c">
+    <ClCompile Include="set_color.c">
       <Filter>소스 파일\function</Filter>
     </ClCompile>
   </ItemGroup>
