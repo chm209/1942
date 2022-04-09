@@ -2,13 +2,13 @@
 #include "common.h"
 #include "game.h"
 
-void item_gen(Item* item, int frame_cnt)
+void item_gen(Item* item, int frame_count)
 {
 	int isCreated = FALSE;
 
 	for (int i = 0; i < ITEM_SIZE; i++)
 	{
-		if (frame_cnt == 700)
+		if (frame_count == 700)
 		{
 			item[i].con = TRUE;
 			item[i].pos_x = 10;

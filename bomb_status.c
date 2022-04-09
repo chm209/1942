@@ -8,7 +8,7 @@ void bomb_status(Bomb* bomb, Enemy* enemy, int num)
 	{
 	// ÆøÅº - Àû Ãæµ¹
 	case 0:
-		if (bomb[0].con == TRUE && bomb[1].con == TRUE)
+		if (bomb[0].con == TRUE || bomb[1].con == TRUE)
 		{
 			for (int i = 0; i < BOMB_SIZE; i++)
 			{

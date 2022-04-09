@@ -74,7 +74,7 @@ typedef struct _ENEMY
 	int bul_pos_x[10];
 	int bul_pos_y[10];
 	int bul_con[10];
-	int bul_speed[10];
+	int bul_speed;
 } Enemy;
 
 void draw_symbol(int, int, int);
@@ -90,7 +90,6 @@ Player enm_bull_status(Enemy*, Player, Bomb*, Bullet*, int);
 void bomb_move(Bomb*);
 void bullet_status(Bullet*);
 void bullet_move(Bullet*);
-void bomb_status(Bullet*);
 void bomb_bull_move(Bomb*, Bomb_blt*, Bomb_blt*);
 void bomb_status(Bomb*, Enemy*, int);
 void bomb_bull_status(Bomb*, Bomb_blt*, Bomb_blt*, int);
