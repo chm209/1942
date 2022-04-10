@@ -9,7 +9,7 @@ void enemy_move(Enemy* enemy)
 		if (enemy[i].con == TRUE)
 		{
 			gotoxy(enemy[i].pos_x, enemy[i].pos_y);
-			printf("     ");
+			puts("     ");
 
 			// 오른쪽 대각선 이동
 			if (enemy[i].move_pattern == 0)

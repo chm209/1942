@@ -15,7 +15,7 @@ Player enm_status(Enemy* enemy, Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_b
 			if (enemy[i].con == TRUE && enemy[i].pos_y == 29)
 			{
 				gotoxy(enemy[i].pos_x, enemy[i].pos_y);
-				printf("     ");
+				puts("     ");
 				enemy[i].pos_x = 0;
 				enemy[i].pos_y = 0;
 				enemy[i].con = FALSE;

@@ -23,7 +23,7 @@ Player enm_bull_status(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, 
 							enemy[i].bul_con[j] = TRUE;
 							enemy[i].bul_speed = 0;
 							gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
-							printf("*");
+							puts("*");
 						}
 					}
 					else if (enemy[i].move_pattern == 2 || enemy[i].move_pattern == 3)
@@ -35,7 +35,7 @@ Player enm_bull_status(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, 
 							enemy[i].bul_con[j] = TRUE;
 							enemy[i].bul_speed = 0;
 							gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
-							printf("¢´");
+							puts("¢´");
 						}
 					}
 				}
