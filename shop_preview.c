@@ -58,22 +58,6 @@ void shop_preview(int item_num)
 		break;
 	case 8:
 		gotoxy(59, 5);
-		puts("데미지 감소");
-		gotoxy(59, 8);
-		puts("총알 데미지를 5회동안 -1 해준다.");
-		gotoxy(59, 11);
-		puts("1. 중복 사용 불가");
-		gotoxy(59, 13);
-		puts("2. 사용후 쿨타임 N초후 재사용 가능");
-		gotoxy(59, 15);
-		puts("3. 플레이어 전투기 파괴후 재생성시");
-		gotoxy(59, 16);
-		puts("아이템 효과가 사라진다.");
-		gotoxy(59, 18);
-		puts("4. 최대 5개까지 보유 가능하다.");
-		break;
-	case 10:
-		gotoxy(59, 5);
 		puts("추가 점수");
 		gotoxy(59, 8);
 		puts("적 파괴시 추가 점수 획득 가능");
@@ -86,7 +70,7 @@ void shop_preview(int item_num)
 		gotoxy(59, 17);
 		puts("4. 무제한 구매 가능");
 		break;
-	case 12:
+	case 10:
 		gotoxy(59, 5);
 		puts("빨강 페인트");
 		gotoxy(59, 8);
@@ -106,7 +90,7 @@ void shop_preview(int item_num)
 		puts("<-*->");
 		set_color(15);
 		break;
-	case 14:
+	case 12:
 		gotoxy(59, 5);
 		puts("파랑 페인트");
 		gotoxy(59, 8);
@@ -126,7 +110,7 @@ void shop_preview(int item_num)
 		puts("{:*:}");
 		set_color(15);
 		break;
-	case 16:
+	case 14:
 		gotoxy(59, 5);
 		puts("노랑 페인트");
 		gotoxy(59, 8);
@@ -146,7 +130,7 @@ void shop_preview(int item_num)
 		puts("H:*:H");
 		set_color(15);
 		break;
-	case 18:
+	case 16:
 		gotoxy(59, 5);
 		puts("빨간 총알");
 		gotoxy(59, 8);
@@ -166,7 +150,7 @@ void shop_preview(int item_num)
 		puts("γ ψ Ψ");
 		set_color(15);
 		break;
-	case 20:
+	case 18:
 		gotoxy(59, 5);
 		puts("파란 총알");
 		gotoxy(59, 8);
@@ -186,7 +170,7 @@ void shop_preview(int item_num)
 		puts("＋ ± ÷");
 		set_color(15);
 		break;
-	case 22:
+	case 20:
 		gotoxy(59, 5);
 		puts("노란 총알");
 		gotoxy(59, 8);
@@ -205,6 +189,16 @@ void shop_preview(int item_num)
 		set_color(12);
 		puts("★ ♠ ♣");
 		set_color(15);
+		break;
+	case 22:
+		gotoxy(59, 5);
+		puts("랭킹창 꾸미기");
+		gotoxy(59, 8);
+		puts("랭킹창의 유저명을 꾸며줍니다.");
+		gotoxy(59, 11);
+		puts("1. 선착순 고유 색상을 부여합니다.");
+		gotoxy(59, 13);
+		puts("2. 미정");
 		break;
 	}
 }

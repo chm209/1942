@@ -17,6 +17,8 @@ typedef struct _PLAYER
 	int life;
 	int health;
 	int score;
+	char* shape;
+	int color;
 } Player;
 
 typedef struct _BULLET
@@ -25,6 +27,8 @@ typedef struct _BULLET
 	int pos_y;
 	int con;
 	int type;
+	char* shape;
+	int color;
 } Bullet;
 
 typedef struct _SKILL
@@ -57,8 +61,18 @@ typedef struct _ITEM
 	int type;
 	int speed;
 } Item;
-// 利焙 包访
 
+typedef struct _SHOP
+{
+	int life_plus;
+	int hp_plus;
+	int dmg_up;
+	int add_point;
+	int paint_color;
+	int bullet_color;
+} Shop;
+
+// 利焙 包访
 typedef struct _ENEMY
 {
 	int pos_x;
@@ -80,7 +94,7 @@ void draw_symbol(int, int, int);
 void draw_stat(Player, Bomb*);
 void item_gen(Item*, int);
 void item_move(Item*);
-void item_status(Item*, Player, Bullet*, int);
+void item_status(Item*, Player, Bullet*, Shop, int);
 void enemy_gen(Enemy*, int);
 void enemy_move(Enemy*);
 Player enm_status(Enemy*, Bomb*, Bomb_blt*, Bomb_blt*, Player, Bullet*, int);

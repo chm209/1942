@@ -4,6 +4,8 @@
 
 void bullet_move(Bullet* bullet)
 {
+	// 속도 때문에 변수에 담아서 찍어줌
+	char* shape = bullet->shape;
 	for (int i = 0; i < BULLET_SIZE; i++)
 	{
 		if (bullet[i].con == TRUE)
@@ -12,18 +14,7 @@ void bullet_move(Bullet* bullet)
 			puts("  ");
 			bullet[i].pos_y--;
 			gotoxy(bullet[i].pos_x, bullet[i].pos_y);
-			switch (bullet[i].type)
-			{
-			case 0:
-				puts("ⅰ");
-				break;
-			case 1:
-				puts("ⅱ");
-				break;
-			case 2:
-				puts("ⅲ");
-				break;
-			}
+			puts(shape);
 		}
 	}
 }

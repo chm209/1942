@@ -2,7 +2,7 @@
 #include "common.h"
 #include "game.h"
 
-void item_status(Item* item, Player player, Bullet* bullet, int num)
+void item_status(Item* item, Player player, Bullet* bullet, Shop shop, int num)
 {
 	switch (num)
 	{
@@ -18,22 +18,47 @@ void item_status(Item* item, Player player, Bullet* bullet, int num)
 						gotoxy(item[i].pos_x, item[i].pos_y);
 						puts("   ");
 						item[i].con = FALSE;
-
-						switch (item[i].type)
+						
+						if (item[i].type == 0)
 						{
-							// ¹«±â ¾÷
-						case 0:
-							bullet[0].type = 1;
-							bullet[1].type = 1;
-							bullet[2].type = 1;
-							bullet[3].type = 1;
-							break;
-						case 1:
+							bullet->type = 1;
+							switch (shop.bullet_color)
+							{
+							case 0:
+								bullet->shape = "¥¢";
+								break;
+							case 1:
+								bullet->shape = "¥÷";
+								break;
+							case 2:
+								bullet->shape = "¡¾";
+								break;
+							case 3:
+								bullet->shape = "¢¼";
+								break;
+							}
+						}
+						else if (item[i].type == 1)
+						{
 							bullet[0].type = 2;
 							bullet[1].type = 2;
 							bullet[2].type = 2;
 							bullet[3].type = 2;
-							break;
+							switch (shop.bullet_color)
+							{
+							case 0:
+								bullet->shape = "¥£";
+								break;
+							case 1:
+								bullet->shape = "¥×";
+								break;
+							case 2:
+								bullet->shape = "¡À";
+								break;
+							case 3:
+								bullet->shape = "¢À";
+								break;
+							}
 						}
 					}
 				}

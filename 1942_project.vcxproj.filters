@@ -31,6 +31,9 @@
     <Filter Include="소스 파일\game\item">
       <UniqueIdentifier>{4ab61f7c-de4c-4257-8a46-d87bd3e99b48}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\shop">
+      <UniqueIdentifier>{ce1f2437-b3e4-4318-a7d4-e492f47d7e9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cursor.c">
@@ -52,9 +55,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="ranking.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="shop.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="game.c">
@@ -111,8 +111,11 @@
     <ClCompile Include="set_color.c">
       <Filter>소스 파일\function</Filter>
     </ClCompile>
+    <ClCompile Include="shop.c">
+      <Filter>소스 파일\shop</Filter>
+    </ClCompile>
     <ClCompile Include="shop_preview.c">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\shop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

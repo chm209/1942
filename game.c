@@ -9,7 +9,7 @@ void game(void)
 	system("mode con: cols=80 lines=32");
 	system("cls");
 	
-	// 플레이어 - 폭탄, 스킬 포함
+	// 플레이어 - 폭탄, 스킬, 상점 포함
 	Player player = { 28, 28, 1, 3, 0 }; // X값, Y값, 생명, 체력, 점수
 	Bullet bullet[BULLET_SIZE] = { 0, }; // X값, Y값, 확인
 	Skill skill = { 3, 0 };
@@ -17,18 +17,61 @@ void game(void)
 	Bomb bomb[BOMB_SIZE] = { 29, 24, 1, 5, FALSE, 6, 24, 0, 5, FALSE }; // X값, Y값, 잔량, 속도, 확인
 	Bomb_blt bomb_bul[BOMB_BUL_SIZE] = { 0, };
 	Bomb_blt bomb_bul2[BOMB_BUL_SIZE] = { 0, };
-	
+	Shop shop = { 0, 5, 0, 0, 3,  3}; // 치장 아이템의 경우 0은 기본 타입을 의미
+
 	// 적군
 	int frame_count = 0; // 스테이지 생성용
 	Enemy enemy[ENEMY_SIZE] = { 0, };
+
+	// 플레이어 비행기 설정
+	switch (shop.paint_color)
+	{
+	case 0:
+		player.shape = "[-*-]";
+		player.color = 15;
+		break;
+	case 1:
+		player.shape = "<-*->";
+		player.color = 12;
+		break;
+	case 2:
+		player.shape = "{:*:}";
+		player.color = 9;
+		break;
+	case 3:
+		player.shape = "H:*:H";
+		player.color = 14;
+		break;
+	}
+
+	// 플레이어 총알 설정
+	switch (shop.bullet_color)
+	{
+	case 0:
+		bullet->shape = "ⅰ";
+		bullet->color = 15;
+		break;
+	case 1:
+		bullet->shape = "γ";
+		bullet->color = 12;
+		break;
+	case 2:
+		bullet->shape = "＋";
+		bullet->color = 9;
+		break;
+	case 3:
+		bullet->shape = "★";
+		bullet->color = 14;
+		break;
+	}
 
 	while (1)
 	{
 		draw_content(1);
 		draw_stat(player, bomb);
-		set_color(14);
 		gotoxy(player.pos_x, player.pos_y);
-		puts("[-*-]");
+		set_color(player.color);
+		puts(player.shape);
 		set_color(15);
 
 		// 유저 키보드 감지
@@ -40,22 +83,26 @@ void game(void)
 				puts("     ");
 				player.pos_x--;
 				gotoxy(player.pos_x, player.pos_y);
-				puts("[-*-]");
+				set_color(player.color);
+				puts(player.shape);
+				set_color(15);
 			}
 			if (GetAsyncKeyState(VK_RIGHT) && player.pos_x < 51) { //오른쪽
 				gotoxy(player.pos_x, player.pos_y);
 				puts("     ");
 				player.pos_x++;
 				gotoxy(player.pos_x, player.pos_y);
-				puts("[-*-]");
+				set_color(player.color);
+				puts(player.shape);
+				set_color(15);
 			}
 			if (GetAsyncKeyState(VK_UP) && player.pos_y > 4) { //위
 				gotoxy(player.pos_x, player.pos_y);
 				puts("     ");
 				player.pos_y--;
-				set_color(14);
 				gotoxy(player.pos_x, player.pos_y);
-				puts("[-*-]");
+				set_color(player.color);
+				puts(player.shape);
 				set_color(15);
 			}
 			if (GetAsyncKeyState(VK_DOWN) && player.pos_y < 29) { //아래
@@ -63,12 +110,14 @@ void game(void)
 				puts("     ");
 				player.pos_y++;
 				gotoxy(player.pos_x, player.pos_y);
-				puts("[-*-]");
+				set_color(player.color);
+				puts(player.shape);
+				set_color(15);
 			}
 		}
 
 		// 게임 일시 정지
-		if ((GetAsyncKeyState(VK_ESCAPE)))
+		if (GetAsyncKeyState(VK_ESCAPE) && frame_count > 0)
 		{
 			int menu_num = 23;
 			int key = 0;
@@ -97,7 +146,7 @@ void game(void)
 		}
 
 		// 플레이어 총알 공격 스페이스바
-		if ((GetAsyncKeyState(VK_SPACE)))
+		if (GetAsyncKeyState(VK_SPACE) && frame_count > 0)
 		{
 			for (int i = 0; i < BULLET_SIZE; i++)
 			{
@@ -122,7 +171,7 @@ void game(void)
 			}
 		}
 
-		// 스킬 X키 - 생명 추가, 추후 상점에서 구매하는 방식으로 변경할 예정
+		// 스킬 X키 - 생명 추가
 		// 추후 STAT UI에 스킬 개수를 표시해줘야함
 		if ((GetAsyncKeyState(0x58) && frame_count > 1) && (skill.life_count == 0 && skill.life_plus > 0))
 		{
@@ -139,6 +188,15 @@ void game(void)
 			{
 				bomb[0].count++;
 			}
+		}
+
+		// 스킬 C키 - HP 회복
+		// 추후 STAT UI에 스킬 개수를 표시해줘야함
+		if ((GetAsyncKeyState(0x43) && frame_count > 1) && (shop.hp_plus > 0 && player.health < 3))
+		{
+			player.health++;
+			// 스킬 재사용 시간 짧게 처리하고
+			// 스킬 재사용 시간 항목을 여러개로 만들어야함
 		}
 
 		// 적군 생성
@@ -167,10 +225,10 @@ void game(void)
 		item_move(item);
 		
 		// 아이템 유저 충돌
-		item_status(item, player, bullet, 0);
+		item_status(item, player, bullet, shop, 0);
 
 		// 아이템 바닥 충돌
-		item_status(item, player, bullet, 1);
+		item_status(item, player, bullet, shop, 1);
 		
 		// 적 총알 플레이어 충돌
 		player = enm_bull_status(enemy, player, bomb, bullet, 1);
