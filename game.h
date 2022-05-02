@@ -57,7 +57,6 @@ typedef struct _ITEM
 	int type;
 	int speed;
 } Item;
-
 // 적군 관련
 
 typedef struct _ENEMY

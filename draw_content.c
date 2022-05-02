@@ -117,8 +117,86 @@ void draw_content(int screen_num)
 		break;
 	// 상점 화면
 	case 3:
-		gotoxy(4, 1);
-		puts("┌─────────────────────────────────────────────────────────┐");
+		gotoxy(2, 1);
+		puts("┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+		for (int i = 2; i < 24; i ++)
+		{
+			gotoxy(2, i);
+			puts("┃");
+			gotoxy(22, i);
+			puts("┃");
+			gotoxy(36, i);
+			puts("┃");
+			gotoxy(46, i);
+			puts("┃");
+			gotoxy(54, i);
+			puts("┃");
+			gotoxy(96, i);
+			puts("┃");
+		}
+		for (int i = 3; i < 24; i += 2)
+		{
+			gotoxy(2, i);
+			puts("┣━━━━━━━━━━━━━━━━━━━");
+			gotoxy(22, i);
+			puts("╋━━━━━━━━━━━━━");
+			gotoxy(36, i);
+			puts("╋━━━━━━━━━");
+			gotoxy(46, i);
+			puts("╋━━━━━━━");
+			gotoxy(54, i);
+			puts("┫");
+		}
+		gotoxy(36, 23);
+		puts("┻━━━━━━━━━");
+		gotoxy(46, 23);
+		puts("┻━━━━━━━");
+		gotoxy(2, 24);
+		puts("┃");
+		gotoxy(22, 24);
+		puts("┃");
+		gotoxy(54, 24);
+		puts("┃");
+		gotoxy(96, 24);
+		puts("┃");
+		gotoxy(2, 25);
+		puts("┗━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+		break;
+	case 4:
+		gotoxy(3, 26);
+		puts("치장 아이템은 하나씩만 소지 가능 합니다. / 구매시 기존 치장 아이템은 자동 판매 됩니다.");
+		gotoxy(3, 28);
+		puts("목록 이동: 방향키 ↑ ↓  ||  구매: ENTER                                   상점 나가기: ESC 키");
+		gotoxy(11, 2);
+		puts("항목");
+		gotoxy(28, 2);
+		puts("가격");
+		gotoxy(39, 2);
+		puts("보유수");
+		gotoxy(49, 2);
+		puts("선택");
+		gotoxy(5, 4);
+		puts("생명 추가");
+		gotoxy(5, 6);
+		puts("HP 회복");
+		gotoxy(5, 8);
+		puts("데미지 감소");
+		gotoxy(5, 10);
+		puts("추가 점수");
+		gotoxy(5, 12);
+		puts("빨강 페인트");
+		gotoxy(5, 14);
+		puts("파랑 페인트");
+		gotoxy(5, 16);
+		puts("노랑 페인트");
+		gotoxy(5, 18);
+		puts("빨간 총알");
+		gotoxy(5, 20);
+		puts("파란 총알");
+		gotoxy(5, 22);
+		puts("노란 총알");
+		gotoxy(5, 24);
+		puts("보유 포인트");
 		break;
 	}
 }

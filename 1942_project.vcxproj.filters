@@ -111,6 +111,9 @@
     <ClCompile Include="set_color.c">
       <Filter>소스 파일\function</Filter>
     </ClCompile>
+    <ClCompile Include="shop_preview.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">

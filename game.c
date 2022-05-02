@@ -53,8 +53,10 @@ void game(void)
 				gotoxy(player.pos_x, player.pos_y);
 				puts("     ");
 				player.pos_y--;
+				set_color(14);
 				gotoxy(player.pos_x, player.pos_y);
 				puts("[-*-]");
+				set_color(15);
 			}
 			if (GetAsyncKeyState(VK_DOWN) && player.pos_y < 29) { //¾Æ·¡
 				gotoxy(player.pos_x, player.pos_y);

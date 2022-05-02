@@ -18,7 +18,7 @@ int move(int screen_num, int key, int POS_X, int POS_Y)
 			break;
 		}
 		return POS_Y;
-	// PAUSE 창
+	// PAUSE 창, 좌 우 동작만 있음
 	case 1:
 		switch (key)
 		{
@@ -30,5 +30,17 @@ int move(int screen_num, int key, int POS_X, int POS_Y)
 			break;
 		}
 		return POS_X;
+	// 상점 화면, 위 아래 동작만 있음
+	case 2:
+		switch (key)
+		{
+		case UP:
+			POS_Y = (POS_Y <= 4) ? 4 : POS_Y - 2;
+			break;
+		case DOWN:
+			POS_Y = (POS_Y >= 22) ? 22 : POS_Y + 2;
+			break;
+		}
+		return POS_Y;
 	}
 }
