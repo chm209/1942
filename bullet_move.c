@@ -14,7 +14,9 @@ void bullet_move(Bullet* bullet)
 			puts("  ");
 			bullet[i].pos_y--;
 			gotoxy(bullet[i].pos_x, bullet[i].pos_y);
+			set_color(bullet->color);
 			puts(shape);
+			set_color(15);
 		}
 	}
 }

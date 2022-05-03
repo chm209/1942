@@ -31,12 +31,6 @@ typedef struct _BULLET
 	int color;
 } Bullet;
 
-typedef struct _SKILL
-{
-	int life_plus;
-	int life_count;
-} Skill;
-
 typedef struct _BOMB
 {
 	int pos_x;
@@ -66,8 +60,8 @@ typedef struct _SHOP
 {
 	int life_plus;
 	int hp_plus;
-	int dmg_up;
 	int add_point;
+	int cool_time;
 	int paint_color;
 	int bullet_color;
 } Shop;
@@ -91,7 +85,7 @@ typedef struct _ENEMY
 } Enemy;
 
 void draw_symbol(int, int, int);
-void draw_stat(Player, Bomb*);
+void draw_stat(Player, Bomb*, Shop);
 void item_gen(Item*, int);
 void item_move(Item*);
 void item_status(Item*, Player, Bullet*, Shop, int);

@@ -12,12 +12,11 @@ void game(void)
 	// 플레이어 - 폭탄, 스킬, 상점 포함
 	Player player = { 28, 28, 1, 3, 0 }; // X값, Y값, 생명, 체력, 점수
 	Bullet bullet[BULLET_SIZE] = { 0, }; // X값, Y값, 확인
-	Skill skill = { 3, 0 };
 	Item item[ITEM_SIZE] = { 0, };
 	Bomb bomb[BOMB_SIZE] = { 29, 24, 1, 5, FALSE, 6, 24, 0, 5, FALSE }; // X값, Y값, 잔량, 속도, 확인
 	Bomb_blt bomb_bul[BOMB_BUL_SIZE] = { 0, };
 	Bomb_blt bomb_bul2[BOMB_BUL_SIZE] = { 0, };
-	Shop shop = { 0, 5, 0, 0, 3,  3}; // 치장 아이템의 경우 0은 기본 타입을 의미
+	Shop shop = { 0, 0, 0, 0, 2, 1}; // 치장 아이템의 경우 0은 기본 타입을 의미
 
 	// 적군
 	int frame_count = 0; // 스테이지 생성용
@@ -68,7 +67,7 @@ void game(void)
 	while (1)
 	{
 		draw_content(1);
-		draw_stat(player, bomb);
+		draw_stat(player, bomb, shop);
 		gotoxy(player.pos_x, player.pos_y);
 		set_color(player.color);
 		puts(player.shape);
@@ -173,11 +172,11 @@ void game(void)
 
 		// 스킬 X키 - 생명 추가
 		// 추후 STAT UI에 스킬 개수를 표시해줘야함
-		if ((GetAsyncKeyState(0x58) && frame_count > 1) && (skill.life_count == 0 && skill.life_plus > 0))
+		if ((GetAsyncKeyState(0x58) && frame_count > 1) && (shop.cool_time == 0 && shop.life_plus > 0))
 		{
 			player.life++;
-			skill.life_plus--;
-			skill.life_count = 1000;
+			shop.life_plus--;
+			shop.cool_time = 1000;
 
 			if (bomb[0].count > 0 && (bomb[0].con == FALSE && bomb[1].con == FALSE))
 			{
@@ -194,6 +193,7 @@ void game(void)
 		// 추후 STAT UI에 스킬 개수를 표시해줘야함
 		if ((GetAsyncKeyState(0x43) && frame_count > 1) && (shop.hp_plus > 0 && player.health < 3))
 		{
+			shop.hp_plus--;
 			player.health++;
 			// 스킬 재사용 시간 짧게 처리하고
 			// 스킬 재사용 시간 항목을 여러개로 만들어야함
@@ -273,8 +273,8 @@ void game(void)
 		bomb_bull_status(bomb, bomb_bul, bomb_bul2, 1);
 		
 		// 스킬 재사용 대기
-		if (skill.life_count > 0)
-			skill.life_count--;
+		if (shop.cool_time > 0)
+			shop.cool_time--;
 
 		// 게임 종료 검사
 		if (player.life == 0 && player.health == 0)

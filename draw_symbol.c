@@ -12,11 +12,15 @@ void draw_symbol(int pos_y, int symbol, int num)
 	{
 		gotoxy(pos_x, pos_y + 1);
 		if (symbol == 1)
-			puts("\u2665");
+			puts("¢¾");
 		else if (symbol == 2)
-			puts("\u2299");
-		else
-			puts("\u2605");
+			puts("¢Á");
+		else if (symbol == 3)
+			puts("¡Ú");
+		else if (symbol == 4)
+			puts("¢£");
+		else if (symbol == 5)
+			puts("¢Â");
 		pos_x += 2;
 	}
 }

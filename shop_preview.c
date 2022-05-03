@@ -166,7 +166,7 @@ void shop_preview(int item_num)
 		gotoxy(59, 20);
 		puts("£« ¡¾ ¡À");
 		gotoxy(80, 20);
-		set_color(12);
+		set_color(9);
 		puts("£« ¡¾ ¡À");
 		set_color(15);
 		break;
@@ -186,7 +186,7 @@ void shop_preview(int item_num)
 		gotoxy(59, 20);
 		puts("¡Ú ¢¼ ¢À");
 		gotoxy(80, 20);
-		set_color(12);
+		set_color(14);
 		puts("¡Ú ¢¼ ¢À");
 		set_color(15);
 		break;
