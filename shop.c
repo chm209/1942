@@ -1,53 +1,44 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <Windows.h>
+#include <windows.h>
 #include "common.h"
 #define POS_X 50
 
-// DB 연동후 작업 내용
-// 유저 포인트 불러오기, 표시 필요
-// 치장 아이템은 이미 소유한 경우 보유항목에 출력 필요
-// 총알 모양1은 기본 2는 커스텀
-// 2를 사면 1을 자동으로 판매해버리는 방식으로 치장 아이템 관리
-// shop_preview 함수 수정 필요
-// 변경전 모양을 실제 플레이어의 장착 아이템으로 변경 필요
+// ■ 개발 메모
+// 1. DB 연동후 유저 포인트, 보유한 아이템 리스트 출력 필요
+// 2. 치장아이템은 타입별 하나만 소지 가능, 다른거 사면 자동 판매
 void shop()
 {
 	system("cls");
-	int key = 0, item_num = 4;
-	
-	while (1)
+	int key = 0, item_num = 4; // 리스트 첫번째 Y값이 4
+
+	draw_content(3); // 전체적인 UI
+	// 유저 정보 (포인트, 보유 아이템 출력 필요)
+	draw_content(4); // 아이템 항목
+	shop_preview(item_num);
+
+	while (key != ESC)
 	{
-		draw_content(3); // UI 뼈대 출력
-		draw_content(4); // 상점 항목 출력
-		// 가격과 보유수는 DB연동후 다른 함수를 만들어서 출력해야 할듯
-		shop_preview(item_num);
 		gotoxy(POS_X, item_num);
 		puts("√");
+		shop_preview(item_num);
+		key = getch();
 
-		while (key != ENTER && key != ESC)
+		if (key == ENTER)
+		{
+			// 구매 프로세스
+			// 유저 보유 포인트와 아이템 가격 비교
+			// 유저 보유 포인트가 더 크다면 치장 아이템인지 확인
+			// 치장 아이템이 아니라면 최대 보유 개수 미만으로 가지고 있는지 확인
+			// 전부 통과하면 구매
+			// 하나라도 걸리면 구매 불가, 구매 불가 사유 출력
+			key = 0;
+		}
+		else
 		{
 			gotoxy(POS_X, item_num);
-			puts("√");
-			key = getch();
-
-			if (key != ESC)
-			{
-				gotoxy(POS_X, item_num);
-				puts("  ");
-				// 화면번호, 입력받은 키 값, X 값, Y 값
-				item_num = move(2, key, POS_X, item_num);
-				shop_preview(item_num);
-			}
-			else
-			{
-				break;
-			}
+			puts("  ");
+			// 화면번호, 입력받은 키 값, X 값, Y 값
+			item_num = move(2, key, POS_X, item_num);
 		}
-		if (key == ESC)
-		{
-			break;
-		}
-		key = 0;
 	}
 }
