@@ -144,6 +144,7 @@ void game(void)
 				printf("%d 포인트\n", player.score / 100);
 				system("pause");
 				// 게임 스코어 저장
+				system("mode con: cols=100 lines=30");
 				break;
 			}
 			else // menu_num == 39 : 아니요

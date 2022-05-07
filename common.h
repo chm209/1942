@@ -1,8 +1,12 @@
 #pragma once
+#define TRUE 1
+#define FALSE 0
+
 void cursor(int);
 void gotoxy(int, int);
 int move(int, int, int, int);
 void draw_content(int);
+int menu(int);
 int login(int);
 void ranking(int);
 void shop(void);

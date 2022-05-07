@@ -11,10 +11,10 @@ int move(int screen_num, int key, int POS_X, int POS_Y)
 		switch (key)
 		{
 		case UP:
-			POS_Y = (POS_Y <= 18) ? 18 : POS_Y - 2;
+			POS_Y = (POS_Y <= 19) ? 19 : POS_Y - 2;
 			break;
 		case DOWN:
-			POS_Y = (POS_Y >= 24) ? 24 : POS_Y + 2;
+			POS_Y = (POS_Y >= 25) ? 25 : POS_Y + 2;
 			break;
 		}
 		return POS_Y;

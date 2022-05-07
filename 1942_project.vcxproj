@@ -161,6 +161,7 @@
     <ClCompile Include="item_status.c" />
     <ClCompile Include="login.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="menu.c" />
     <ClCompile Include="move.c" />
     <ClCompile Include="ranking.c" />
     <ClCompile Include="set_color.c" />

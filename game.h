@@ -1,6 +1,4 @@
 #pragma once
-#define TRUE 1
-#define FALSE 0
 #define STAT 4
 #define BULLET_SIZE 4
 #define BOMB_SIZE 2
@@ -100,4 +98,3 @@ void bullet_move(Bullet*);
 void bomb_bull_move(Bomb*, Bomb_blt*, Bomb_blt*);
 void bomb_status(Bomb*, Enemy*, Player, int);
 void bomb_bull_status(Bomb*, Bomb_blt*, Bomb_blt*, int);
-void clean_screen(void);
