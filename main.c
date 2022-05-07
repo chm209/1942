@@ -65,7 +65,7 @@ int main(void)
 			login_chk % 2 == 0 ? login_chk = login(0) : shop();
 			break;
 		case 22:
-			// login_chk % 2 == 0 ? ranking(0) : ranking(1);
+			login_chk % 2 == 0 ? ranking(0) : ranking(1);
 			break;
 		case 24:
 			break;

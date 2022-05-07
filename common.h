@@ -4,7 +4,7 @@ void gotoxy(int, int);
 int move(int, int, int, int);
 void draw_content(int);
 int login(int);
-void ranking(void);
+void ranking(int);
 void shop(void);
 void game(void);
 void set_color(unsigned short);
