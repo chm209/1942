@@ -1,38 +1,40 @@
 #include <stdio.h>
 #include <windows.h>
 #include "common.h"
-#define POS_X 50
+#define SHOP_POS_X 50
 
-// ■ 개발 메모
-// 1. DB 연동후 유저 포인트, 보유한 아이템 리스트 출력 필요
-// 2. 치장아이템은 타입별 하나만 소지 가능, 다른거 사면 자동 판매
-
-// DB - 구조체
-// 유저 아이디 - char*
-// 포인트 - int
-// 보유 아이템 - 배열
-
-// main -> 최초 로그인할때 DB 데이터를 구조체에 저장
-// shop -> 들어갔다 나올때마다 DB 데이터 갱신 필요
-// game -> 들어갔다 나올때마다 DB 데이터 갱신 필요
+// TASK LIST
+// 1. DB 연동 작업후 유저 포인트, 보유한 아이템 리스트 출력 필요
+// 2. 치장 아이템은 타입별 하나만 소지 가능, 다른거 사면 자동으로 판매
+// 
+// common.h에 들어갈 구조체 정보
+// char* 유저 아이디
+// int 유저 포인트
+// int[] 보유 아이템
+// 
+// 1. login - 데이터 저장
+// 2. ranking - 데이터 출력
+// 3. shop - 데이터 출력, 구매 아이템 저장
 void shop()
 {
 	system("cls");
-	int key = 0, item_num = 4; // 리스트 첫번째 Y값이 4
+	draw_content(10); // 상점화면 프레임 출력
+	draw_content(11); // 상점화면 아이템 리스트 출력
+	// 유저 정보 (포인트, 보유 아이템 출력하는 함수 필요)
+	shop_preview(4); // 상점화면 아이템 리스트 설명 출력, 처음에는 1번 항목 출력
 
-	draw_content(3); // 전체적인 UI
-	// 유저 정보 (포인트, 보유 아이템 출력 필요)
-	draw_content(4); // 아이템 항목
-	shop_preview(item_num);
+	// shop에서 사용하는 변수
+	int list_num = 4, choose_item = 0;
 
-	while (key != ESC)
+	// ESC 키를 입력할때까지 무한 반복
+	while (choose_item != ESC)
 	{
-		gotoxy(POS_X, item_num);
-		puts("√");
-		shop_preview(item_num);
-		key = getch();
+		gotoxy(SHOP_POS_X, list_num);
+		puts("○");
+		shop_preview(list_num);
+		choose_item = getch();
 
-		if (key == ENTER)
+		if (choose_item == ENTER)
 		{
 			// 구매 프로세스
 			// 유저 보유 포인트와 아이템 가격 비교
@@ -87,14 +89,14 @@ void shop()
 			{
 				포인트 부족으로 구매 불가 알림
 			}*/
-			key = 0;
+			choose_item = 0;
 		}
 		else
 		{
-			gotoxy(POS_X, item_num);
+			gotoxy(SHOP_POS_X, list_num);
 			puts("  ");
 			// 화면번호, 입력받은 키 값, X 값, Y 값
-			item_num = move(2, key, POS_X, item_num);
+			list_num = move(2, choose_item, SHOP_POS_X, list_num);
 		}
 	}
 }

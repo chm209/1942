@@ -2,21 +2,22 @@
 #include <stdlib.h>
 #include "common.h"
 
-
-void shop_preview(int item_num)
+void shop_preview(int list_num)
 {
 	for (int i = 4; i < 24; i++)
 	{
 		gotoxy(59, i);
 		puts("                                     ");
 	}
+
 	gotoxy(59, 4);
 	puts("[아이템 이름]");
 	gotoxy(59, 7);
 	puts("[아이템 설명]");
 	gotoxy(59, 10);
 	puts("[조건]");
-	switch (item_num)
+
+	switch (list_num)
 	{
 	case 4:
 		gotoxy(59, 5);
