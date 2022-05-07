@@ -10,8 +10,8 @@ void game(void)
 	system("cls");
 	
 	// 플레이어 - 폭탄, 스킬, 상점 포함
-	Player player = { 28, 28, 1, 3, 0 }; // X값, Y값, 생명, 체력, 점수
-	Bullet bullet[BULLET_SIZE] = { 0, }; // X값, Y값, 확인
+	Player player = { 28, 28, 1, 3, 0, NULL, 0 }; // X값, Y값, 생명, 체력, 점수, 비행기 모양, 색상
+	Bullet bullet[BULLET_SIZE] = { 0, }; // X값, Y값, 확인, 타입, 모양, 컬러
 	Item item[ITEM_SIZE] = { 0, };
 	Bomb bomb[BOMB_SIZE] = { 29, 24, 1, 5, FALSE, 6, 24, 0, 5, FALSE }; // X값, Y값, 잔량, 속도, 확인
 	Bomb_blt bomb_bul[BOMB_BUL_SIZE] = { 0, };
@@ -66,6 +66,11 @@ void game(void)
 
 	while (1)
 	{
+		if (frame_count % 500 == 0)
+		{
+			system("cls");
+		}
+
 		draw_content(1);
 		draw_stat(player, bomb, shop);
 		gotoxy(player.pos_x, player.pos_y);
@@ -134,6 +139,10 @@ void game(void)
 
 			if (menu_num == 23) // 네
 			{
+				system("cls");
+				gotoxy(10, 4);
+				printf("%d 포인트\n", player.score / 100);
+				system("pause");
 				// 게임 스코어 저장
 				break;
 			}
@@ -177,6 +186,7 @@ void game(void)
 			player.life++;
 			shop.life_plus--;
 			shop.cool_time = 1000;
+			player.score -= 50;
 
 			if (bomb[0].count > 0 && (bomb[0].con == FALSE && bomb[1].con == FALSE))
 			{
@@ -195,6 +205,7 @@ void game(void)
 		{
 			shop.hp_plus--;
 			player.health++;
+			player.score -= 10;
 			// 스킬 재사용 시간 짧게 처리하고
 			// 스킬 재사용 시간 항목을 여러개로 만들어야함
 		}
@@ -243,10 +254,10 @@ void game(void)
 		player = enm_bull_status(enemy, player, bomb, bullet, 4);
 		
 		// 폭탄 - 적 충돌
-		bomb_status(bomb, enemy, 0);
+		bomb_status(bomb, enemy, player, 0);
 
 		// 폭탄이 천장에 도달하면 삭제
-		bomb_status(bomb, enemy, 1);
+		bomb_status(bomb, enemy, player, 1);
 
 		// 적군이 바닥에 도달하면 삭제
 		player = enm_status(enemy, bomb, bomb_bul, bomb_bul2, player, bullet, 0);

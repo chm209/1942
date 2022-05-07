@@ -98,5 +98,6 @@ void bomb_move(Bomb*);
 void bullet_status(Bullet*);
 void bullet_move(Bullet*);
 void bomb_bull_move(Bomb*, Bomb_blt*, Bomb_blt*);
-void bomb_status(Bomb*, Enemy*, int);
+void bomb_status(Bomb*, Enemy*, Player, int);
 void bomb_bull_status(Bomb*, Bomb_blt*, Bomb_blt*, int);
+void clean_screen(void);

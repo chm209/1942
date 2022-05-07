@@ -65,6 +65,7 @@ Player enm_bull_status(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, 
 							{
 								player.life--;
 								player.health = 3;
+								player.score -= 100;
 								gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
 								puts("     ");
 								player.pos_x = 26;

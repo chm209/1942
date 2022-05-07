@@ -35,6 +35,7 @@ Player enm_status(Enemy* enemy, Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_b
 						player.life--;
 						player.pos_x = 26;
 						player.pos_y = 26;
+						player.score -= 100;
 						gotoxy(enemy[i].pos_x, enemy[i].pos_y);
 						puts("      ");
 						enemy[i].pos_x = 0;
@@ -95,6 +96,15 @@ Player enm_status(Enemy* enemy, Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_b
 							enemy[j].pos_x = 0;
 							enemy[j].pos_y = 0;
 							enemy[j].con = FALSE;
+							switch (enemy[j].type)
+							{
+							case 0:
+								player.score += 100;
+								break;
+							case 1:
+								player.score += 200;
+								break;
+							}
 
 							gotoxy(bullet[i].pos_x, bullet[i].pos_y);
 							puts("  ");
@@ -118,6 +128,15 @@ Player enm_status(Enemy* enemy, Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_b
 					enemy[i].pos_x = 0;
 					enemy[i].pos_y = 0;
 					enemy[i].con = FALSE;
+					switch (enemy[i].type)
+					{
+					case 0:
+						player.score += 10;
+						break;
+					case 1:
+						player.score += 20;
+						break;
+					}
 				}
 
 				if ((bomb_bul2[j].con == TRUE && enemy[i].con == TRUE) && bomb_bul2[j].pos_y == enemy[i].pos_y)
@@ -127,6 +146,15 @@ Player enm_status(Enemy* enemy, Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_b
 					enemy[i].pos_x = 0;
 					enemy[i].pos_y = 0;
 					enemy[i].con = FALSE;
+					switch (enemy[i].type)
+					{
+					case 0:
+						player.score += 10;
+						break;
+					case 1:
+						player.score += 20;
+						break;
+					}
 				}
 			}
 		}

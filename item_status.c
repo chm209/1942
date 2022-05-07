@@ -6,6 +6,7 @@ void item_status(Item* item, Player player, Bullet* bullet, Shop shop, int num)
 {
 	switch (num)
 	{
+	// 아이템 - 플레이어 충돌
 	case 0:
 		for (int i = 0; i < ITEM_SIZE; i++)
 		{
@@ -18,53 +19,59 @@ void item_status(Item* item, Player player, Bullet* bullet, Shop shop, int num)
 						gotoxy(item[i].pos_x, item[i].pos_y);
 						puts("   ");
 						item[i].con = FALSE;
-						
-						if (item[i].type == 0)
+						player.score += 10;
+
+						switch (item[i].type)
 						{
-							bullet->type = 1;
-							switch (shop.bullet_color)
+						case 0:
+							if (bullet->type == 0)
 							{
-							case 0:
-								bullet->shape = "ⅱ";
-								break;
-							case 1:
-								bullet->shape = "ψ";
-								break;
-							case 2:
-								bullet->shape = "±";
-								break;
-							case 3:
-								bullet->shape = "♠";
-								break;
+								bullet->type = 1;
+								switch (shop.bullet_color)
+								{
+								case 0:
+									bullet->shape = "ⅱ";
+									break;
+								case 1:
+									bullet->shape = "ψ";
+									break;
+								case 2:
+									bullet->shape = "±";
+									break;
+								case 3:
+									bullet->shape = "♠";
+									break;
+								}
 							}
-						}
-						else if (item[i].type == 1)
-						{
-							bullet[0].type = 2;
-							bullet[1].type = 2;
-							bullet[2].type = 2;
-							bullet[3].type = 2;
-							switch (shop.bullet_color)
+							else if (bullet->type == 1)
 							{
-							case 0:
-								bullet->shape = "ⅲ";
-								break;
-							case 1:
-								bullet->shape = "Ψ";
-								break;
-							case 2:
-								bullet->shape = "÷";
-								break;
-							case 3:
-								bullet->shape = "♣";
-								break;
+								bullet->type = 2;
+								switch (shop.bullet_color)
+								{
+								case 0:
+									bullet->shape = "ⅲ";
+									break;
+								case 1:
+									bullet->shape = "Ψ";
+									break;
+								case 2:
+									bullet->shape = "÷";
+									break;
+								case 3:
+									bullet->shape = "♣";
+									break;
+								}
 							}
+							break;
+						case 1:
+							break;
 						}
 					}
 				}
 			}
 		}
 		break;
+	// 아이템 바닥 도달
 	case 1:
 		for (int i = 0; i < ITEM_SIZE; i++)
 		{

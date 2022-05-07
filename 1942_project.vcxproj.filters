@@ -102,12 +102,6 @@
     <ClCompile Include="bullet_status.c">
       <Filter>소스 파일\game\player</Filter>
     </ClCompile>
-    <ClCompile Include="draw_stat.c">
-      <Filter>소스 파일\game</Filter>
-    </ClCompile>
-    <ClCompile Include="draw_symbol.c">
-      <Filter>소스 파일\game</Filter>
-    </ClCompile>
     <ClCompile Include="set_color.c">
       <Filter>소스 파일\function</Filter>
     </ClCompile>
@@ -116,6 +110,12 @@
     </ClCompile>
     <ClCompile Include="shop_preview.c">
       <Filter>소스 파일\shop</Filter>
+    </ClCompile>
+    <ClCompile Include="draw_stat.c">
+      <Filter>소스 파일\game</Filter>
+    </ClCompile>
+    <ClCompile Include="draw_symbol.c">
+      <Filter>소스 파일\game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
