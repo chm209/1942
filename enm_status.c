@@ -15,7 +15,7 @@ Player enm_status(Enemy* enemy, Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_b
 			if (enemy[i].con == TRUE && enemy[i].pos_y == 29)
 			{
 				gotoxy(enemy[i].pos_x, enemy[i].pos_y);
-				puts("     ");
+				printf("     ");
 				enemy[i].pos_x = 0;
 				enemy[i].pos_y = 0;
 				enemy[i].con = FALSE;
@@ -37,7 +37,7 @@ Player enm_status(Enemy* enemy, Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_b
 						player.pos_y = 26;
 						player.score -= 100;
 						gotoxy(enemy[i].pos_x, enemy[i].pos_y);
-						puts("      ");
+						printf("      ");
 						enemy[i].pos_x = 0;
 						enemy[i].pos_y = 0;
 						enemy[i].con = FALSE;
@@ -71,19 +71,19 @@ Player enm_status(Enemy* enemy, Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_b
 							switch (rand() % 5 + 1)
 							{
 							case 1:
-								puts("0");
+								printf("0");
 								break;
 							case 2:
-								puts("o");
+								printf("o");
 								break;
 							case 3:
-								puts("¡Ù");
+								printf("¡Ù");
 								break;
 							case 4:
-								puts("¡Ú");
+								printf("¡Ú");
 								break;
 							case 5:
-								puts("¢¿");
+								printf("¡Ø");
 								break;
 							}
 							enemy[i].health--;
@@ -91,7 +91,7 @@ Player enm_status(Enemy* enemy, Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_b
 						else
 						{
 							gotoxy(enemy[j].pos_x, enemy[j].pos_y);
-							puts("      ");
+							printf("      ");
 
 							enemy[j].pos_x = 0;
 							enemy[j].pos_y = 0;
@@ -107,7 +107,7 @@ Player enm_status(Enemy* enemy, Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_b
 							}
 
 							gotoxy(bullet[i].pos_x, bullet[i].pos_y);
-							puts("  ");
+							printf("  ");
 							bullet[i].con = FALSE;
 						}
 					}
@@ -124,7 +124,7 @@ Player enm_status(Enemy* enemy, Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_b
 				if ((bomb_bul[j].con == TRUE && enemy[i].con == TRUE) && bomb_bul[j].pos_y == enemy[i].pos_y)
 				{
 					gotoxy(enemy[i].pos_x, enemy[i].pos_y);
-					puts("      ");
+					printf("      ");
 					enemy[i].pos_x = 0;
 					enemy[i].pos_y = 0;
 					enemy[i].con = FALSE;
@@ -142,7 +142,7 @@ Player enm_status(Enemy* enemy, Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_b
 				if ((bomb_bul2[j].con == TRUE && enemy[i].con == TRUE) && bomb_bul2[j].pos_y == enemy[i].pos_y)
 				{
 					gotoxy(enemy[i].pos_x, enemy[i].pos_y);
-					puts("      ");
+					printf("      ");
 					enemy[i].pos_x = 0;
 					enemy[i].pos_y = 0;
 					enemy[i].con = FALSE;

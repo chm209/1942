@@ -54,7 +54,7 @@ Player enm_bull_status(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, 
 					if ((enemy[i].bul_pos_x[j] >= player.pos_x) && (enemy[i].bul_pos_x[j] <= player.pos_x + 5))
 					{
 						gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
-						puts("  ");
+						printf("  ");
 						enemy[i].bul_con[j] = FALSE;
 
 						if (player.health > 0)
@@ -67,7 +67,7 @@ Player enm_bull_status(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, 
 								player.health = 3;
 								player.score -= 100;
 								gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
-								puts("     ");
+								printf("     ");
 								player.pos_x = 26;
 								player.pos_y = 26;
 								bomb[0].con = TRUE;
@@ -89,7 +89,7 @@ Player enm_bull_status(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, 
 				if (enemy[i].bul_con[j] == TRUE && enemy[i].bul_pos_y[j] > 29)
 				{
 					gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
-					puts("  ");
+					printf("    ");
 					enemy[i].bul_con[j] = FALSE;
 				}
 			}
@@ -110,7 +110,7 @@ Player enm_bull_status(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, 
 							if (enemy[i].bul_pos_x[j] == bullet[k].pos_x)
 							{
 								gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
-								puts("  ");
+								printf("  ");
 								enemy[i].bul_con[j] = FALSE;
 								bullet[k].con = FALSE;
 							}

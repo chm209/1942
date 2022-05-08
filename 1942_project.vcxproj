@@ -147,7 +147,7 @@
     <ClCompile Include="bullet_status.c" />
     <ClCompile Include="cursor.c" />
     <ClCompile Include="draw_content.c" />
-    <ClCompile Include="draw_stat.c" />
+    <ClCompile Include="draw_status.c" />
     <ClCompile Include="draw_symbol.c" />
     <ClCompile Include="enemy_gen.c" />
     <ClCompile Include="enemy_move.c" />
@@ -155,6 +155,7 @@
     <ClCompile Include="enm_bull_status.c" />
     <ClCompile Include="enm_status.c" />
     <ClCompile Include="game.c" />
+    <ClCompile Include="draw_game.c" />
     <ClCompile Include="gotoxy.c" />
     <ClCompile Include="item_gen.c" />
     <ClCompile Include="item_move.c" />
@@ -165,6 +166,7 @@
     <ClCompile Include="move.c" />
     <ClCompile Include="ranking.c" />
     <ClCompile Include="set_color.c" />
+    <ClCompile Include="set_player.c" />
     <ClCompile Include="shop.c" />
     <ClCompile Include="shop_preview.c" />
   </ItemGroup>

@@ -28,6 +28,7 @@ int main(void)
 		if (choose_menu == 19)
 		{
 			is_logined % 2 == 0 ? is_logined = login(1) : game();
+			system("mode con: cols=100 lines=30");
 		}
 		else if (choose_menu == 21)
 		{

@@ -1,4 +1,11 @@
 #pragma once
+// 키보드 입력 관련
+#define LEFT_LIMIT 5
+#define RIGHT_LIMIT 51
+#define UP_LIMIT 4
+#define DOWN_LIMIT 29
+
+// 게임 동작 관련
 #define STAT 4
 #define BULLET_SIZE 4
 #define BOMB_SIZE 2
@@ -6,6 +13,8 @@
 #define ITEM_SIZE 5
 #define ENEMY_SIZE 30
 #define ENEMY_BUL_SIZE 10
+
+
 
 // 플레이어 관련
 typedef struct _PLAYER
@@ -75,15 +84,24 @@ typedef struct _ENEMY
 	int speed;
 	int health;
 	int con;
-	int bullet[10];
 	int bul_pos_x[10];
 	int bul_pos_y[10];
 	int bul_con[10];
 	int bul_speed;
 } Enemy;
 
+typedef struct _ENEMY_BULLET
+{
+	int pos_x[10];
+	int pos_y[10];
+	int con[10];
+	int speed;
+} Enemy_bul;
+
+
+void draw_game(int);
 void draw_symbol(int, int, int);
-void draw_stat(Player, Bomb*, Shop);
+void draw_status(Player, Bomb*, Shop);
 void item_gen(Item*, int);
 void item_move(Item*);
 void item_status(Item*, Player, Bullet*, Shop, int);
@@ -98,3 +116,4 @@ void bullet_move(Bullet*);
 void bomb_bull_move(Bomb*, Bomb_blt*, Bomb_blt*);
 void bomb_status(Bomb*, Enemy*, Player, int);
 void bomb_bull_status(Bomb*, Bomb_blt*, Bomb_blt*, int);
+Player set_player(Player, Bullet*, Shop);

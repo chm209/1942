@@ -11,7 +11,7 @@ void enm_bull_move(Enemy* enemy)
 			if (enemy[i].bul_con[j] == TRUE && (enemy[i].move_pattern == 1 || enemy[i].move_pattern == 0))
 			{
 				gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
-				puts("  ");
+				printf("  ");
 				enemy[i].bul_pos_y[j]++;
 				gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
 				printf("*");
@@ -19,7 +19,7 @@ void enm_bull_move(Enemy* enemy)
 			if (enemy[i].bul_con[j] == TRUE && enemy[i].move_pattern == 2)
 			{
 				gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
-				puts("  ");
+				printf("  ");
 				enemy[i].bul_pos_x[j]++;
 				enemy[i].bul_pos_y[j]++;
 				gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
@@ -28,7 +28,7 @@ void enm_bull_move(Enemy* enemy)
 			if (enemy[i].bul_con[j] == TRUE && enemy[i].move_pattern == 3)
 			{
 				gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
-				puts("  ");
+				printf("  ");
 				enemy[i].bul_pos_x[j]--;
 				enemy[i].bul_pos_y[j]++;
 				gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);

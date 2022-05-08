@@ -8,153 +8,137 @@ void game(void)
 {
 	system("mode con: cols=80 lines=32");
 	system("cls");
-	
-	// 플레이어 - 폭탄, 스킬, 상점 포함
-	Player player = { 28, 28, 1, 3, 0, NULL, 0 }; // X값, Y값, 생명, 체력, 점수, 비행기 모양, 색상
-	Bullet bullet[BULLET_SIZE] = { 0, }; // X값, Y값, 확인, 타입, 모양, 컬러
+
+	// 플레이어 관련 구조체 변수
+	// Player: 좌표 X값, 좌표 Y값, 생명, 체력, 점수, 전투기 모양, 전투기 색상
+	// Bullet[]: 좌표 X값, 좌표 Y값, 상태 확인용, 총알 타입, 총알 모양, 총알 색상
+	// Item[]: 좌표 X값, 좌표 Y값, 상태 확인용, 아이템 타입, 아이템 움직임 속도
+	// Bomb[]: 좌표 X값, 좌표 Y값, 폭탄 수량, 폭탄 움직임 속도, 폭탄 상태 확인용 * 2
+	// bomb_bul[]: 좌표 X값, 좌표 Y값, 폭탄 총알 상태 확인용
+	// bomb_bul2[]: 좌표 X값, 좌표 Y값, 폭탄 총알 상태 확인용
+	// Shop: 생명 추가 수량, 체력 회복 수량, 추가 점수 수량, 스킬 쿨타임, 전투기 색상, 총알 색상
+	// ㄴ▷ DB 연동후 손봐야 하는 구조체 변수, 치장 아이템은 0이 Default 색상을 의미
+	Player player = { 28, 28, 1, 3, 0, NULL, 0 };
+	Bullet bullet[BULLET_SIZE] = { 0, 0, 0, 0, NULL, 0 };
 	Item item[ITEM_SIZE] = { 0, };
-	Bomb bomb[BOMB_SIZE] = { 29, 24, 1, 5, FALSE, 6, 24, 0, 5, FALSE }; // X값, Y값, 잔량, 속도, 확인
+	Bomb bomb[BOMB_SIZE] = { 29, 24, 3, 5, FALSE, 6, 24, 0, 5, FALSE };
 	Bomb_blt bomb_bul[BOMB_BUL_SIZE] = { 0, };
 	Bomb_blt bomb_bul2[BOMB_BUL_SIZE] = { 0, };
-	Shop shop = { 0, 0, 0, 0, 2, 1}; // 치장 아이템의 경우 0은 기본 타입을 의미
+	Shop shop = { 0, 0, 0, 0, 0, 0};
 
-	// 적군
+	// 적군 관련 변수
+	// Enemy[]: 좌표 X값, 좌표 Y값, 적 비행기 타입, 움직임 패턴, 움직임 횟수, 움직임 속도, 체력, 상태 확인용
+	// 총알 X값, 총알 Y값, 상태확인, 속도
 	int frame_count = 0; // 스테이지 생성용
 	Enemy enemy[ENEMY_SIZE] = { 0, };
+	Enemy_bul enemy_bul[ENEMY_SIZE] = { 0, };
 
-	// 플레이어 비행기 설정
-	switch (shop.paint_color)
-	{
-	case 0:
-		player.shape = "[-*-]";
-		player.color = 15;
-		break;
-	case 1:
-		player.shape = "<-*->";
-		player.color = 12;
-		break;
-	case 2:
-		player.shape = "{:*:}";
-		player.color = 9;
-		break;
-	case 3:
-		player.shape = "H:*:H";
-		player.color = 14;
-		break;
-	}
-
-	// 플레이어 총알 설정
-	switch (shop.bullet_color)
-	{
-	case 0:
-		bullet->shape = "ⅰ";
-		bullet->color = 15;
-		break;
-	case 1:
-		bullet->shape = "γ";
-		bullet->color = 12;
-		break;
-	case 2:
-		bullet->shape = "＋";
-		bullet->color = 9;
-		break;
-	case 3:
-		bullet->shape = "★";
-		bullet->color = 14;
-		break;
-	}
+	// 게임 시작전 초기 설정
+	// 1. 플레이어 전투기 디자인, 전투기 색상, 총알 디자인, 총알 색상 설정
+	// 2. 최초 실행시 전투기를 한번은 출력해줘야한다.
+	// -▷ DB 연동후 초기설정은 여기서 처리
+	player = set_player(player, bullet, shop);
 
 	while (1)
 	{
-		if (frame_count % 500 == 0)
+		// UI 그리기
+		// 1. 프레임 출력
+		// 2. 플레이어 스탯 출력
+		// 3. 플레이어 전투기 출력
+		draw_game(0);
+		draw_status(player, bomb, shop);
 		{
-			system("cls");
+			gotoxy(player.pos_x, player.pos_y);
+			set_color(player.color);
+			printf(player.shape);
+			set_color(15);
 		}
 
-		draw_content(1);
-		draw_stat(player, bomb, shop);
-		gotoxy(player.pos_x, player.pos_y);
-		set_color(player.color);
-		puts(player.shape);
-		set_color(15);
-
-		// 유저 키보드 감지
-		// GetAsyncKeyState()로 상시 감지하기 위해 함수화 X
-		// 함수화 하거나 getch()로 돌리면 반응속도가 떨어짐
+		// 키보드 입력 감지
+		// 함수화, getch()로 감지 등등 전부 반응속도가 떨어지거나 툭툭 끊김
 		{
-			if (GetAsyncKeyState(VK_LEFT) && player.pos_x > 5) { //왼쪽
+			// 왼쪽 이동
+			if (GetAsyncKeyState(VK_LEFT) && player.pos_x > LEFT_LIMIT)
+			{
 				gotoxy(player.pos_x, player.pos_y);
 				puts("     ");
 				player.pos_x--;
 				gotoxy(player.pos_x, player.pos_y);
 				set_color(player.color);
-				puts(player.shape);
+				printf(player.shape);
 				set_color(15);
 			}
-			if (GetAsyncKeyState(VK_RIGHT) && player.pos_x < 51) { //오른쪽
+
+			// 오른쪽 이동
+			if (GetAsyncKeyState(VK_RIGHT) && player.pos_x < RIGHT_LIMIT)
+			{
 				gotoxy(player.pos_x, player.pos_y);
 				puts("     ");
 				player.pos_x++;
 				gotoxy(player.pos_x, player.pos_y);
 				set_color(player.color);
-				puts(player.shape);
+				printf(player.shape);
 				set_color(15);
 			}
-			if (GetAsyncKeyState(VK_UP) && player.pos_y > 4) { //위
+
+			// 위로 이동
+			if (GetAsyncKeyState(VK_UP) && player.pos_y > UP_LIMIT)
+			{
 				gotoxy(player.pos_x, player.pos_y);
 				puts("     ");
 				player.pos_y--;
 				gotoxy(player.pos_x, player.pos_y);
 				set_color(player.color);
-				puts(player.shape);
+				printf(player.shape);
 				set_color(15);
 			}
-			if (GetAsyncKeyState(VK_DOWN) && player.pos_y < 29) { //아래
+
+			// 아래로 이동
+			if (GetAsyncKeyState(VK_DOWN) && player.pos_y < DOWN_LIMIT)
+			{
 				gotoxy(player.pos_x, player.pos_y);
 				puts("     ");
 				player.pos_y++;
 				gotoxy(player.pos_x, player.pos_y);
 				set_color(player.color);
-				puts(player.shape);
+				printf(player.shape);
 				set_color(15);
 			}
 		}
 
 		// 게임 일시 정지
+		// 게임 시작전 눌린 키를 가려내기 위해 frame_count를 검사
 		if (GetAsyncKeyState(VK_ESCAPE) && frame_count > 0)
 		{
-			int menu_num = 23;
-			int key = 0;
+			int key = 0, do_exit = 23;
 
 			while (key != ENTER)
 			{
-				draw_content(2);
-				gotoxy(menu_num, 14);
-				puts("◎");
+				// PAUSE 화면 출력
+				draw_game(1);
+				gotoxy(do_exit, 14);
+				printf("◎");
 				key = getch();
-				gotoxy(menu_num, 14);
-				puts("  ");
-				menu_num = move(1, key, menu_num, 14);
+				gotoxy(do_exit, 14);
+				printf("  ");
+				do_exit = move(1, key, do_exit, 14);
 			}
-
-			if (menu_num == 23) // 네
+			// 네 선택
+			if (do_exit == 23) // 네
 			{
 				system("cls");
-				gotoxy(10, 4);
-				printf("%d 포인트\n", player.score / 100);
-				system("pause");
-				// 게임 스코어 저장
-				system("mode con: cols=100 lines=30");
+				// 게임 스코어, 포인트, 사용한 아이템 등등 DB에 저장
 				break;
 			}
-			else // menu_num == 39 : 아니요
+			// 아니요 선택
+			else
 			{
 				system("cls");
 				continue;
 			}
 		}
 
-		// 플레이어 총알 공격 스페이스바
+		// 플레이어 공격 - 스페이스바
 		if (GetAsyncKeyState(VK_SPACE) && frame_count > 0)
 		{
 			for (int i = 0; i < BULLET_SIZE; i++)
@@ -169,7 +153,7 @@ void game(void)
 			}
 		}
 
-		// 폭탄 발사 Z키, frame_count > 1은 게임 시작하기전 Z키가 눌렸을대 스킬이 써지는걸 방지하기위함
+		// 폭탄 공격 - Z키
 		if (GetAsyncKeyState(0x5A) && frame_count > 0)
 		{
 			if (bomb[0].count > 0 && (bomb[0].con == FALSE && bomb[1].con == FALSE))
@@ -180,14 +164,13 @@ void game(void)
 			}
 		}
 
-		// 스킬 X키 - 생명 추가
-		// 추후 STAT UI에 스킬 개수를 표시해줘야함
+		// 생명 추가 - X키
 		if ((GetAsyncKeyState(0x58) && frame_count > 1) && (shop.cool_time == 0 && shop.life_plus > 0))
 		{
 			player.life++;
+			player.score -= 50;
 			shop.life_plus--;
 			shop.cool_time = 1000;
-			player.score -= 50;
 
 			if (bomb[0].count > 0 && (bomb[0].con == FALSE && bomb[1].con == FALSE))
 			{
@@ -200,15 +183,12 @@ void game(void)
 			}
 		}
 
-		// 스킬 C키 - HP 회복
-		// 추후 STAT UI에 스킬 개수를 표시해줘야함
+		// 체력 회복 - C키
 		if ((GetAsyncKeyState(0x43) && frame_count > 1) && (shop.hp_plus > 0 && player.health < 3))
 		{
 			shop.hp_plus--;
 			player.health++;
 			player.score -= 10;
-			// 스킬 재사용 시간 짧게 처리하고
-			// 스킬 재사용 시간 항목을 여러개로 만들어야함
 		}
 
 		// 적군 생성
@@ -222,7 +202,9 @@ void game(void)
 
 		// 폭탄 이동
 		if (bomb[0].con == TRUE || bomb[1].con == TRUE)
+		{
 			bomb_move(bomb);
+		}
 
 		// 총알 이동
 		bullet_move(bullet);
@@ -286,7 +268,9 @@ void game(void)
 		
 		// 스킬 재사용 대기
 		if (shop.cool_time > 0)
+		{
 			shop.cool_time--;
+		}
 
 		// 게임 종료 검사
 		if (player.life == 0 && player.health == 0)

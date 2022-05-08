@@ -14,7 +14,12 @@ void draw_content(int screen_num)
 			for (int j = 0; j < 100; j += 2)
 			{
 				gotoxy(j, i);
-				puts("ㆍ");
+				printf("ㆍ");
+				// puts 대신 printf를 사용한 이유
+				// puts는 문자열만 처리하기 때문에 속도가 빠른 대신 개행도 해버리기 때문에
+				// for문으로 프레임을 그릴때 화면을 벗어나버리는 문제가 발생한다.
+				// 낱개로 출력해서 gotoxy로 컨트롤하면 상관없지만
+				// for문으로 출력할때는 printf쓰는게 좋다.
 			}
 		}
 		break;
@@ -404,31 +409,5 @@ void draw_content(int screen_num)
 		puts("보유 포인트");
 	}
 		break;
-		// 게임 화면
-		/*
-	case 1:
-		for (int i = 0; i <= 30; i += 1)
-		{
-			gotoxy(4, i);
-			puts(":");
-			gotoxy(56, i);
-			puts(":");
-		}
-		break;
-		// pause 화면
-	case 2:
-		gotoxy(16, 10);
-		puts("PAUSE");
-		gotoxy(15, 11);
-		puts("┌─────────────────────────────┐");
-		gotoxy(15, 12);
-		puts("│  게임을 종료 하시겠습니까?  │");
-		gotoxy(15, 13);
-		puts("├─────────────────────────────┤");
-		gotoxy(15, 14);
-		puts("│   예 (  )  │  아니요 (  )   │");
-		gotoxy(15, 15);
-		puts("└─────────────────────────────┘");
-		break;*/
 	}
 }

@@ -9,7 +9,7 @@ void enemy_move(Enemy* enemy)
 		if (enemy[i].con == TRUE)
 		{
 			gotoxy(enemy[i].pos_x, enemy[i].pos_y);
-			puts("     ");
+			printf("     ");
 
 			// 오른쪽 대각선 이동
 			if (enemy[i].move_pattern == 0)
@@ -27,7 +27,9 @@ void enemy_move(Enemy* enemy)
 					{
 						// 벽쪽으로 갔는지 검사, 벽쪽으로 갔으면 move_count 올릴 필요 없음
 						if (enemy[i].pos_x > 48)
+						{
 							enemy[i].pos_y++;
+						}
 						else
 						{
 							enemy[i].pos_x++;
@@ -59,7 +61,9 @@ void enemy_move(Enemy* enemy)
 					{
 						// 벽쪽으로 갔는지 검사, 벽쪽으로 갔으면 move_count 올릴 필요 없음
 						if (enemy[i].pos_x < 10)
+						{
 							enemy[i].pos_y++;
+						}
 						else
 						{
 							enemy[i].pos_x -= 2;
