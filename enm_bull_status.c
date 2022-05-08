@@ -12,30 +12,33 @@ Player enm_bull_status(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, 
 		{
 			if (enemy[i].con == TRUE)
 			{
-				for (int j = 0; j < ENEMY_BUL_SIZE; j++)
+				if (enemy[i].pos_y < 25)
 				{
-					if (enemy[i].move_pattern == 1 || enemy[i].move_pattern == 0)
+					for (int j = 0; j < ENEMY_BUL_SIZE; j++)
 					{
-						if (enemy[i].bul_speed > 60 && (enemy[i].move_count == 1 || enemy[i].move_count == 3))
+						if (enemy[i].move_pattern == 1 || enemy[i].move_pattern == 0)
 						{
-							enemy[i].bul_pos_x[j] = enemy[i].pos_x + 2;
-							enemy[i].bul_pos_y[j] = enemy[i].pos_y + 1;
-							enemy[i].bul_con[j] = TRUE;
-							enemy[i].bul_speed = 0;
-							gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
-							puts("*");
+							if (enemy[i].bul_speed > 60 && (enemy[i].move_count == 1 || enemy[i].move_count == 3))
+							{
+								enemy[i].bul_pos_x[j] = enemy[i].pos_x + 2;
+								enemy[i].bul_pos_y[j] = enemy[i].pos_y + 1;
+								enemy[i].bul_con[j] = TRUE;
+								enemy[i].bul_speed = 0;
+								gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
+								puts("*");
+							}
 						}
-					}
-					else if (enemy[i].move_pattern == 2 || enemy[i].move_pattern == 3)
-					{
-						if (enemy[i].bul_speed > 60 && enemy[i].move_count == 3)
+						else if (enemy[i].move_pattern == 2 || enemy[i].move_pattern == 3)
 						{
-							enemy[i].bul_pos_x[j] = enemy[i].pos_x + 2;
-							enemy[i].bul_pos_y[j] = enemy[i].pos_y + 1;
-							enemy[i].bul_con[j] = TRUE;
-							enemy[i].bul_speed = 0;
-							gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
-							puts("¢´");
+							if (enemy[i].bul_speed > 60 && enemy[i].move_count == 3)
+							{
+								enemy[i].bul_pos_x[j] = enemy[i].pos_x + 2;
+								enemy[i].bul_pos_y[j] = enemy[i].pos_y + 1;
+								enemy[i].bul_con[j] = TRUE;
+								enemy[i].bul_speed = 0;
+								gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
+								puts("¢´");
+							}
 						}
 					}
 				}
@@ -86,7 +89,7 @@ Player enm_bull_status(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, 
 		{
 			for (int j = 0; j < ENEMY_BUL_SIZE; j++)
 			{
-				if (enemy[i].bul_con[j] == TRUE && enemy[i].bul_pos_y[j] > 29)
+				if (enemy[i].bul_con[j] == TRUE && enemy[i].bul_pos_y[j] == 29)
 				{
 					gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
 					printf("    ");

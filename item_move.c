@@ -8,11 +8,11 @@ void item_move(Item* item)
 	{
 		if (item[i].con == TRUE)
 		{
-			if (item[i].speed == 15)
+			if (item[i].speed == 10)
 			{
 				item[i].speed = 0;
 				gotoxy(item[i].pos_x, item[i].pos_y);
-				puts("   ");
+				printf("     ");
 				item[i].pos_y++;
 				gotoxy(item[i].pos_x, item[i].pos_y);
 				switch (item[i].type)
@@ -20,11 +20,15 @@ void item_move(Item* item)
 				case 0:
 					printf("[P]");
 					break;
+				case 1:
+					printf("[ег]");
+					break;
 				}
 			}
 			else
+			{
 				item[i].speed++;
-
+			}
 		}
 	}
 }

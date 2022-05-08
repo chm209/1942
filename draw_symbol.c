@@ -3,14 +3,14 @@
 
 void draw_symbol(int STATUS_POS_Y, int symbol, int count)
 {
-	int pos_x = 58;
+	int pos_x = 60;
 
-	gotoxy(58, STATUS_POS_Y + 1);
+	gotoxy(60, STATUS_POS_Y + 2);
 	printf("          ");
 
 	for (int i = 0; i < count; i++)
 	{
-		gotoxy(pos_x, STATUS_POS_Y + 1);
+		gotoxy(pos_x, STATUS_POS_Y + 2);
 		switch (symbol)
 		{
 		case 0:

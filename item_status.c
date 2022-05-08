@@ -2,7 +2,7 @@
 #include "common.h"
 #include "game.h"
 
-void item_status(Item* item, Player player, Bullet* bullet, Shop shop, int num)
+Player item_status(Item* item, Player player, Bullet* bullet, Shop shop, int num)
 {
 	switch (num)
 	{
@@ -17,7 +17,7 @@ void item_status(Item* item, Player player, Bullet* bullet, Shop shop, int num)
 					if (item[i].pos_x >= player.pos_x && item[i].pos_x <= player.pos_x + 5)
 					{
 						gotoxy(item[i].pos_x, item[i].pos_y);
-						puts("   ");
+						printf("   ");
 						item[i].con = FALSE;
 						player.score += 10;
 
@@ -64,6 +64,10 @@ void item_status(Item* item, Player player, Bullet* bullet, Shop shop, int num)
 							}
 							break;
 						case 1:
+							if (player.quantity < 5)
+							{
+								player.quantity++;
+							}
 							break;
 						}
 					}
@@ -77,14 +81,15 @@ void item_status(Item* item, Player player, Bullet* bullet, Shop shop, int num)
 		{
 			if (item[i].con == TRUE)
 			{
-				if (item[i].pos_y == 30)
+				if (item[i].pos_y == 29)
 				{
 					gotoxy(item[i].pos_x, item[i].pos_y);
-					puts("   ");
+					printf("    ");
 					item[i].con = FALSE;
 				}
 			}
 		}
 		break;
 	}
+	return player;
 }

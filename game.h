@@ -14,8 +14,6 @@
 #define ENEMY_SIZE 30
 #define ENEMY_BUL_SIZE 10
 
-
-
 // 플레이어 관련
 typedef struct _PLAYER
 {
@@ -23,6 +21,7 @@ typedef struct _PLAYER
 	int pos_y;
 	int life;
 	int health;
+	int quantity;
 	int score;
 	char* shape;
 	int color;
@@ -104,7 +103,7 @@ void draw_symbol(int, int, int);
 void draw_status(Player, Bomb*, Shop);
 void item_gen(Item*, int);
 void item_move(Item*);
-void item_status(Item*, Player, Bullet*, Shop, int);
+Player item_status(Item*, Player, Bullet*, Shop, int);
 void enemy_gen(Enemy*, int);
 void enemy_move(Enemy*);
 Player enm_status(Enemy*, Bomb*, Bomb_blt*, Bomb_blt*, Player, Bullet*, int);

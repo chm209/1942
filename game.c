@@ -6,7 +6,7 @@
 
 void game(void)
 {
-	system("mode con: cols=80 lines=32");
+	system("mode con: cols=80 lines=30");
 	system("cls");
 
 	// 플레이어 관련 구조체 변수
@@ -18,10 +18,10 @@ void game(void)
 	// bomb_bul2[]: 좌표 X값, 좌표 Y값, 폭탄 총알 상태 확인용
 	// Shop: 생명 추가 수량, 체력 회복 수량, 추가 점수 수량, 스킬 쿨타임, 전투기 색상, 총알 색상
 	// ㄴ▷ DB 연동후 손봐야 하는 구조체 변수, 치장 아이템은 0이 Default 색상을 의미
-	Player player = { 28, 28, 1, 3, 0, NULL, 0 };
+	Player player = { 28, 28, 1, 3, 2, 0, NULL, 0 };
 	Bullet bullet[BULLET_SIZE] = { 0, 0, 0, 0, NULL, 0 };
 	Item item[ITEM_SIZE] = { 0, };
-	Bomb bomb[BOMB_SIZE] = { 29, 24, 3, 5, FALSE, 6, 24, 0, 5, FALSE };
+	Bomb bomb[BOMB_SIZE] = { 29, 24, 1, 5, FALSE, 6, 24, 0, 5, FALSE };
 	Bomb_blt bomb_bul[BOMB_BUL_SIZE] = { 0, };
 	Bomb_blt bomb_bul2[BOMB_BUL_SIZE] = { 0, };
 	Shop shop = { 0, 0, 0, 0, 0, 0};
@@ -141,7 +141,7 @@ void game(void)
 		// 플레이어 공격 - 스페이스바
 		if (GetAsyncKeyState(VK_SPACE) && frame_count > 0)
 		{
-			for (int i = 0; i < BULLET_SIZE; i++)
+			for (int i = 0; i < player.quantity; i++)
 			{
 				if (bullet[i].con == FALSE)
 				{
@@ -219,10 +219,10 @@ void game(void)
 		item_move(item);
 		
 		// 아이템 유저 충돌
-		item_status(item, player, bullet, shop, 0);
+		player = item_status(item, player, bullet, shop, 0);
 
 		// 아이템 바닥 충돌
-		item_status(item, player, bullet, shop, 1);
+		player = item_status(item, player, bullet, shop, 1);
 		
 		// 적 총알 플레이어 충돌
 		player = enm_bull_status(enemy, player, bomb, bullet, 1);

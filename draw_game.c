@@ -8,7 +8,7 @@ void draw_game(int screen_num)
 	{
 	// 게임화면 - 조작 범위 프레임
 	case 0:
-		for (int i = 0; i < 32; i++)
+		for (int i = 0; i < 30; i++)
 		{
 			gotoxy(4, i);
 			printf(":");
@@ -31,6 +31,66 @@ void draw_game(int screen_num)
 		printf("┃   예 (  )  │  아니요 (  )   ┃");
 		gotoxy(15, 15);
 		puts("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+		break;
+	case 2:
+		gotoxy(58, 1);
+		puts("┏━━━━━━━━━━━━━━━━━━┓");
+		gotoxy(58, 2);
+		puts("┃                  ┃");
+		gotoxy(58, 3);
+		puts("┣━━━━━━━━━━━━━━━━━━┫");
+		gotoxy(58, 4);
+		puts("┃                  ┃");
+		gotoxy(58, 5);
+		puts("┗━━━━━━━━━━━━━━━━━━┛");
+		gotoxy(59, 6);
+		puts("ㆍㆍㆍㆍㆍㆍㆍㆍㆍㆍ");
+		gotoxy(58, 7);
+		puts("┏━━━━━━━━━━━━━━━━━━┓");
+		gotoxy(58, 8);
+		puts("┃                  ┃");
+		gotoxy(58, 9);
+		puts("┣━━━━━━━━━━━━━━━━━━┫");
+		gotoxy(58, 10);
+		puts("┃                  ┃");
+		gotoxy(58, 11);
+		puts("┗━━━━━━━━━━━━━━━━━━┛");
+		gotoxy(59, 12);
+		puts("ㆍㆍㆍㆍㆍㆍㆍㆍㆍㆍ");
+		gotoxy(58, 13);
+		puts("┏━━━━━━━━━━━━━━━━━━┓");
+		gotoxy(58, 14);
+		puts("┃                  ┃");
+		gotoxy(58, 15);
+		puts("┣━━━━━━━━━━━━━━━━━━┫");
+		gotoxy(58, 16);
+		puts("┃                  ┃");
+		gotoxy(58, 17);
+		puts("┗━━━━━━━━━━━━━━━━━━┛");
+		gotoxy(59, 18);
+		puts("ㆍㆍㆍㆍㆍㆍㆍㆍㆍㆍ");
+		gotoxy(58, 19);
+		puts("┏━━━━━━━━━━━━━━━━━━┓");
+		gotoxy(58, 20);
+		puts("┃                  ┃");
+		gotoxy(58, 21);
+		puts("┣━━━━━━━━━━━━━━━━━━┫");
+		gotoxy(58, 22);
+		puts("┃                  ┃");
+		gotoxy(58, 23);
+		puts("┗━━━━━━━━━━━━━━━━━━┛");
+		gotoxy(59, 24);
+		puts("ㆍㆍㆍㆍㆍㆍㆍㆍㆍㆍ");
+		gotoxy(58, 25);
+		puts("┏━━━━━━━━━━━━━━━━━━┓");
+		gotoxy(58, 26);
+		puts("┃                  ┃");
+		gotoxy(58, 27);
+		puts("┣━━━━━━━━━━━━━━━━━━┫");
+		gotoxy(58, 28);
+		puts("┃                  ┃");
+		gotoxy(58, 29);
+		printf("┗━━━━━━━━━━━━━━━━━━┛");
 		break;
 	}
 }
