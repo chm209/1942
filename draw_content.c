@@ -181,6 +181,8 @@ void draw_content(int screen_num)
 		puts("랭킹확인");
 		gotoxy(56, 25);
 		puts("게임종료");
+		gotoxy(0, 29);
+		printf("로그인 유저: %s", user_id);
 	}
 		break;
 	// 로그인 화면 - 화면 지우기를 위한 공백 출력

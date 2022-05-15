@@ -97,6 +97,9 @@ int login_db(int sign)
 		while ((row = mysql_fetch_row(result)) != NULL)
 		{
 			// 로그인 성공
+			strcpy(user_id, id);
+			user_score = atoi(row[2]);
+			user_point = atoi(row[3]);
 			mysql_close(connection);
 			return SUCCESS;
 		}
