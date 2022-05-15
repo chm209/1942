@@ -11,10 +11,24 @@
 // юс╫ц
 typedef struct _User
 {
-	char* id;
+	char id[20];
 	int point;
 	int score;
 }User;
+
+typedef struct _Item_list
+{
+	int item1;
+	int item2;
+	int item3;
+	int item4;
+	int item5;
+	int item6;
+	int item7;
+	int item8;
+	int item9;
+	int item10;
+}Item_list;
 
 void cursor(int);
 void gotoxy(int, int);
@@ -27,6 +41,8 @@ void shop(void);
 void game(void);
 void set_color(unsigned short);
 void shop_preview(int);
+void possession_item(void);
+void shop_db(void);
 
 // db
 void error(int);
@@ -37,6 +53,5 @@ enum ControlKey
 	UP = 72, DOWN = 80, ENTER = 13, LEFT = 75, RIGHT = 77, BACKSPACE = 8, ESC = 27
 };
 
-extern char user_id[20];
-extern int user_point;
-extern int user_score;
+extern Item_list item_list;
+extern User user;

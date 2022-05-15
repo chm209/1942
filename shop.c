@@ -3,34 +3,25 @@
 #include "common.h"
 #define SHOP_POS_X 50
 
-// TASK LIST
-// 1. DB 연동 작업후 유저 포인트, 보유한 아이템 리스트 출력 필요
-// 2. 치장 아이템은 타입별 하나만 소지 가능, 다른거 사면 자동으로 판매
-// 
-// common.h에 들어갈 구조체 정보
-// char* 유저 아이디
-// int 유저 포인트
-// int[] 보유 아이템
-// 
-// 1. login - 데이터 저장
-// 2. ranking - 데이터 출력
-// 3. shop - 데이터 출력, 구매 아이템 저장
 void shop()
 {
 	system("cls");
 	draw_content(10); // 상점화면 프레임 출력
 	draw_content(11); // 상점화면 아이템 리스트 출력
-	// 유저 정보 (포인트, 보유 아이템 출력하는 함수 필요)
+	draw_content(12); // 아이템 가격 출력
+	possession_item(); // 유저 정보 (포인트, 보유 아이템 출력하는 함수 필요)
 	shop_preview(4); // 상점화면 아이템 리스트 설명 출력, 처음에는 1번 항목 출력
 
 	// shop에서 사용하는 변수
 	int list_num = 4, choose_item = 0;
+	int price = 0;
 
 	// ESC 키를 입력할때까지 무한 반복
 	while (choose_item != ESC)
 	{
 		gotoxy(SHOP_POS_X, list_num);
 		puts("○");
+		possession_item();
 		shop_preview(list_num);
 		choose_item = getch();
 
@@ -42,53 +33,212 @@ void shop()
 			// 치장 아이템이 아니라면 최대 보유 개수 미만으로 가지고 있는지 확인
 			// 전부 통과하면 구매
 			// 하나라도 걸리면 구매 불가, 구매 불가 사유 출력
-		
-			/*
-			if (유저 보유 포인트 >= 아이템 가격)
+
+			switch (list_num)
 			{
-				if (item_num < 치장 아이템(테이블에서 초반이 기능, 후반이 치장))
+			case 4:
+				price = 1000;
+				break;
+			case 6:
+				price = 500;
+				break;
+			case 8:
+				price = 2000;
+				break;
+			case 10:
+				price = 3500;
+				break;
+			case 12:
+				price = 4500;
+				break;
+			case 14:
+				price = 5500;
+				break;
+			case 16:
+				price = 3500;
+				break;
+			case 18:
+				price = 4500;
+				break;
+			case 20:
+				price = 5500;
+				break;
+			case 22:
+				price = 100000;
+				break;
+			}
+		
+			if (user.point >= price)
+			{
+				// 기능 아이템
+				if (list_num < 10)
 				{
-					switch (item_num)
+					switch (list_num)
 					{
-					case 0:
-						if (DB에서 불러온 아이템 보유 개수가 3 미만일때)
+					// 생명 추가
+					case 4:
+						if (item_list.item1 < 3)
 						{
-							포인트 차감
-								0번 아이템 + 1
+							user.point -= 1000;
+							item_list.item1++;
 						}
 						else
 						{
-							아이템 보유 개수 때문에 구매 불가 알림
+							// 구매 불가 알림
 						}
 						break;
-					case 1:
-						if (DB에서 불러온 아이템 보유 개수가 5 미만일때)
+					// HP 회복
+					case 6:
+						if (item_list.item2 < 5)
 						{
-							포인트 차감
-								1번 아이템 + 1
+							user.point -= 500;
+							item_list.item2++;
 						}
 						else
 						{
-							아이템 보유 개수 때문에 구매 불가 알림
+							// 구매 불가 알림
 						}
-						break
-					default:
-						포인트 차감
-							1번 아이템 + 1
+						break;
+					// 추가 점수
+					case 8:
+						user.point -= 2000;
+						item_list.item3++;
 						break;
 					}
 				}
+				// 치장 아이템
 				else
 				{
-					// 치장 아이템일때
-					치장 아이템도 기능 아이템처럼 if문으로 검사하고 보유 개수가 0일때만 구매 가능하게 함
-					구매하고 나서 빠져나오기전에 만약 같은 타입의 다른 치장 아이템을 가지고 있다면 자동 판매함
+					switch (list_num)
+					{
+					// 빨강 페인트
+					case 10:
+						if (item_list.item4 == 0)
+						{
+							user.point -= 3500;
+							item_list.item4++;
+
+							if (item_list.item5 == 1)
+							{
+								item_list.item5 = 0;
+								user.point += 2700;
+							}
+							else if (item_list.item6 == 1)
+							{
+								item_list.item6 = 0;
+								user.point += 3300;
+							}
+						}
+						break;
+					// 파랑 페인트
+					case 12:
+						if (item_list.item5 == 0)
+						{
+							user.point -= 4500;
+							item_list.item5++;
+
+							if (item_list.item4 == 1)
+							{
+								item_list.item4 = 0;
+								user.point += 2100;
+							}
+							else if (item_list.item6 == 1)
+							{
+								item_list.item6 = 0;
+								user.point += 3300;
+							}
+						}
+						break;
+					// 노랑 페인트
+					case 14:
+						if (item_list.item6 == 0)
+						{
+							user.point -= 5500;
+							item_list.item6++;
+
+							if (item_list.item4 == 1)
+							{
+								item_list.item4 = 0;
+								user.point += 2100;
+							}
+							else if (item_list.item5 == 1)
+							{
+								item_list.item5 = 0;
+								user.point += 2700;
+							}
+						}
+						break;
+					// 빨간 총알
+					case 16:
+						if (item_list.item7 == 0)
+						{
+							user.point -= 3500;
+							item_list.item7++;
+
+							if (item_list.item8 == 1)
+							{
+								item_list.item8 = 0;
+								user.point += 2700;
+							}
+							else if (item_list.item9 == 1)
+							{
+								item_list.item9 = 0;
+								user.point += 3300;
+							}
+						}
+						break;
+					// 파란 총알
+					case 18:
+						if (item_list.item8 == 0)
+						{
+							user.point -= 4500;
+							item_list.item8++;
+
+							if (item_list.item7 == 1)
+							{
+								item_list.item7 = 0;
+								user.point += 2100;
+							}
+							else if (item_list.item9 == 1)
+							{
+								item_list.item9 = 0;
+								user.point += 3300;
+							}
+						}
+						break;
+					// 노란 총알
+					case 20:
+						if (item_list.item9 == 0)
+						{
+							user.point -= 5500;
+							item_list.item9++;
+
+							if (item_list.item7 == 1)
+							{
+								item_list.item7 = 0;
+								user.point += 2100;
+							}
+							else if (item_list.item8 == 1)
+							{
+								item_list.item8 = 0;
+								user.point += 2700;
+							}
+						}
+						break;
+					case 22:
+						if (item_list.item10 == 0)
+						{
+							user.point -= 100000;
+							item_list.item10++;
+						}
+						break;
+					}
 				}
 			}
 			else
 			{
-				포인트 부족으로 구매 불가 알림
-			}*/
+				// 돈 부족으로 구매 불가
+			}
 			choose_item = 0;
 		}
 		else
@@ -99,4 +249,6 @@ void shop()
 			list_num = move(2, choose_item, SHOP_POS_X, list_num);
 		}
 	}
+	// db 저장
+	shop_db();
 }

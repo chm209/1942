@@ -182,7 +182,7 @@ void draw_content(int screen_num)
 		gotoxy(56, 25);
 		puts("게임종료");
 		gotoxy(0, 29);
-		printf("로그인 유저: %s", user_id);
+		printf("로그인 유저: %s", user.id);
 	}
 		break;
 	// 로그인 화면 - 화면 지우기를 위한 공백 출력
@@ -376,7 +376,7 @@ void draw_content(int screen_num)
 	case 11:
 	{
 		gotoxy(3, 26);
-		puts("치장 아이템은 하나씩만 소지 가능 합니다. / 구매시 기존 치장 아이템은 자동 판매 됩니다.");
+		puts("치장 아이템은 하나씩만 소지 가능 합니다. / 기존 치장 아이템은 60% 가격에 자동 판매 됩니다.");
 		gotoxy(3, 28);
 		puts("목록 이동: 방향키 ↑ ↓  ||  구매: 엔터키                                  상점 나가기: ESC 키");
 		gotoxy(11, 2);
@@ -409,6 +409,30 @@ void draw_content(int screen_num)
 		puts("랭킹창 꾸미기");
 		gotoxy(5, 24);
 		puts("보유 포인트");
+	}
+		break;
+	case 12:
+	{
+		gotoxy(29, 4);
+		puts("1000 pt");
+		gotoxy(30, 6);
+		puts("500 pt");
+		gotoxy(29, 8);
+		puts("2000 pt");
+		gotoxy(29, 10);
+		puts("3500 pt");
+		gotoxy(29, 12);
+		puts("4500 pt");
+		gotoxy(29, 14);
+		puts("5500 pt");
+		gotoxy(29, 16);
+		puts("3500 pt");
+		gotoxy(29, 18);
+		puts("4500 pt");
+		gotoxy(29, 20);
+		puts("5500 pt");
+		gotoxy(27, 22);
+		puts("100000 pt");
 	}
 		break;
 	}

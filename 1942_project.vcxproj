@@ -169,10 +169,13 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="menu.c" />
     <ClCompile Include="move.c" />
+    <ClCompile Include="possession_item.c" />
     <ClCompile Include="ranking.c" />
+    <ClCompile Include="ranking_db.c" />
     <ClCompile Include="set_color.c" />
     <ClCompile Include="set_player.c" />
     <ClCompile Include="shop.c" />
+    <ClCompile Include="shop_db.c" />
     <ClCompile Include="shop_preview.c" />
   </ItemGroup>
   <ItemGroup>

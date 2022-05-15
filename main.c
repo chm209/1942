@@ -2,9 +2,8 @@
 #include <stdlib.h>
 #include "common.h"
 
-char user_id[20] = { 0 ,};
-int user_point = 0;
-int user_score = 0;
+User user = { 0, };
+Item_list item_list = { 0, };
 
 int main(void)
 {
@@ -16,7 +15,6 @@ int main(void)
 	// main에서만 사용하는 변수
 	int is_logined = FALSE;
 	int choose_menu = 19;
-	User *user = { 0, };
 
 	// 유저가 게임종료를 선택할때까지 무한반복
 	while (choose_menu != 24)

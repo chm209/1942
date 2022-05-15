@@ -138,6 +138,15 @@
     <ClCompile Include="error.c">
       <Filter>소스 파일\db</Filter>
     </ClCompile>
+    <ClCompile Include="ranking_db.c">
+      <Filter>소스 파일\db</Filter>
+    </ClCompile>
+    <ClCompile Include="possession_item.c">
+      <Filter>소스 파일\draw</Filter>
+    </ClCompile>
+    <ClCompile Include="shop_db.c">
+      <Filter>소스 파일\db</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
