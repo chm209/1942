@@ -15,7 +15,7 @@
 #define ENEMY_BUL_SIZE 10
 
 // 플레이어 관련
-typedef struct _PLAYER
+typedef struct _Player
 {
 	int pos_x;
 	int pos_y;
@@ -27,7 +27,7 @@ typedef struct _PLAYER
 	int color;
 } Player;
 
-typedef struct _BULLET
+typedef struct _Bullet
 {
 	int pos_x;
 	int pos_y;

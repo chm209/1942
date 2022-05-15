@@ -42,6 +42,7 @@ int main(void)
 		{
 			break;
 		}
+		choose_menu = 19;
 	}
 	return 0;
 }

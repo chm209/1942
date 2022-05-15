@@ -37,6 +37,9 @@
     <Filter Include="소스 파일\game\draw">
       <UniqueIdentifier>{75dad601-22ee-4563-a05c-4db1c7294e3a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\db">
+      <UniqueIdentifier>{b541c3b8-fd11-465e-b07c-e8f27aabe745}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cursor.c">
@@ -128,6 +131,12 @@
     </ClCompile>
     <ClCompile Include="draw_symbol.c">
       <Filter>소스 파일\game\draw</Filter>
+    </ClCompile>
+    <ClCompile Include="login_db.c">
+      <Filter>소스 파일\db</Filter>
+    </ClCompile>
+    <ClCompile Include="error.c">
+      <Filter>소스 파일\db</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

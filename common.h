@@ -1,6 +1,12 @@
 #pragma once
 #define TRUE 1
 #define FALSE 0
+#define FAIL 0
+#define SUCCESS 1
+#define RED 12
+#define WHITE 15
+#define YWLLOW 14
+#define BLUE 9
 
 void cursor(int);
 void gotoxy(int, int);
@@ -13,6 +19,10 @@ void shop(void);
 void game(void);
 void set_color(unsigned short);
 void shop_preview(int);
+
+// db
+void error(int);
+int login_db(int);
 
 enum ControlKey
 {
