@@ -11,7 +11,7 @@
 #define DB_NAME "game_db"
 #define CHOP(x) x[strlen(x) - 1] = ' '
 
-int ranking_db(int sign)
+void ranking_db(int is_logined)
 {
 	MYSQL* connection = NULL;
 	MYSQL conn = { 0, };
@@ -21,6 +21,7 @@ int ranking_db(int sign)
 	char id[20] = { 0, };
 	char passwd[20] = { 0, };
 	char query[255] = { 0, };
+	int pos_y = 4;
 
 	mysql_init(&conn);
 	mysql_options(&conn, MYSQL_SET_CHARSET_NAME, "euckr");
@@ -34,71 +35,67 @@ int ranking_db(int sign)
 		return FAIL;
 	}
 
-	switch (sign)
+	switch (is_logined)
 	{
-		// 회원가입
+	// 비로그인
 	case FALSE:
-		draw_content(5);
-		gotoxy(39, 18);
-		printf("회원가입");
-		gotoxy(39, 20);
-		printf("20자 이내에 입력하십시오");
-		gotoxy(39, 22);
-		printf("아이디: ");
-		fgets(id, 20, stdin);
-		CHOP(id);
-		gotoxy(39, 24);
-		printf("비밀번호: ");
-		fgets(passwd, 20, stdin);
-		CHOP(passwd);
-		cursor(0);
-
-		sprintf(query, "insert into user values " "('%s', '%s', '%d', '%d')", id, passwd, 0, 0);
-		query_stat = mysql_query(connection, query);
-		if (query_stat != 0)
-		{
-			error(2);
-			fprintf(stderr, "%s", mysql_error(&conn));
-			Sleep(4000);
-			system("cls");
-			draw_content(0); // 도트 출력
-			draw_content(1); // 1942 그림 출력
-			return FAIL;
-		}
-		return SUCCESS;
-		// 로그인
-	case TRUE:
-		draw_content(5);
-		gotoxy(39, 18);
-		printf("로그인");
-		gotoxy(39, 20);
-		printf("아이디: ");
-		fgets(id, 20, stdin);
-		CHOP(id);
-		gotoxy(39, 22);
-		printf("비밀번호: ");
-		fgets(passwd, 20, stdin);
-		CHOP(passwd);
-		cursor(0);
-
-		sprintf(query, "select * from user where id = '%s' and passwd = '%s'", id, passwd);
-		query_stat = mysql_query(connection, query);
-		if (query_stat != 0)
-		{
-			error(2);
-			fprintf(stderr, "%s", mysql_error(&conn));
-			Sleep(4000);
-			system("cls");
-			draw_content(0); // 도트 출력
-			draw_content(1); // 1942 그림 출력
-			return FAIL;
-		}
+		mysql_query(connection, "select * from ranking order by score desc");
 		result = mysql_store_result(connection);
 		while ((row = mysql_fetch_row(result)) != NULL)
 		{
-			mysql_close(connection);
-			return SUCCESS;
+			gotoxy(10, pos_y);
+			int indent = (20 - strlen(row[0])) / 2; // 왼쪽 여백 구하기 
+			for (int i = 0; i < indent; i++)
+			{
+				putchar(' '); // 왼쪽 여백 채우기 
+			}
+			printf("%s", row[0]);
+
+			gotoxy(39, pos_y);
+			printf("%11s", row[1]);
+
+			if (row[2] != NULL)
+			{
+				gotoxy(60, pos_y);
+				printf("%s", row[2]);
+				indent = strlen(row[2]) + 1;
+			}
+
+			if (row[2] != NULL && row[3] != NULL)
+			{
+				gotoxy(60 + indent, pos_y);
+				printf("%s", row[3]);
+				indent = strlen(row[3]);
+			}
+			else if (row[2] == NULL && row[3] != NULL)
+			{
+				gotoxy(60, pos_y);
+				printf("%s", row[3]);
+				indent = strlen(row[3]);
+			}
+
+			if ((row[2] != NULL && row[3] != NULL) && row[4] != NULL)
+			{
+				gotoxy(60 + indent * 2, pos_y);
+				printf("%s", row[4]);
+			}
+			else if ((row[2] == NULL && row[3] != NULL) && row[4] != NULL)
+			{
+				gotoxy(60 + indent, pos_y);
+				printf("%s", row[4]);
+			}
+			else if ((row[2] == NULL && row[3] == NULL) && row[4] != NULL)
+			{
+				gotoxy(60, pos_y);
+				printf("%s", row[3]);
+			}
+
+			pos_y += 2;
 		}
+		mysql_free_result(result);
+		break;
+	// 로그인
+	case TRUE:
 		break;
 	}
 	mysql_close(connection);

@@ -13,6 +13,7 @@ void ranking(int is_logined)
 	case FALSE:
 		draw_content(6);
 		draw_content(7);
+		ranking_db(0);
 		// DB 정보 받아서 순위 그려주는 함수
 		while (key != ESC)
 		{

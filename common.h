@@ -47,6 +47,7 @@ void shop_db(void);
 // db
 void error(int);
 int login_db(int);
+void ranking_db(int);
 
 enum ControlKey
 {

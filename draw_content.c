@@ -235,6 +235,14 @@ void draw_content(int screen_num)
 	{
 		gotoxy(4, 2);
 		puts("순위");
+
+		int colum = 4;
+		for (int i = 0; i < 12; i++)
+		{
+			gotoxy(5, colum);
+			printf("%2d", i);
+			colum += 2;
+		}
 		gotoxy(18, 2);
 		puts("이름");
 		gotoxy(39, 2);
