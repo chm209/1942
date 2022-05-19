@@ -22,6 +22,7 @@ void ranking_db(int is_logined)
 	char passwd[20] = { 0, };
 	char query[255] = { 0, };
 	int pos_y = 4;
+	int count = 1;
 
 	mysql_init(&conn);
 	mysql_options(&conn, MYSQL_SET_CHARSET_NAME, "euckr");
@@ -90,12 +91,78 @@ void ranking_db(int is_logined)
 				printf("%s", row[3]);
 			}
 
+			if (count == 11)
+			{
+				break;
+			}
+
 			pos_y += 2;
+			count++;
 		}
 		mysql_free_result(result);
 		break;
 	// 로그인
 	case TRUE:
+		mysql_query(connection, "select * from ranking order by score desc");
+		result = mysql_store_result(connection);
+		pos_y = 12;
+		while ((row = mysql_fetch_row(result)) != NULL)
+		{
+			gotoxy(10, pos_y);
+			int indent = (20 - strlen(row[0])) / 2; // 왼쪽 여백 구하기 
+			for (int i = 0; i < indent; i++)
+			{
+				putchar(' '); // 왼쪽 여백 채우기 
+			}
+			printf("%s", row[0]);
+
+			gotoxy(39, pos_y);
+			printf("%11s", row[1]);
+
+			if (row[2] != NULL)
+			{
+				gotoxy(60, pos_y);
+				printf("%s", row[2]);
+				indent = strlen(row[2]) + 1;
+			}
+
+			if (row[2] != NULL && row[3] != NULL)
+			{
+				gotoxy(60 + indent, pos_y);
+				printf("%s", row[3]);
+				indent = strlen(row[3]);
+			}
+			else if (row[2] == NULL && row[3] != NULL)
+			{
+				gotoxy(60, pos_y);
+				printf("%s", row[3]);
+				indent = strlen(row[3]);
+			}
+
+			if ((row[2] != NULL && row[3] != NULL) && row[4] != NULL)
+			{
+				gotoxy(60 + indent * 2, pos_y);
+				printf("%s", row[4]);
+			}
+			else if ((row[2] == NULL && row[3] != NULL) && row[4] != NULL)
+			{
+				gotoxy(60 + indent, pos_y);
+				printf("%s", row[4]);
+			}
+			else if ((row[2] == NULL && row[3] == NULL) && row[4] != NULL)
+			{
+				gotoxy(60, pos_y);
+				printf("%s", row[3]);
+			}
+
+			if (count == 8)
+			{
+				break;
+			}
+
+			pos_y += 2;
+			count++;
+		}
 		break;
 	}
 	mysql_close(connection);

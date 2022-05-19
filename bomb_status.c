@@ -2,7 +2,7 @@
 #include "game.h"
 #include "common.h"
 
-void bomb_status(Bomb* bomb, Enemy* enemy, Player player, int num)
+void bomb_status(Bomb* bomb, Enemy* enemy, Player* player, int num)
 {
 	switch (num)
 	{
@@ -24,10 +24,10 @@ void bomb_status(Bomb* bomb, Enemy* enemy, Player player, int num)
 						switch (enemy[j].type)
 						{
 						case 0:
-							player.score += 10;
+							player->score += 10;
 							break;
 						case 1:
-							player.score += 20;
+							player->score += 20;
 							break;
 						}
 					}

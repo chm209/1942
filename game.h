@@ -100,19 +100,19 @@ typedef struct _ENEMY_BULLET
 
 void draw_game(int);
 void draw_symbol(int, int, int);
-void draw_status(Player, Bomb*, Shop);
+void draw_status(Player*, Bomb*, Shop);
 void item_gen(Item*, int);
 void item_move(Item*);
-Player item_status(Item*, Player, Bullet*, Shop, int);
+void item_status(Item*, Player*, Bullet*, Shop, int);
 void enemy_gen(Enemy*, int);
 void enemy_move(Enemy*);
-Player enm_status(Enemy*, Bomb*, Bomb_blt*, Bomb_blt*, Player, Bullet*, int);
+void enm_status(Enemy*, Bomb*, Bomb_blt*, Bomb_blt*, Player*, Bullet*, int);
 void enm_bull_move(Enemy*);
-Player enm_bull_status(Enemy*, Player, Bomb*, Bullet*, int);
+void enm_bull_status(Enemy*, Player*, Bomb*, Bullet*, int);
 void bomb_move(Bomb*);
 void bullet_status(Bullet*);
 void bullet_move(Bullet*);
 void bomb_bull_move(Bomb*, Bomb_blt*, Bomb_blt*);
-void bomb_status(Bomb*, Enemy*, Player, int);
+void bomb_status(Bomb*, Enemy*, Player*, int);
 void bomb_bull_status(Bomb*, Bomb_blt*, Bomb_blt*, int);
-Player set_player(Player, Bullet*, Shop);
+void set_player(Player*, Bullet*, Shop);

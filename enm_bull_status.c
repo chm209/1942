@@ -2,7 +2,7 @@
 #include "game.h"
 #include "common.h"
 
-Player enm_bull_status(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, int num)
+void enm_bull_status(Enemy* enemy, Player* player, Bomb* bomb, Bullet* bullet, int num)
 {
 	switch (num)
 	{
@@ -52,27 +52,27 @@ Player enm_bull_status(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, 
 		{
 			for (int j = 0; j < ENEMY_BUL_SIZE; j++)
 			{
-				if (enemy[i].bul_con[j] == TRUE && enemy[i].bul_pos_y[j] == player.pos_y)
+				if (enemy[i].bul_con[j] == TRUE && enemy[i].bul_pos_y[j] == player->pos_y)
 				{
-					if ((enemy[i].bul_pos_x[j] >= player.pos_x) && (enemy[i].bul_pos_x[j] <= player.pos_x + 5))
+					if ((enemy[i].bul_pos_x[j] >= player->pos_x) && (enemy[i].bul_pos_x[j] <= player->pos_x + 5))
 					{
 						gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
 						printf("  ");
 						enemy[i].bul_con[j] = FALSE;
 
-						if (player.health > 0)
-							player.health--;
+						if (player->health > 0)
+							player->health--;
 						else
 						{
-							if (player.life > 0)
+							if (player->life > 0)
 							{
-								player.life--;
-								player.health = 3;
-								player.score -= 100;
+								player->life--;
+								player->health = 3;
+								player->score -= 100;
 								gotoxy(enemy[i].bul_pos_x[j], enemy[i].bul_pos_y[j]);
 								printf("     ");
-								player.pos_x = 26;
-								player.pos_y = 26;
+								player->pos_x = 26;
+								player->pos_y = 26;
 								bomb[0].con = TRUE;
 								bomb[1].con = TRUE;
 							}
@@ -142,6 +142,4 @@ Player enm_bull_status(Enemy* enemy, Player player, Bomb* bomb, Bullet* bullet, 
 		}
 		break;
 	}
-
-	return player;
 }

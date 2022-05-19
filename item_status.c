@@ -2,7 +2,7 @@
 #include "common.h"
 #include "game.h"
 
-Player item_status(Item* item, Player player, Bullet* bullet, Shop shop, int num)
+void item_status(Item* item, Player* player, Bullet* bullet, Shop shop, int num)
 {
 	switch (num)
 	{
@@ -12,14 +12,14 @@ Player item_status(Item* item, Player player, Bullet* bullet, Shop shop, int num
 		{
 			if (item[i].con == TRUE)
 			{
-				if (item[i].pos_y == player.pos_y)
+				if (item[i].pos_y == player->pos_y)
 				{
-					if (item[i].pos_x >= player.pos_x && item[i].pos_x <= player.pos_x + 5)
+					if (item[i].pos_x >= player->pos_x && item[i].pos_x <= player->pos_x + 5)
 					{
 						gotoxy(item[i].pos_x, item[i].pos_y);
 						printf("   ");
 						item[i].con = FALSE;
-						player.score += 10;
+						player->score += 10;
 
 						switch (item[i].type)
 						{
@@ -64,9 +64,9 @@ Player item_status(Item* item, Player player, Bullet* bullet, Shop shop, int num
 							}
 							break;
 						case 1:
-							if (player.quantity < 5)
+							if (player->quantity < 5)
 							{
-								player.quantity++;
+								player->quantity++;
 							}
 							break;
 						}
@@ -91,5 +91,4 @@ Player item_status(Item* item, Player player, Bullet* bullet, Shop shop, int num
 		}
 		break;
 	}
-	return player;
 }

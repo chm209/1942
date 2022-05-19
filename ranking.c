@@ -14,7 +14,6 @@ void ranking(int is_logined)
 		draw_content(6);
 		draw_content(7);
 		ranking_db(0);
-		// DB 정보 받아서 순위 그려주는 함수
 		while (key != ESC)
 		{
 			key = getch();
@@ -24,7 +23,7 @@ void ranking(int is_logined)
 	case TRUE:
 		draw_content(8);
 		draw_content(9);
-		// DB 정보 받아서 순위 그려주는 함수
+		ranking_db(1);
 		while (key != ESC)
 		{
 			key = getch();

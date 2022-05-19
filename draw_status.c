@@ -2,7 +2,7 @@
 #include "game.h"
 #include "common.h"
 
-void draw_status(Player player, Bomb* bomb, Shop shop)
+void draw_status(Player* player, Bomb* bomb, Shop shop)
 {
 	// 좌표값 Y
 	int STATUS_POS_Y = 0;
@@ -12,13 +12,13 @@ void draw_status(Player player, Bomb* bomb, Shop shop)
 	gotoxy(66, 2);
 	puts("SCORE");
 	gotoxy(60, 4);
-	printf("%16d", player.score);
+	printf("%16d", player->score);
 
 	// 생명 출력
 	STATUS_POS_Y = 8;
 	gotoxy(66, STATUS_POS_Y);
 	puts("생명");
-	draw_symbol(STATUS_POS_Y, 0, player.life);
+	draw_symbol(STATUS_POS_Y, 0, player->life);
 
 	// 폭탄 출력
 	STATUS_POS_Y = 20;
@@ -30,7 +30,7 @@ void draw_status(Player player, Bomb* bomb, Shop shop)
 	STATUS_POS_Y = 14;
 	gotoxy(66, STATUS_POS_Y);
 	puts("체력");
-	draw_symbol(STATUS_POS_Y, 2, player.health);
+	draw_symbol(STATUS_POS_Y, 2, player->health);
 
 	// 스킬 - 생명 회복
 	STATUS_POS_Y = 26;

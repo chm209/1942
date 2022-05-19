@@ -2,26 +2,26 @@
 #include "common.h"
 #include "game.h"
 
-Player set_player(Player player, Bullet* bullet, Shop shop)
+void set_player(Player* player, Bullet* bullet, Shop shop)
 {
 	// 플레이어 비행기 설정
 	switch (shop.paint_color)
 	{
 	case 0:
-		player.shape = "[-*-]";
-		player.color = 15;
+		player->shape = "[-*-]";
+		player->color = 15;
 		break;
 	case 1:
-		player.shape = "<-*->";
-		player.color = 12;
+		player->shape = "<-*->";
+		player->color = 12;
 		break;
 	case 2:
-		player.shape = "{:*:}";
-		player.color = 9;
+		player->shape = "{:*:}";
+		player->color = 9;
 		break;
 	case 3:
-		player.shape = "H:*:H";
-		player.color = 14;
+		player->shape = "H:*:H";
+		player->color = 14;
 		break;
 	}
 
@@ -45,6 +45,4 @@ Player set_player(Player player, Bullet* bullet, Shop shop)
 		bullet->color = 14;
 		break;
 	}
-
-	return player;
 }

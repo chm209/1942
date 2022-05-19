@@ -4,7 +4,7 @@
 #include "game.h"
 #include "common.h"
 
-Player enm_status(Enemy* enemy, Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_bul2, Player player, Bullet* bullet, int num)
+void enm_status(Enemy* enemy, Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_bul2, Player* player, Bullet* bullet, int num)
 {
 	switch (num)
 	{
@@ -26,16 +26,16 @@ Player enm_status(Enemy* enemy, Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_b
 	case 1:
 		for (int i = 0; i < ENEMY_SIZE; i++)
 		{
-			if (player.pos_y == enemy[i].pos_y)
+			if (player->pos_y == enemy[i].pos_y)
 			{
-				if ((enemy[i].pos_x <= player.pos_x && enemy[i].pos_x + 5 >= player.pos_x) && enemy[i].pos_x - 4 <= player.pos_x)
+				if ((enemy[i].pos_x <= player->pos_x && enemy[i].pos_x + 5 >= player->pos_x) && enemy[i].pos_x - 4 <= player->pos_x)
 				{
-					if (player.life > 0)
+					if (player->life > 0)
 					{
-						player.life--;
-						player.pos_x = 26;
-						player.pos_y = 26;
-						player.score -= 100;
+						player->life--;
+						player->pos_x = 26;
+						player->pos_y = 26;
+						player->score -= 100;
 						gotoxy(enemy[i].pos_x, enemy[i].pos_y);
 						printf("      ");
 						enemy[i].pos_x = 0;
@@ -99,10 +99,10 @@ Player enm_status(Enemy* enemy, Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_b
 							switch (enemy[j].type)
 							{
 							case 0:
-								player.score += 100;
+								player->score += 100;
 								break;
 							case 1:
-								player.score += 200;
+								player->score += 200;
 								break;
 							}
 
@@ -131,10 +131,10 @@ Player enm_status(Enemy* enemy, Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_b
 					switch (enemy[i].type)
 					{
 					case 0:
-						player.score += 10;
+						player->score += 10;
 						break;
 					case 1:
-						player.score += 20;
+						player->score += 20;
 						break;
 					}
 				}
@@ -149,10 +149,10 @@ Player enm_status(Enemy* enemy, Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_b
 					switch (enemy[i].type)
 					{
 					case 0:
-						player.score += 10;
+						player->score += 10;
 						break;
 					case 1:
-						player.score += 20;
+						player->score += 20;
 						break;
 					}
 				}
@@ -160,6 +160,4 @@ Player enm_status(Enemy* enemy, Bomb* bomb, Bomb_blt* bomb_bul, Bomb_blt* bomb_b
 		}
 		break;
 	}
-
-	return player;
 }
