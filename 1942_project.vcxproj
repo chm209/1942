@@ -157,7 +157,7 @@
     <ClCompile Include="enm_bull_move.c" />
     <ClCompile Include="enm_bull_status.c" />
     <ClCompile Include="enm_status.c" />
-    <ClCompile Include="error.c" />
+    <ClCompile Include="draw_error.c" />
     <ClCompile Include="game.c" />
     <ClCompile Include="draw_game.c" />
     <ClCompile Include="gotoxy.c" />
@@ -169,7 +169,7 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="menu.c" />
     <ClCompile Include="move.c" />
-    <ClCompile Include="possession_item.c" />
+    <ClCompile Include="draw_owned_item.c" />
     <ClCompile Include="ranking.c" />
     <ClCompile Include="ranking_db.c" />
     <ClCompile Include="set_color.c" />

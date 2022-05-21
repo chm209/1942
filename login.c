@@ -23,6 +23,8 @@ int login(int is_logined)
 			{
 				break;
 			}
+			// 로그인을 할때 게임에 필요한 유저 정보를 동기화 하기 때문에
+			// 회원가입후 로그인하는 절차가 필요함
 			is_logined = TRUE;
 		case TRUE:
 			is_checked = FALSE;

@@ -31,7 +31,7 @@ void ranking_db(int is_logined)
 
 	if (connection == NULL)
 	{
-		error(0);
+		draw_error(0);
 		fprintf(stderr, "%s", mysql_error(&conn));
 		return FAIL;
 	}

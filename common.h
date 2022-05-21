@@ -1,58 +1,55 @@
 #pragma once
+// bool 타입 흉내
 #define TRUE 1
+#define SUCCESS 1
 #define FALSE 0
 #define FAIL 0
-#define SUCCESS 1
-#define RED 12
+// set_color() 관련
 #define WHITE 15
-#define YWLLOW 14
+#define RED 12
+#define YELLOW 14
 #define BLUE 9
+// 키보드 처리 관련
+#define UP 72
+#define DOWN 80
+#define ENTER 13
+#define LEFT 75
+#define RIGHT 77
+#define BACKSPACE 8
+#define ESC 27
 
-// 임시
-typedef struct _User
+// 구조체 - 로그인 시점부터 프로그램을 종료할때까지 끝까지 살아있는 구조체
+typedef struct User
 {
 	char id[20];
 	int point;
 	int score;
-}User;
+	int best_score;
+	int item[10];
+	int use_item[4];
+}USER;
 
-typedef struct _Item_list
-{
-	int item1;
-	int item2;
-	int item3;
-	int item4;
-	int item5;
-	int item6;
-	int item7;
-	int item8;
-	int item9;
-	int item10;
-}Item_list;
-
+// 함수 원형
+// 공통 기능 관련
 void cursor(int);
 void gotoxy(int, int);
+void set_color(unsigned short);
 int move(int, int, int, int);
-void draw_content(int);
+// 각각의 화면
+void game(void);
+void shop(void);
+void ranking(int);
 int menu(int);
 int login(int);
-void ranking(int);
-void shop(void);
-void game(void);
-void set_color(unsigned short);
+// UI 출력
+void draw_content(int);
 void shop_preview(int);
-void possession_item(void);
+void draw_owned_item(void);
+void draw_error(int);
+// DB 관련
 void shop_db(void);
-
-// db
-void error(int);
 int login_db(int);
 void ranking_db(int);
 
-enum ControlKey
-{
-	UP = 72, DOWN = 80, ENTER = 13, LEFT = 75, RIGHT = 77, BACKSPACE = 8, ESC = 27
-};
-
-extern Item_list item_list;
-extern User user;
+// 전역 변수
+extern USER user;

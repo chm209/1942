@@ -29,7 +29,7 @@ void shop_db(void)
 
 	if (connection == NULL)
 	{
-		error(0);
+		draw_error(0);
 		fprintf(stderr, "%s", mysql_error(&conn));
 		return FAIL;
 	}
@@ -37,9 +37,9 @@ void shop_db(void)
 	// c언어에서 '\'나 괄호를 쓰면 줄넘김 할 수 있음
 	sprintf(query, "update item_list set item1 = %d, item2 = %d, item3 = %d, \
 		item4 = %d, item5 = %d, item6 = %d, item7 = %d, item8 = %d, item9 = %d, \
-		item10 = %d where id = '%s'", item_list.item1, item_list.item2, item_list.item3, \
-		item_list.item4, item_list.item5, item_list.item6, item_list.item7, item_list.item8, \
-		item_list.item9, item_list.item10, user.id);
+		item10 = %d where id = '%s'", user.item[0], user.item[1], user.item[2], \
+		user.item[3], user.item[4], user.item[5], user.item[6], user.item[7], \
+		user.item[8], user.item[9], user.id);
 	query_stat = mysql_query(connection, query);
 	if (query_stat != 0)
 	{

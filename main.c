@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include "common.h"
 
-User user = { 0, };
-Item_list item_list = { 0, };
+// 프로그램 전체적으로 사용하는 구조체 변수
+USER user = { NULL };
 
 int main(void)
 {
@@ -24,8 +24,8 @@ int main(void)
 		draw_content(1); // 1942 그림 출력
 		draw_content(2); // 조작키 설명 프레임, 텍스트 출력
 
-		// draw_content(3) = 비로그인 / draw_content(4) = 로그인
-		is_logined % 2 == 1 ? draw_content(4) : draw_content(3);
+		// draw_content -> 3 비로그인 | 4 로그인
+		is_logined % 2 == 1 ? draw_content(4, user) : draw_content(3);
 		choose_menu = menu(choose_menu);
 
 		if (choose_menu == 19)
@@ -35,11 +35,11 @@ int main(void)
 		}
 		else if (choose_menu == 21)
 		{
-			is_logined % 2 == 0 ? is_logined = login(0) : shop();
+			is_logined % 2 == 0 ? is_logined = login(0) : shop(user);
 		}
 		else if (choose_menu == 23)
 		{
-			is_logined % 2 == 0 ? ranking(0) : ranking(1);
+			is_logined % 2 == 0 ? ranking(0, user) : ranking(1);
 		}
 		else
 		{
