@@ -183,14 +183,14 @@ void draw_content(int screen_num)
 	// 로그인 화면 - 화면 지우기를 위한 공백 출력
 	case 5:
 	{
-		gotoxy(39, 18);
-		printf("                            ");
-		gotoxy(39, 20);
-		printf("                            ");
-		gotoxy(39, 22);
-		printf("                            ");
-		gotoxy(39, 24);
-		printf("                            ");
+		gotoxy(34, 18);
+		printf("                                 ");
+		gotoxy(34, 20);
+		printf("                                 ");
+		gotoxy(34, 22);
+		printf("                                 ");
+		gotoxy(34, 24);
+		printf("                                 ");
 		cursor(1);
 	}
 		break;
@@ -296,19 +296,17 @@ void draw_content(int screen_num)
 	case 9:
 	{
 		// 유저 정보
-		gotoxy(4, 3);
-		printf("전투기");
-		gotoxy(4, 5);
-		printf("총알 모양");
-		gotoxy(4, 7);
-		printf("고유 색상");
+		gotoxy(5, 3);
+		printf("● 전투기: ");
+		gotoxy(5, 5);
+		printf("총알 모양: ");
+		gotoxy(5, 7);
+		printf("고유 색상: ");
 		gotoxy(33, 3);
 		printf("이름");
 		gotoxy(33, 5);
 		printf("포인트");
 		gotoxy(64, 3);
-		printf("내 순위");
-		gotoxy(64, 5);
 		printf("최고점수");
 		gotoxy(33, 7);
 		printf("사용한 아이템");
@@ -385,7 +383,7 @@ void draw_content(int screen_num)
 	case 11:
 	{
 		gotoxy(3, 26);
-		printf("치장 아이템은 하나씩만 소지 가능 합니다. / 기존 치장 아이템은 60% 가격에 자동 판매 됩니다.");
+		printf("치장 아이템은 하나씩만 소지 가능 합니다. / 기존 치장 아이템은 60%% 가격에 자동 판매 됩니다.");
 		gotoxy(3, 28);
 		printf("목록 이동: 방향키 ↑ ↓  ||  구매: 엔터키                                  상점 나가기: ESC 키");
 		gotoxy(11, 2);
@@ -442,6 +440,21 @@ void draw_content(int screen_num)
 		printf("5500 pt");
 		gotoxy(27, 22);
 		printf("100000 pt");
+	}
+		break;
+	case 13:
+	{
+		for (int i = 4; i < 24; i++)
+		{
+			gotoxy(59, i);
+			printf("                                     ");
+		}
+		gotoxy(59, 5);
+		printf("구매 불가");
+		set_color(12);
+		gotoxy(59, 8);
+		printf("포인트가 부족합니다.");
+		set_color(15);
 	}
 		break;
 	}

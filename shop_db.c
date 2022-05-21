@@ -19,7 +19,6 @@ void shop_db(void)
 	MYSQL_ROW row = { 0, };
 	int query_stat = 0;
 	char id[20] = { 0, };
-	char passwd[20] = { 0, };
 	char query[255] = { 0, };
 
 	mysql_init(&conn);
@@ -40,6 +39,24 @@ void shop_db(void)
 		item10 = %d where id = '%s'", user.item[0], user.item[1], user.item[2], \
 		user.item[3], user.item[4], user.item[5], user.item[6], user.item[7], \
 		user.item[8], user.item[9], user.id);
+	query_stat = mysql_query(connection, query);
+	if (query_stat != 0)
+	{
+		system("cls");
+		fprintf(stderr, "%s", mysql_error(&conn));
+		system("pause");
+	}
+
+	sprintf(query, "update user set point = %d where id = '%s'", user.point, user.id);
+	query_stat = mysql_query(connection, query);
+	if (query_stat != 0)
+	{
+		system("cls");
+		fprintf(stderr, "%s", mysql_error(&conn));
+		system("pause");
+	}
+
+	sprintf(query, "update ranking set item4 = %d where id = '%s'", user.item[9], user.id);
 	query_stat = mysql_query(connection, query);
 	if (query_stat != 0)
 	{

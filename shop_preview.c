@@ -197,9 +197,11 @@ void shop_preview(int list_num)
 		gotoxy(59, 8);
 		printf("랭킹창의 유저명을 꾸며줍니다.");
 		gotoxy(59, 11);
-		printf("1. 선착순 고유 색상을 부여합니다.");
+		printf("1. 랜덤 색상을 부여합니다.");
 		gotoxy(59, 13);
-		printf("2. 미정");
+		printf("2. 색상은 14가지 입니다.");
+		gotoxy(59, 15);
+		printf("2. 재구매시 색상이 변경 됩니다.");
 		break;
 	}
 }

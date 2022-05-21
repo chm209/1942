@@ -25,6 +25,6 @@ void draw_error(int error_code)
 		break;
 	}
 	gotoxy(22, 16);
-	puts("                                                       ");
+	printf("                                                             ");
 	gotoxy(22, 16);
 }

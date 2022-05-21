@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include <windows.h>
 #include "common.h"
 #define SHOP_POS_X 50
@@ -220,19 +222,17 @@ void shop(void)
 						}
 						break;
 					case 22:
-						if (user.item[9] == 0)
-						{
-							user.point -= 100000;
-							user.item[9]++;
-						}
+						user.point -= 100000;
+						srand(time(NULL));
+						user.item[9] = rand() % 14 + 1;
 						break;
 					}
 				}
 			}
 			else
 			{
-				
-				// 돈 부족으로 구매 불가
+				draw_content(13); // 구매불가 알림
+				Sleep(800);
 			}
 			choose_item = 0;
 		}

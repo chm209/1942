@@ -41,15 +41,15 @@ int login_db(int sign)
 		while (join_success == FAIL)
 		{
 			draw_content(5);
-			gotoxy(39, 18);
+			gotoxy(34, 18);
 			printf("회원가입");
-			gotoxy(39, 20);
+			gotoxy(34, 20);
 			printf("20자 이내에 영문으로 입력하십시오");
-			gotoxy(39, 22);
+			gotoxy(34, 22);
 			printf("아이디: ");
 			fgets(id, 20, stdin);
 			CHOP(id);
-			gotoxy(39, 24);
+			gotoxy(34, 24);
 			printf("비밀번호: ");
 			fgets(passwd, 20, stdin);
 			CHOP(passwd);
@@ -70,7 +70,7 @@ int login_db(int sign)
 			}
 
 			// 입력받은 아이디를 기준으로 item_list db에 초기값 등록
-			sprintf(query, "insert into item_list values " "('%s', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d')", id, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+			sprintf(query, "insert into item_list values " "('%s', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d')", id, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15);
 			query_stat = mysql_query(connection, query);
 			if (query_stat != 0)
 			{
@@ -81,7 +81,7 @@ int login_db(int sign)
 			} 
 
 			// 입력받은 아이디를 기준으로 ranking db에 초기값 등록
-			sprintf(query, "insert into ranking values " "('%s', '%d', '%d', '%d', '%d', '%d')", id, 0, 0, 0, 0, 0);
+			sprintf(query, "insert into ranking values " "('%s', '%d', '%d', '%d', '%d', '%d')", id, 0, 0, 0, 0, 15);
 			query_stat = mysql_query(connection, query);
 			if (query_stat != 0)
 			{
@@ -96,13 +96,13 @@ int login_db(int sign)
 	// 로그인
 	case TRUE:
 		draw_content(5);
-		gotoxy(39, 18);
+		gotoxy(34, 18);
 		printf("로그인");
-		gotoxy(39, 20);
+		gotoxy(34, 20);
 		printf("아이디: ");
 		fgets(id, 20, stdin);
 		CHOP(id);
-		gotoxy(39, 22);
+		gotoxy(34, 22);
 		printf("비밀번호: ");
 		fgets(passwd, 20, stdin);
 		CHOP(passwd);
@@ -124,7 +124,7 @@ int login_db(int sign)
 		result = mysql_store_result(connection);
 		while ((row = mysql_fetch_row(result)) != NULL)
 		{
-			// 로그인 성공
+			// 점수, 포인트 불러오기
 			strcpy(user.id, id);
 			user.score = atoi(row[2]);
 			user.point = atoi(row[3]);
@@ -172,11 +172,11 @@ int login_db(int sign)
 			while ((row = mysql_fetch_row(result)) != NULL)
 			{
 				// 불러오기 성공
-				user.best_score = atoi(row[2]);
-				user.use_item[0] = atoi(row[3]);
-				user.use_item[1] = atoi(row[4]);
-				user.use_item[2] = atoi(row[5]);
-				user.use_item[3] = atoi(row[6]);
+				user.best_score = atoi(row[1]);
+				user.use_item[0] = atoi(row[2]);
+				user.use_item[1] = atoi(row[3]);
+				user.use_item[2] = atoi(row[4]);
+				user.use_item[3] = atoi(row[5]);
 				is_successed = TRUE;
 			}
 			mysql_free_result(result);

@@ -31,13 +31,3 @@ void ranking(int is_logined)
 		break;
 	}
 }
-
-
-// 비로그인
-// 테이블 형식 -> 전체 순위, ESC 나가기
-// ※ 상점아이템 적용 여부 (DB 랭킹 테이블 추가) -> userID usertable, ranking usertable, item shop table
-// 
-// 로그인
-// 상단 본인 기록
-// 하단 테이블 형식 -> 전체 순위, ESC 나가기
-// ※ 상점아이템 적용 여부 (DB 랭킹 테이블 추가) -> userID usertable, ranking usertable, item shop table
