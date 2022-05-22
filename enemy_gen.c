@@ -2,108 +2,86 @@
 #include "common.h"
 #include "game.h"
 
-void enemy_gen(Enemy* enemy, int frame_cnt)
+void enemy_gen(ENEMY* enemy, int frame_time)
 {
 	int is_created = FALSE;
+
 	for (int i = 0; i < ENEMY_SIZE; i++)
 	{
-		if (enemy[i].con == FALSE)
+		if (enemy->condition[i] == FALSE)
 		{
-			if ((frame_cnt >= 45 && frame_cnt <= 315) && (frame_cnt - 45) % 90 == 0)
+			if ((frame_time >= 45 && frame_time <= 315) && (frame_time - 45) % 90 == 0)
 			{
-				enemy[i].pos_x = 6;
-				enemy[i].pos_y = 0;
-				enemy[i].type = 0; // <[W]> * * * * * * *
-				enemy[i].move_pattern = 0; // 오른쪽 대각선 이동
-				enemy[i].move_count = 0;
-				enemy[i].speed = 0;
-				enemy[i].health = 5;
-				enemy[i].con = TRUE;
+				enemy->pos_x[i] = 6;
+				enemy->pos_y[i] = 0;
+				enemy->condition[i] = TRUE;
+				enemy->design[i] = 0;
+				enemy->pattern[i] = 0; // 대각선 우하향 & 직선 공격
+				enemy->move_count[i] = 0;
+				enemy->move_interval[i] = 0;
+				enemy->hp[i] = 3;
 				is_created = TRUE;
 			}
 
-			if ((frame_cnt >= 90 && frame_cnt <= 360) && (frame_cnt - 90) % 90 == 0)
+			if ((frame_time >= 90 && frame_time <= 360) && (frame_time - 90) % 90 == 0)\
 			{
-				enemy[i].pos_x = 50;
-				enemy[i].pos_y = 1;
-				enemy[i].type = 0;
-				enemy[i].move_pattern = 1; // 왼쪽 대각선으로 이동
-				enemy[i].move_count = 0;
-				enemy[i].speed = 0;
-				enemy[i].health = 5;
-				enemy[i].con = TRUE;
+				enemy->pos_x[i] = 50;
+				enemy->pos_y[i] = 1;
+				enemy->condition[i] = TRUE;
+				enemy->design[i] = 0;
+				enemy->pattern[i] = 1; // 대각선 좌하향 & 직선 공격
+				enemy->move_count[i] = 0;
+				enemy->move_interval[i] = 0;
+				enemy->hp[i] = 3;
 				is_created = TRUE;
 			}
 
-			if (frame_cnt == 500)
+			if (frame_time == 500)
 			{
-				enemy[i].pos_x = 18;
-				enemy[i].pos_y = 1;
-				enemy[i].type = 1;
-				enemy[i].move_pattern = 2; // 아래로 직진
-				enemy[i].move_count = 0;
-				enemy[i].speed = 0;
-				enemy[i].health = 5;
-				enemy[i].con = TRUE;
+				enemy->pos_x[i] = 18;
+				enemy->pos_y[i] = 1;
+				enemy->pos_x[i + 1] = 13;
+				enemy->pos_y[i + 1] = 0;
+				enemy->pos_x[i + 2] = 23;
+				enemy->pos_y[i + 2] = 0;
 
-				enemy[i + 1].pos_x = 13;
-				enemy[i + 1].pos_y = 0;
-				enemy[i + 1].type = 1;
-				enemy[i + 1].move_pattern = 2; // 아래로 직진
-				enemy[i + 1].move_count = 0;
-				enemy[i + 1].speed = 0;
-				enemy[i + 1].health = 5;
-				enemy[i + 1].con = TRUE;
-
-				enemy[i + 2].pos_x = 23;
-				enemy[i + 2].pos_y = 0;
-				enemy[i + 2].type = 1;
-				enemy[i + 2].move_pattern = 2; // 아래로 직진
-				enemy[i + 2].move_count = 0;
-				enemy[i + 2].speed = 0;
-				enemy[i + 2].health = 5;
-				enemy[i + 2].con = TRUE;
-
+				for (int j = i; j < i+3; j++)
+				{
+					enemy->condition[j] = TRUE;
+					enemy->design[j] = 1;
+					enemy->pattern[j] = 2; // 아래로 직진 & 우측 대각선 공격
+					enemy->move_count[j] = 0;
+					enemy->move_interval[j] = 0;
+					enemy->hp[j] = 5;
+				}
 				is_created = TRUE;
 			}
 
-			if (frame_cnt == 650)
+			if (frame_time == 650)
 			{
-				enemy[i].pos_x = 36;
-				enemy[i].pos_y = 1;
-				enemy[i].type = 1;
-				enemy[i].move_pattern = 3; // 아래로 직진
-				enemy[i].move_count = 0;
-				enemy[i].speed = 0;
-				enemy[i].health = 5;
-				enemy[i].con = TRUE;
+				enemy->pos_x[i] = 36;
+				enemy->pos_y[i] = 1;
+				enemy->pos_x[i + 1] = 31;
+				enemy->pos_y[i + 1] = 0;
+				enemy->pos_x[i + 2] = 41;
+				enemy->pos_y[i + 2] = 0;
 
-				enemy[i + 1].pos_x = 31;
-				enemy[i + 1].pos_y = 0;
-				enemy[i + 1].type = 1;
-				enemy[i + 1].move_pattern = 3; // 아래로 직진
-				enemy[i + 1].move_count = 0;
-				enemy[i + 1].speed = 0;
-				enemy[i + 1].health = 5;
-				enemy[i + 1].con = TRUE;
-
-				enemy[i + 2].pos_x = 41;
-				enemy[i + 2].pos_y = 0;
-				enemy[i + 2].type = 1;
-				enemy[i + 2].move_pattern = 3; // 아래로 직진
-				enemy[i + 2].move_count = 0;
-				enemy[i + 2].speed = 0;
-				enemy[i + 2].health = 5;
-				enemy[i + 2].con = TRUE;
-
+				for (int j = i; j < i+3; j++)
+				{
+					enemy->condition[j] = TRUE;
+					enemy->design[j] = 1;
+					enemy->pattern[j] = 3; // 아래로 직진 & 좌측 대각선 공격
+					enemy->move_count[j] = 0;
+					enemy->move_interval[j] = 0;
+					enemy->hp[j] = 5;
+				}
 				is_created = TRUE;
 			}
 		}
-
 		if (is_created == TRUE)
 		{
-			gotoxy(enemy[i].pos_x, enemy[i].pos_y);
-			switch (enemy[i].type)
+			gotoxy(enemy->pos_x[i], enemy->pos_y[i]);
+			switch (enemy->design[i])
 			{
 			case 0:
 				printf("<WvW>");

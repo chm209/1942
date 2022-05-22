@@ -1,26 +1,26 @@
 #include <stdio.h>
 #include "common.h"
 
-void draw_symbol(int STATUS_POS_Y, int symbol, int count)
+void draw_symbol(int POS_Y, int symbol, int count)
 {
-	int pos_x = 60;
+	int pos_x = 66;
 
-	gotoxy(60, STATUS_POS_Y + 2);
+	gotoxy(66, POS_Y);
 	printf("          ");
 
 	for (int i = 0; i < count; i++)
 	{
-		gotoxy(pos_x, STATUS_POS_Y + 2);
+		gotoxy(pos_x, POS_Y);
 		switch (symbol)
 		{
 		case 0:
 			printf("¢¾");
 			break;
 		case 1:
-			printf("¢Á");
+			printf("¡Ú");
 			break;
 		case 2:
-			printf("¡Ú");
+			printf("¢Á");
 			break;
 		case 3:
 			printf("¢£");

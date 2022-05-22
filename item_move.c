@@ -2,20 +2,20 @@
 #include "game.h"
 #include "common.h"
 
-void item_move(Item* item)
+void item_move(DROP_ITEM* drop_item)
 {
 	for (int i = 0; i < ITEM_SIZE; i++)
 	{
-		if (item[i].con == TRUE)
+		if (drop_item->condition[i] == TRUE)
 		{
-			if (item[i].speed == 10)
+			if (drop_item->move_interval[i] == 10)
 			{
-				item[i].speed = 0;
-				gotoxy(item[i].pos_x, item[i].pos_y);
+				drop_item->move_interval[i] = 0;
+				gotoxy(drop_item->pos_x[i], drop_item->pos_y[i]);
 				printf("     ");
-				item[i].pos_y++;
-				gotoxy(item[i].pos_x, item[i].pos_y);
-				switch (item[i].type)
+				drop_item->pos_y[i]++;
+				gotoxy(drop_item->pos_x[i], drop_item->pos_y[i]);
+				switch (drop_item->type[i])
 				{
 				case 0:
 					printf("[P]");
@@ -27,7 +27,7 @@ void item_move(Item* item)
 			}
 			else
 			{
-				item[i].speed++;
+				drop_item->move_interval[i]++;
 			}
 		}
 	}

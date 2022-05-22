@@ -4,122 +4,111 @@
 #include "common.h"
 #include "game.h"
 
+	// 게임오버, 클리어시에는 item_list에 사용한 아이템 반영
+	// ranking 테이블에 점수, 사용한 아이템 저장
+	// user 테이블에 점수, 포인터 반영
+
 void game(void)
 {
 	system("mode con: cols=80 lines=30");
 	system("cls");
 
-	// 플레이어 관련 구조체 변수
-	// Player: 좌표 X값, 좌표 Y값, 생명, 체력, 점수, 전투기 모양, 전투기 색상
-	// Bullet[]: 좌표 X값, 좌표 Y값, 상태 확인용, 총알 타입, 총알 모양, 총알 색상
-	// Item[]: 좌표 X값, 좌표 Y값, 상태 확인용, 아이템 타입, 아이템 움직임 속도
-	// Bomb[]: 좌표 X값, 좌표 Y값, 폭탄 수량, 폭탄 움직임 속도, 폭탄 상태 확인용 * 2
-	// bomb_bul[]: 좌표 X값, 좌표 Y값, 폭탄 총알 상태 확인용
-	// bomb_bul2[]: 좌표 X값, 좌표 Y값, 폭탄 총알 상태 확인용
-	// Shop: 생명 추가 수량, 체력 회복 수량, 추가 점수 수량, 스킬 쿨타임, 전투기 색상, 총알 색상
-	// ㄴ▷ DB 연동후 손봐야 하는 구조체 변수, 치장 아이템은 0이 Default 색상을 의미
-	// Player player = { 28, 28, 1, 3, 2, 0, NULL, 0 };
-	Player* player = malloc(sizeof(Player));
-	player->pos_x = 28;
-	player->pos_y = 28;
-	player->life = 1;
-	player->health = 3;
-	player->quantity = 2;
-	player->score = 0;
-	player->shape = NULL;
-	player->color = 0;
-	Bullet bullet[BULLET_SIZE] = { 0, 0, 0, 0, NULL, 0 };
-	Item item[ITEM_SIZE] = { 0, };
-	Bomb bomb[BOMB_SIZE] = { 29, 24, 1, 5, FALSE, 6, 24, 0, 5, FALSE };
-	Bomb_blt bomb_bul[BOMB_BUL_SIZE] = { 0, };
-	Bomb_blt bomb_bul2[BOMB_BUL_SIZE] = { 0, };
-	Shop shop = { 0, 0, 0, 0, 0, 0};
+	// 게임 시간 변수
+	int frame_time = 0;
 
-	// 적군 관련 변수
-	// Enemy[]: 좌표 X값, 좌표 Y값, 적 비행기 타입, 움직임 패턴, 움직임 횟수, 움직임 속도, 체력, 상태 확인용
-	// 총알 X값, 총알 Y값, 상태확인, 속도
-	int frame_count = 0; // 스테이지 생성용
-	Enemy enemy[ENEMY_SIZE] = { 0, };
-	Enemy_bul enemy_bul[ENEMY_SIZE] = { 0, };
+	// 구조체 변수
+	PLAYER* player = malloc(sizeof(PLAYER));
+	CANNON* cannon = malloc(sizeof(CANNON));
+	BOMB* bomb = malloc(sizeof(BOMB));
+	bomb->bomb_cannon[0] = malloc(sizeof(BOMB_CANNON));
+	bomb->bomb_cannon[1] = malloc(sizeof(BOMB_CANNON));
+	DROP_ITEM* drop_item = malloc(sizeof(DROP_ITEM));
+	SHOP_ITEM* shop_item = malloc(sizeof(SHOP_ITEM));
+	ENEMY* enemy = malloc(sizeof(ENEMY));
+	for (int i = 0; i < ENEMY_SIZE; i++)
+	{
+		enemy->enemy_cannon[i] = malloc(sizeof(ENEMY));
+	}
 
-	// 게임 시작전 초기 설정
-	// 1. 플레이어 전투기 디자인, 전투기 색상, 총알 디자인, 총알 색상 설정
-	// 2. 최초 실행시 전투기를 한번은 출력해줘야한다.
-	// -▷ DB 연동후 초기설정은 여기서 처리
-	set_player(player, bullet, shop);
+	// 구조체 변수 초기화
+	init_variables(player, cannon, bomb, drop_item, shop_item, enemy);
+
+	// DB에서 데이터를 읽어 초기 정보 세팅
+	load_data(shop_item);
 
 	while (1)
 	{
-		// UI 그리기
-		// 1. 프레임 출력
-		// 2. 플레이어 스탯 출력
-		// 3. 플레이어 전투기 출력
-		draw_game(0);
-		draw_status(player, bomb, shop);
+		gotoxy(0, 0);
+		printf("%d", frame_time);
+
+		draw_game(0); // 게임 UI 출력
+		draw_status(player, shop_item); // 스탯 출력
+		// 전투기 출력
 		{
 			gotoxy(player->pos_x, player->pos_y);
-			set_color(player->color);
-			printf(player->shape);
-			set_color(15);
+			set_color(shop_item->combat_color);
+			printf(player->combat_design);
+			set_color(WHITE);
 		}
 
 		// 키보드 입력 감지
-		// 함수화, getch()로 감지 등등 전부 반응속도가 떨어지거나 툭툭 끊김
+		// 함수화, getch()로 감지 등등 전부 반응속도가 떨어지고 툭툭 끊김
 		{
 			// 왼쪽 이동
 			if (GetAsyncKeyState(VK_LEFT) && player->pos_x > LEFT_LIMIT)
 			{
 				gotoxy(player->pos_x, player->pos_y);
-				puts("     ");
+				printf("     ");
 				player->pos_x--;
 				gotoxy(player->pos_x, player->pos_y);
-				set_color(player->color);
-				printf(player->shape);
-				set_color(15);
+				set_color(shop_item->combat_color);
+				printf(player->combat_design);
+				set_color(WHITE);
 			}
 
 			// 오른쪽 이동
 			if (GetAsyncKeyState(VK_RIGHT) && player->pos_x < RIGHT_LIMIT)
 			{
 				gotoxy(player->pos_x, player->pos_y);
-				puts("     ");
+				printf("     ");
 				player->pos_x++;
 				gotoxy(player->pos_x, player->pos_y);
-				set_color(player->color);
-				printf(player->shape);
-				set_color(15);
+				set_color(shop_item->combat_color);
+				printf(player->combat_design);
+				set_color(WHITE);
 			}
 
 			// 위로 이동
 			if (GetAsyncKeyState(VK_UP) && player->pos_y > UP_LIMIT)
 			{
 				gotoxy(player->pos_x, player->pos_y);
-				puts("     ");
+				printf("     ");
 				player->pos_y--;
 				gotoxy(player->pos_x, player->pos_y);
-				set_color(player->color);
-				printf(player->shape);
-				set_color(15);
+				set_color(shop_item->combat_color);
+				printf(player->combat_design);
+				set_color(WHITE);
 			}
 
 			// 아래로 이동
 			if (GetAsyncKeyState(VK_DOWN) && player->pos_y < DOWN_LIMIT)
 			{
 				gotoxy(player->pos_x, player->pos_y);
-				puts("     ");
+				printf("     ");
 				player->pos_y++;
 				gotoxy(player->pos_x, player->pos_y);
-				set_color(player->color);
-				printf(player->shape);
-				set_color(15);
+				set_color(shop_item->combat_color);
+				printf(player->combat_design);
+				set_color(WHITE);
 			}
 		}
 
 		// 게임 일시 정지
-		// 게임 시작전 눌린 키를 가려내기 위해 frame_count를 검사
-		if (GetAsyncKeyState(VK_ESCAPE) && frame_count > 0)
+		// 게임 시작전 눌린 키를 가려내기 위해 frame_time을 검사
+		if (GetAsyncKeyState(VK_ESCAPE) && frame_time > 0)
 		{
-			int key = 0, do_exit = 23;
+			int key = 0;
+			int do_exit = 23;
 
 			while (key != ENTER)
 			{
@@ -137,6 +126,19 @@ void game(void)
 			{
 				system("cls");
 				// 게임 스코어, 포인트, 사용한 아이템 등등 DB에 저장
+				// 결과창
+				free(player);
+				free(cannon);
+				free(bomb->bomb_cannon[0]);
+				free(bomb->bomb_cannon[1]);
+				free(bomb);
+				free(drop_item);
+				free(shop_item);
+				for (int i = 0; i < ENEMY_SIZE; i++)
+				{
+					free(enemy->enemy_cannon[i]);
+				}
+				free(enemy);
 				break;
 			}
 			// 아니요 선택
@@ -148,102 +150,102 @@ void game(void)
 		}
 
 		// 플레이어 공격 - 스페이스바
-		if (GetAsyncKeyState(VK_SPACE) && frame_count > 0)
+		if (GetAsyncKeyState(VK_SPACE) && frame_time > 0)
 		{
-			for (int i = 0; i < player->quantity; i++)
+			for (int i = 0; i < player->cannon_limit; i++)
 			{
-				if (bullet[i].con == FALSE)
+				if (cannon->condition[i] == FALSE)
 				{
-					bullet[i].pos_x = player->pos_x + 1;
-					bullet[i].pos_y = player->pos_y - 1;
-					bullet[i].con = TRUE;
+					cannon->pos_x[i] = player->pos_x + 1;
+					cannon->pos_y[i] = player->pos_y - 1;
+					cannon->condition[i] = TRUE;
 					break;
 				}
 			}
 		}
 
 		// 폭탄 공격 - Z키
-		if (GetAsyncKeyState(0x5A) && frame_count > 0)
+		if (GetAsyncKeyState(0x5A) && frame_time > 0)
 		{
-			if (bomb[0].count > 0 && (bomb[0].con == FALSE && bomb[1].con == FALSE))
+			if (player->bomb_quantity > 0 && (bomb->condition[0] == FALSE && bomb->condition[1] == FALSE))
 			{
-				bomb[0].count--;
-				bomb[0].con = TRUE;
-				bomb[1].con = TRUE;
+				player->bomb_quantity--;
+				bomb->condition[0] = TRUE;
+				bomb->condition[1] = TRUE;
 			}
 		}
 
 		// 생명 추가 - X키
-		if ((GetAsyncKeyState(0x58) && frame_count > 1) && (shop.cool_time == 0 && shop.life_plus > 0))
+		if ((GetAsyncKeyState(0x58) && frame_time > 1) && (shop_item->cooldown_time == 0 && shop_item->life_plus > 0))
 		{
 			player->life++;
 			player->score -= 50;
-			shop.life_plus--;
-			shop.cool_time = 1000;
+			shop_item->life_plus--;
+			shop_item->cooldown_time = 1000;
 
-			if (bomb[0].count > 0 && (bomb[0].con == FALSE && bomb[1].con == FALSE))
+			if (player->bomb_quantity > 0)
 			{
-				bomb[0].con = TRUE;
-				bomb[1].con = TRUE;
+				bomb->condition[0] = TRUE;
+				bomb->condition[1] = TRUE;
 			}
 			else
 			{
-				bomb[0].count++;
+				player->bomb_quantity++;
 			}
 		}
 
 		// 체력 회복 - C키
-		if ((GetAsyncKeyState(0x43) && frame_count > 1) && (shop.hp_plus > 0 && player->health < 3))
+		if ((GetAsyncKeyState(0x43) && frame_time > 1) && (shop_item->hp_recover > 0 && player->hp < 3))
 		{
-			shop.hp_plus--;
-			player->health++;
+			shop_item->hp_recover--;
+			player->hp++;
 			player->score -= 10;
 		}
 
 		// 적군 생성
-		enemy_gen(enemy, frame_count);
+		enemy_gen(enemy, frame_time);
 
 		// 아이템 생성
-		item_gen(item, frame_count);
+		item_gen(drop_item, frame_time);
 
 		// 적군 이동
 		enemy_move(enemy);
 
 		// 폭탄 이동
-		if (bomb[0].con == TRUE || bomb[1].con == TRUE)
+		if (bomb->condition[0] == TRUE || bomb->condition[1] == TRUE)
 		{
 			bomb_move(bomb);
 		}
 
 		// 총알 이동
-		bullet_move(bullet);
+		cannon_move(cannon, shop_item);
 
 		// 적군 총알 발사
-		enm_bull_status(enemy, player, bomb, bullet, 0);
+		eCannon_status(enemy, player, bomb, cannon, 0);
 
 		// 적 총알 이동
-		enm_bull_move(enemy);
+		eCannon_move(enemy);
 		
 		// 아이템 이동
-		item_move(item);
+		item_move(drop_item);
 		
 		// 아이템 유저 충돌
-		item_status(item, player, bullet, shop, 0);
+		item_status(drop_item, player, cannon, shop_item, 0);
 
 		// 아이템 바닥 충돌
-		item_status(item, player, bullet, shop, 1);
+		item_status(drop_item, player, cannon, shop_item, 1);
 		
 		// 적 총알 플레이어 충돌
-		enm_bull_status(enemy, player, bomb, bullet, 1);
+		eCannon_status(enemy, player, bomb, cannon, 1);
 
 		// 적 총알 바닥 도달
-		enm_bull_status(enemy, player, bomb, bullet, 2);
+		eCannon_status(enemy, player, bomb, cannon, 2);
 		
 		// 적 총알 플레이어 총알 충돌
-		enm_bull_status(enemy, player, bomb, bullet, 3);
+		eCannon_status(enemy, player, bomb, cannon, 3);
 		
 		// 폭탄 발사시 적 총알 폭탄 앞에서 삭제
-		enm_bull_status(enemy, player, bomb, bullet, 4);
+		eCannon_status(enemy, player, bomb, cannon, 4);
 		
 		// 폭탄 - 적 충돌
 		bomb_status(bomb, enemy, player, 0);
@@ -252,42 +254,63 @@ void game(void)
 		bomb_status(bomb, enemy, player, 1);
 
 		// 적군이 바닥에 도달하면 삭제
-		enm_status(enemy, bomb, bomb_bul, bomb_bul2, player, bullet, 0);
+		enemy_status(enemy, bomb, player, cannon, 0);
 
 		// 플레이어 - 적 충돌
-		enm_status(enemy, bomb, bomb_bul, bomb_bul2, player, bullet, 1);
+		enemy_status(enemy, bomb, player, cannon, 1);
 		
 		// 총알 - 적 충돌
-		enm_status(enemy, bomb, bomb_bul, bomb_bul2, player, bullet, 2);
+		enemy_status(enemy, bomb, player, cannon, 2);
 		
 		// 폭탄 총알 - 적 충돌
-		enm_status(enemy, bomb, bomb_bul, bomb_bul2, player, bullet, 3);
+		enemy_status(enemy, bomb, player, cannon, 3);
 		
 		// 총알이 천장에 도달하면 삭제
-		bullet_status(bullet);
+		cannon_status(cannon);
 		
 		// 폭탄 총알 발사
-		bomb_bull_status(bomb, bomb_bul, bomb_bul2, 0);
+		bCannon_status(bomb, 0);
 
 		// 폭탄 총알 이동
-		bomb_bull_move(bomb, bomb_bul, bomb_bul2);
+		bCannon_move(bomb);
 
 		// 폭탄 총알이 천장에 도달하면 삭제
-		bomb_bull_status(bomb, bomb_bul, bomb_bul2, 1);
+		bCannon_status(bomb, 1);
 		
 		// 스킬 재사용 대기
-		if (shop.cool_time > 0)
+		if (shop_item->cooldown_time > 0)
 		{
-			shop.cool_time--;
+			shop_item->cooldown_time--;
 		}
 
 		// 게임 종료 검사
-		if (player->life == 0 && player->health == 0)
+		if (player->life == 0 && player->hp == 0)
 		{
+			free(player);
+			free(cannon);
+			free(bomb->bomb_cannon[0]);
+			free(bomb->bomb_cannon[1]);
+			free(bomb);
+			free(drop_item);
+			free(shop_item);
+			for (int i = 0; i < ENEMY_SIZE; i++)
+			{
+				free(enemy->enemy_cannon[i]);
+			}
+			free(enemy);
 			break;
 		}
 
-		frame_count++;
-		Sleep(22);
+		if (frame_time % 100 == 0)
+		{
+			for (int i = 0; i < 30; i++)
+			{
+				gotoxy(4, i);
+				printf("                                                    ");
+			}
+		}
+
+		frame_time++;
+		Sleep(2);
 	}
 }

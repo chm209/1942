@@ -9,7 +9,6 @@
 #define DB_USER "root"
 #define DB_PASS "abc123"
 #define DB_NAME "game_db"
-#define CHOP(x) x[strlen(x) - 1] = ' '
 
 void ranking_db(int is_logined)
 {

@@ -9,7 +9,6 @@
 #define DB_USER "root"
 #define DB_PASS "abc123"
 #define DB_NAME "game_db"
-#define CHOP(x) x[strlen(x) - 1] = ' '
 
 void shop_db(void)
 {
@@ -18,12 +17,9 @@ void shop_db(void)
 	MYSQL_RES* result = NULL;
 	MYSQL_ROW row = { 0, };
 	int query_stat = 0;
-	char id[20] = { 0, };
 	char query[255] = { 0, };
 
 	mysql_init(&conn);
-	mysql_options(&conn, MYSQL_SET_CHARSET_NAME, "euckr");
-	mysql_options(&conn, MYSQL_INIT_COMMAND, "SET NAMES euckr");
 	connection = mysql_real_connect(&conn, DB_HOST, DB_USER, DB_PASS, DB_NAME, 3306, (char*)NULL, 0);
 
 	if (connection == NULL)

@@ -2,45 +2,46 @@
 #include "game.h"
 #include "common.h"
 
-void draw_status(Player* player, Bomb* bomb, Shop shop)
+void draw_status(PLAYER* player, SHOP_ITEM* shop_item)
 {
-	// 좌표값 Y
-	int STATUS_POS_Y = 0;
+	int POS_Y = 0;
+
+	// 스탯창 프레임 출력
 	draw_game(2);
 
 	// 점수 출력
 	gotoxy(66, 2);
-	puts("SCORE");
+	printf("SCORE");
 	gotoxy(60, 4);
 	printf("%16d", player->score);
 
 	// 생명 출력
-	STATUS_POS_Y = 8;
-	gotoxy(66, STATUS_POS_Y);
+	POS_Y = 8;
+	gotoxy(59, POS_Y);
 	puts("생명");
-	draw_symbol(STATUS_POS_Y, 0, player->life);
+	draw_symbol(POS_Y, 0, player->life);
+
+	// 체력 출력
+	POS_Y = 11;
+	gotoxy(59, POS_Y);
+	puts("체력: ");
+	draw_symbol(POS_Y, 1, player->hp);
 
 	// 폭탄 출력
-	STATUS_POS_Y = 20;
-	gotoxy(66, STATUS_POS_Y);
-	puts("폭탄");
-	draw_symbol(STATUS_POS_Y, 1, bomb[0].count);
+	POS_Y = 14;
+	gotoxy(59, POS_Y);
+	puts("폭탄: ");
+	draw_symbol(POS_Y, 2, player->bomb_quantity);
 	
-	// 체력 출력
-	STATUS_POS_Y = 14;
-	gotoxy(66, STATUS_POS_Y);
-	puts("체력");
-	draw_symbol(STATUS_POS_Y, 2, player->health);
-
 	// 스킬 - 생명 회복
-	STATUS_POS_Y = 26;
-	gotoxy(66, STATUS_POS_Y);
-	puts("생명 추가");
-	draw_symbol(STATUS_POS_Y, 3, shop.life_plus);
+	POS_Y = 17;
+	gotoxy(59, POS_Y);
+	puts("+생명: ");
+	draw_symbol(POS_Y, 3, shop_item->life_plus);
 
 	// 스킬 - HP 회복
-	STATUS_POS_Y = 26;
-	gotoxy(66, STATUS_POS_Y);
-	puts("체력 회복");
-	draw_symbol(STATUS_POS_Y, 4, shop.hp_plus);
+	POS_Y = 20;
+	gotoxy(59, POS_Y);
+	puts("+체력: ");
+	draw_symbol(POS_Y, 4, shop_item->hp_recover);
 }

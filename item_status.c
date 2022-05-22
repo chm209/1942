@@ -2,71 +2,71 @@
 #include "common.h"
 #include "game.h"
 
-void item_status(Item* item, Player* player, Bullet* bullet, Shop shop, int num)
+void item_status(DROP_ITEM* drop_item, PLAYER* player, CANNON* cannon, SHOP_ITEM* shop_item, int state)
 {
-	switch (num)
+	switch (state)
 	{
 	// 아이템 - 플레이어 충돌
 	case 0:
 		for (int i = 0; i < ITEM_SIZE; i++)
 		{
-			if (item[i].con == TRUE)
+			if (drop_item->condition[i] == TRUE)
 			{
-				if (item[i].pos_y == player->pos_y)
+				if (drop_item->pos_y[i] == player->pos_y)
 				{
-					if (item[i].pos_x >= player->pos_x && item[i].pos_x <= player->pos_x + 5)
+					if (drop_item->pos_x[i] >= player->pos_x && drop_item->pos_x[i] <= player->pos_x + 5)
 					{
-						gotoxy(item[i].pos_x, item[i].pos_y);
+						gotoxy(drop_item->pos_x[i], drop_item->pos_y[i]);
 						printf("   ");
-						item[i].con = FALSE;
+						drop_item->condition[i] = FALSE;
 						player->score += 10;
 
-						switch (item[i].type)
+						switch (drop_item->type[i])
 						{
 						case 0:
-							if (bullet->type == 0)
+							if (cannon->upgrade == CANNONE_LEVEL1)
 							{
-								bullet->type = 1;
-								switch (shop.bullet_color)
+								cannon->upgrade = CANNONE_LEVEL2;
+								switch (shop_item->cannon_color)
 								{
-								case 0:
-									bullet->shape = "ⅱ";
+								case WHITE:
+									shop_item->cannon_design = "ⅱ";
 									break;
-								case 1:
-									bullet->shape = "ψ";
+								case RED:
+									shop_item->cannon_design = "ψ";
 									break;
-								case 2:
-									bullet->shape = "±";
+								case BLUE:
+									shop_item->cannon_design = "±";
 									break;
-								case 3:
-									bullet->shape = "♠";
+								case YELLOW:
+									shop_item->cannon_design = "♠";
 									break;
 								}
 							}
-							else if (bullet->type == 1)
+							else if (cannon->upgrade == CANNONE_LEVEL2)
 							{
-								bullet->type = 2;
-								switch (shop.bullet_color)
+								cannon->upgrade = CANNONE_LEVEL3;
+								switch (shop_item->cannon_color)
 								{
-								case 0:
-									bullet->shape = "ⅲ";
+								case WHITE:
+									shop_item->cannon_design = "ⅲ";
 									break;
-								case 1:
-									bullet->shape = "Ψ";
+								case RED:
+									shop_item->cannon_design = "Ψ";
 									break;
-								case 2:
-									bullet->shape = "÷";
+								case BLUE:
+									shop_item->cannon_design = "÷";
 									break;
-								case 3:
-									bullet->shape = "♣";
+								case YELLOW:
+									shop_item->cannon_design = "♣";
 									break;
 								}
 							}
 							break;
 						case 1:
-							if (player->quantity < 5)
+							if (player->cannon_limit < 5)
 							{
-								player->quantity++;
+								player->cannon_limit++;
 							}
 							break;
 						}
@@ -79,13 +79,13 @@ void item_status(Item* item, Player* player, Bullet* bullet, Shop shop, int num)
 	case 1:
 		for (int i = 0; i < ITEM_SIZE; i++)
 		{
-			if (item[i].con == TRUE)
+			if (drop_item->condition[i] == TRUE)
 			{
-				if (item[i].pos_y == 29)
+				if (drop_item->pos_y[i] == 29)
 				{
-					gotoxy(item[i].pos_x, item[i].pos_y);
+					gotoxy(drop_item->pos_x[i], drop_item->pos_y[i]);
 					printf("    ");
-					item[i].con = FALSE;
+					drop_item->condition[i] = FALSE;
 				}
 			}
 		}

@@ -40,6 +40,12 @@
     <Filter Include="소스 파일\db">
       <UniqueIdentifier>{b541c3b8-fd11-465e-b07c-e8f27aabe745}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\game\function">
+      <UniqueIdentifier>{d44de258-f56a-4848-88ad-040ce8a16c2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\game\db">
+      <UniqueIdentifier>{bab84092-d08a-4c38-a284-d409ea9b65cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cursor.c">
@@ -69,19 +75,19 @@
     <ClCompile Include="enemy_move.c">
       <Filter>소스 파일\game\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="enm_bull_move.c">
+    <ClCompile Include="eCannon_move.c">
       <Filter>소스 파일\game\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="enm_bull_status.c">
+    <ClCompile Include="eCannon_status.c">
       <Filter>소스 파일\game\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="enm_status.c">
+    <ClCompile Include="enemy_status.c">
       <Filter>소스 파일\game\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="bomb_bull_move.c">
+    <ClCompile Include="bCannon_move.c">
       <Filter>소스 파일\game\bomb</Filter>
     </ClCompile>
-    <ClCompile Include="bomb_bull_status.c">
+    <ClCompile Include="bCannon_status.c">
       <Filter>소스 파일\game\bomb</Filter>
     </ClCompile>
     <ClCompile Include="bomb_move.c">
@@ -99,10 +105,10 @@
     <ClCompile Include="item_move.c">
       <Filter>소스 파일\game\item</Filter>
     </ClCompile>
-    <ClCompile Include="bullet_move.c">
+    <ClCompile Include="cannon_move.c">
       <Filter>소스 파일\game\player</Filter>
     </ClCompile>
-    <ClCompile Include="bullet_status.c">
+    <ClCompile Include="cannon_status.c">
       <Filter>소스 파일\game\player</Filter>
     </ClCompile>
     <ClCompile Include="set_color.c">
@@ -122,9 +128,6 @@
     </ClCompile>
     <ClCompile Include="draw_game.c">
       <Filter>소스 파일\game\draw</Filter>
-    </ClCompile>
-    <ClCompile Include="set_player.c">
-      <Filter>소스 파일\game\player</Filter>
     </ClCompile>
     <ClCompile Include="draw_status.c">
       <Filter>소스 파일\game\draw</Filter>
@@ -146,6 +149,15 @@
     </ClCompile>
     <ClCompile Include="draw_error.c">
       <Filter>소스 파일\draw</Filter>
+    </ClCompile>
+    <ClCompile Include="init_variables.c">
+      <Filter>소스 파일\game\function</Filter>
+    </ClCompile>
+    <ClCompile Include="load_data.c">
+      <Filter>소스 파일\game\db</Filter>
+    </ClCompile>
+    <ClCompile Include="draw_bomb.c">
+      <Filter>소스 파일\game\draw</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
