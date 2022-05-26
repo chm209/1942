@@ -156,31 +156,6 @@ int login_db(int sign)
 				is_successed = TRUE;
 			}
 			mysql_free_result(result);
-
-			/*
-			// 기록 불러오기
-			sprintf(query, "select * from ranking where id = '%s'", id);
-			query_stat = mysql_query(connection, query);
-			if (query_stat != 0)
-			{
-				draw_error(2);
-				fprintf(stderr, "%s", mysql_error(&conn));
-				Sleep(3500);
-				return FAIL;
-			}
-
-			result = mysql_store_result(connection);
-			while ((row = mysql_fetch_row(result)) != NULL)
-			{
-				// 불러오기 성공
-				user.use_item[0] = atoi(row[2]);
-				user.use_item[1] = atoi(row[3]);
-				user.use_item[2] = atoi(row[4]);
-				user.use_item[3] = atoi(row[5]);
-				is_successed = TRUE;
-			}
-			mysql_free_result(result);
-			*/
 			mysql_close(connection);
 			return SUCCESS;
 		}
