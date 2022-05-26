@@ -17,7 +17,6 @@ void game(void)
 	int frame_time = 0;
 
 	// 구조체 변수
-	RECORD* record = malloc(sizeof(RECORD));
 	PLAYER* player = malloc(sizeof(PLAYER));
 	CANNON* cannon = malloc(sizeof(CANNON));
 	BOMB* bomb = malloc(sizeof(BOMB));
@@ -135,6 +134,7 @@ void game(void)
 				system("cls");
 				save_data(player, shop_item, record);
 				// 결과창
+				draw_end_game(player, shop_item);
 				free(player);
 				free(cannon);
 				free(bomb->bomb_cannon[0]);
@@ -296,6 +296,8 @@ void game(void)
 		// 게임 종료 검사
 		if (player->life == 0 && player->hp == 0)
 		{
+			save_data(player, shop_item, record);
+			// 결과창
 			free(player);
 			free(cannon);
 			free(bomb->bomb_cannon[0]);

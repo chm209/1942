@@ -2,13 +2,8 @@
 #include "game.h"
 #include "common.h"
 
-void init_variables(PLAYER* player, CANNON* cannon, BOMB* bomb, DROP_ITEM* drop_item, SHOP_ITEM* shop_item, ENEMY* enemy, RECORD* record)
+void init_variables(PLAYER* player, CANNON* cannon, BOMB* bomb, DROP_ITEM* drop_item, SHOP_ITEM* shop_item, ENEMY* enemy)
 {
-	// record 구조체 초기화
-	// 생명 추가, 체력 회복 아이템 사용횟수 기록용
-	record->life_plus = 0;
-	record->hp_recover = 0;
-
 	// player 구조체 초기화
 	// 좌표 X, Y 값, 생명, 체력, 폭탄 잔량, 캐논 발사 가능 잔량, 점수
 	player->pos_x = 28;

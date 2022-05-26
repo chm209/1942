@@ -121,24 +121,18 @@ typedef struct EnemyCannon
 	int move_interval;
 } ENEMY_CANNON;
 
-// 게임 기록용 구조체
-typedef struct Record
-{
-	int life_plus;
-	int hp_recover;
-} RECORD;
-
 // 함수 정리완료
 // 초기설정, 기능
-void init_variables(PLAYER*, CANNON*, BOMB*, DROP_ITEM*, SHOP_ITEM*, ENEMY*, RECORD*);
+void init_variables(PLAYER*, CANNON*, BOMB*, DROP_ITEM*, SHOP_ITEM*, ENEMY*);
 void load_data(SHOP_ITEM*);
-void save_data(PLAYER*, SHOP_ITEM*, RECORD*);
+void save_data(PLAYER*, SHOP_ITEM*);
 
 // UI 출력
 void draw_status(PLAYER*, SHOP_ITEM*);
 void draw_game(int);
 void draw_symbol(int, int, int);
 void draw_bomb(int, int, int);
+void draw_end_game(PLAYER*, SHOP_ITEM*);
 
 // 캐논 관련
 void cannon_move(CANNON*, SHOP_ITEM*);

@@ -10,7 +10,7 @@
 #define DB_PASS "abc123"
 #define DB_NAME "game_db"
 
-void save_data(PLAYER* player, SHOP_ITEM* shop_item, RECORD* record)
+void save_data(PLAYER* player, SHOP_ITEM* shop_item)
 {
 	MYSQL* connection = NULL;
 	MYSQL conn = { 0, };
@@ -77,17 +77,17 @@ void save_data(PLAYER* player, SHOP_ITEM* shop_item, RECORD* record)
 				sprintf(query, "update ranking set score = %d, item1 = %d, item2 = %d where id = '%s'", user.score, \
 					user.item[1] - shop_item->life_plus, user.item[2] - shop_item->hp_recover, user.id);
 			}
-			else if (record->life_plus == 0 && record->hp_recover > 0)
+			else if ((user.item[1] == shop_item->life_plus) && (user.item[2] != shop_item->hp_recover))
 			{
 				sprintf(query, "update ranking set score = %d, item2 = %d where id = '%s'", user.score, \
 					user.item[2] - shop_item->hp_recover, user.id);
 			}
-			else if (record->life_plus > 0 && record->hp_recover == 0)
+			else if ((user.item[1] != shop_item->life_plus) && (user.item[2] == shop_item->hp_recover))
 			{
 				sprintf(query, "update ranking set score = %d, item1 = %d where id = '%s'", user.score, \
 					user.item[1] - shop_item->life_plus, user.id);
 			}
-			else if (record->life_plus == 0 && record->hp_recover == 0)
+			else if ((user.item[1] == shop_item->life_plus) && (user.item[2] == shop_item->hp_recover))
 			{
 				sprintf(query, "update ranking set score = %d where id = '%s'", user.score, user.id);
 			}
