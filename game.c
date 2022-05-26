@@ -17,6 +17,7 @@ void game(void)
 	int frame_time = 0;
 
 	// 구조체 변수
+	RECORD* record = malloc(sizeof(RECORD));
 	PLAYER* player = malloc(sizeof(PLAYER));
 	CANNON* cannon = malloc(sizeof(CANNON));
 	BOMB* bomb = malloc(sizeof(BOMB));
@@ -31,10 +32,17 @@ void game(void)
 	}
 
 	// 구조체 변수 초기화
-	init_variables(player, cannon, bomb, drop_item, shop_item, enemy);
+	init_variables(player, cannon, bomb, drop_item, shop_item, enemy, record);
 
 	// DB에서 데이터를 읽어 초기 정보 세팅
 	load_data(shop_item);
+
+	// 자동적용
+	if (shop_item->score_buff > 0)
+	{
+		shop_item->score_buff--;
+		shop_item->buff_on = TRUE;
+	}
 
 	while (1)
 	{
@@ -47,7 +55,7 @@ void game(void)
 		{
 			gotoxy(player->pos_x, player->pos_y);
 			set_color(shop_item->combat_color);
-			printf(player->combat_design);
+			printf(shop_item->combat_design);
 			set_color(WHITE);
 		}
 
@@ -62,7 +70,7 @@ void game(void)
 				player->pos_x--;
 				gotoxy(player->pos_x, player->pos_y);
 				set_color(shop_item->combat_color);
-				printf(player->combat_design);
+				printf(shop_item->combat_design);
 				set_color(WHITE);
 			}
 
@@ -74,7 +82,7 @@ void game(void)
 				player->pos_x++;
 				gotoxy(player->pos_x, player->pos_y);
 				set_color(shop_item->combat_color);
-				printf(player->combat_design);
+				printf(shop_item->combat_design);
 				set_color(WHITE);
 			}
 
@@ -86,7 +94,7 @@ void game(void)
 				player->pos_y--;
 				gotoxy(player->pos_x, player->pos_y);
 				set_color(shop_item->combat_color);
-				printf(player->combat_design);
+				printf(shop_item->combat_design);
 				set_color(WHITE);
 			}
 
@@ -98,7 +106,7 @@ void game(void)
 				player->pos_y++;
 				gotoxy(player->pos_x, player->pos_y);
 				set_color(shop_item->combat_color);
-				printf(player->combat_design);
+				printf(shop_item->combat_design);
 				set_color(WHITE);
 			}
 		}
@@ -125,7 +133,7 @@ void game(void)
 			if (do_exit == 23) // 네
 			{
 				system("cls");
-				// 게임 스코어, 포인트, 사용한 아이템 등등 DB에 저장
+				save_data(player, shop_item, record);
 				// 결과창
 				free(player);
 				free(cannon);
@@ -182,6 +190,7 @@ void game(void)
 			player->score -= 50;
 			shop_item->life_plus--;
 			shop_item->cooldown_time = 1000;
+			record->life_plus++;
 
 			if (player->bomb_quantity > 0)
 			{
@@ -200,6 +209,7 @@ void game(void)
 			shop_item->hp_recover--;
 			player->hp++;
 			player->score -= 10;
+			record->hp_recover++;
 		}
 
 		// 적군 생성
@@ -299,15 +309,6 @@ void game(void)
 			}
 			free(enemy);
 			break;
-		}
-
-		if (frame_time % 100 == 0)
-		{
-			for (int i = 0; i < 30; i++)
-			{
-				gotoxy(4, i);
-				printf("                                                    ");
-			}
 		}
 
 		frame_time++;

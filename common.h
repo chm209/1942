@@ -24,9 +24,7 @@ typedef struct User
 	char id[20];
 	int point;
 	int score;
-	int best_score;
 	int item[10];
-	int use_item[4];
 }USER;
 
 // 함수 원형

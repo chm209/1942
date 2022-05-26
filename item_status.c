@@ -30,16 +30,16 @@ void item_status(DROP_ITEM* drop_item, PLAYER* player, CANNON* cannon, SHOP_ITEM
 								switch (shop_item->cannon_color)
 								{
 								case WHITE:
-									shop_item->cannon_design = "¥¢";
+									shop_item->cannon_design = CANNON5;
 									break;
 								case RED:
-									shop_item->cannon_design = "¥÷";
+									shop_item->cannon_design = CANNON6;
 									break;
 								case BLUE:
-									shop_item->cannon_design = "¡¾";
+									shop_item->cannon_design = CANNON7;
 									break;
 								case YELLOW:
-									shop_item->cannon_design = "¢¼";
+									shop_item->cannon_design = CANNON8;
 									break;
 								}
 							}
@@ -49,16 +49,16 @@ void item_status(DROP_ITEM* drop_item, PLAYER* player, CANNON* cannon, SHOP_ITEM
 								switch (shop_item->cannon_color)
 								{
 								case WHITE:
-									shop_item->cannon_design = "¥£";
+									shop_item->cannon_design = CANNON9;
 									break;
 								case RED:
-									shop_item->cannon_design = "¥×";
+									shop_item->cannon_design = CANNON10;
 									break;
 								case BLUE:
-									shop_item->cannon_design = "¡À";
+									shop_item->cannon_design = CANNON11;
 									break;
 								case YELLOW:
-									shop_item->cannon_design = "¢À";
+									shop_item->cannon_design = CANNON12;
 									break;
 								}
 							}

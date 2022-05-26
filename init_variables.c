@@ -2,8 +2,13 @@
 #include "game.h"
 #include "common.h"
 
-void init_variables(PLAYER* player, CANNON* cannon, BOMB* bomb, DROP_ITEM* drop_item, SHOP_ITEM* shop_item, ENEMY* enemy)
+void init_variables(PLAYER* player, CANNON* cannon, BOMB* bomb, DROP_ITEM* drop_item, SHOP_ITEM* shop_item, ENEMY* enemy, RECORD* record)
 {
+	// record 구조체 초기화
+	// 생명 추가, 체력 회복 아이템 사용횟수 기록용
+	record->life_plus = 0;
+	record->hp_recover = 0;
+
 	// player 구조체 초기화
 	// 좌표 X, Y 값, 생명, 체력, 폭탄 잔량, 캐논 발사 가능 잔량, 점수
 	player->pos_x = 28;
@@ -13,7 +18,6 @@ void init_variables(PLAYER* player, CANNON* cannon, BOMB* bomb, DROP_ITEM* drop_
 	player->bomb_quantity = 1;
 	player->cannon_limit = 2;
 	player->score = 0;
-	player->combat_design = COMBAT1;
 
 	// cannon 구조체 초기화
 	// 좌표 X, Y 값, 각각의 발사 확인용, 캐논 레벨 확인
@@ -64,11 +68,12 @@ void init_variables(PLAYER* player, CANNON* cannon, BOMB* bomb, DROP_ITEM* drop_
 	shop_item->life_plus = 0;
 	shop_item->hp_recover = 0;
 	shop_item->score_buff = 0;
+	shop_item->score_buff = FALSE;
 	shop_item->cooldown_time = 0;
 	shop_item->combat_color = WHITE;
-	shop_item->cannon_design = "[-*-]";
+	shop_item->cannon_design = COMBAT1;
 	shop_item->cannon_color = WHITE;
-	shop_item->cannon_design = "ⅰ";
+	shop_item->cannon_design = CANNON1;
 
 	// enemy 구조체 초기화
 	// 좌표 X, Y 값, 발사 확인용, 움직임 & 공격 패턴, 움직임 방향 전환용, 움직임 속도 조절용, 적군 체력

@@ -54,6 +54,12 @@ void bomb_status(BOMB* bomb, ENEMY* enemy, PLAYER* player, int state)
 			bomb->pos_y[1] = 24;
 			bomb->condition[1] = FALSE;
 			bomb->move_interval[1] = 5;
+
+			for (int i = 0; i < 30; i++)
+			{
+				gotoxy(4, i);
+				printf("                                                    ");
+			}
 		}
 		break;
 	}

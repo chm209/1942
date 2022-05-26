@@ -12,8 +12,23 @@
 
 // 플레이어 전투기 관련
 #define COMBAT1 "[-*-]"
+#define COMBAT2 "<-*->"
+#define COMBAT3 "{:*:}"
+#define COMBAT4 "H:*:H"
 
 // 플레이어 캐논 관련
+#define CANNON1 "ⅰ"
+#define CANNON2 "γ"
+#define CANNON3 "＋"
+#define CANNON4 "★"
+#define CANNON5 "ⅱ"
+#define CANNON6 "ψ"
+#define CANNON7 "±"
+#define CANNON8 "♠"
+#define CANNON9 "ⅲ"
+#define CANNON10 "Ψ"
+#define CANNON11 "÷"
+#define CANNON12 "♣"
 #define CANNONE_LEVEL1 0
 #define CANNONE_LEVEL2 1
 #define CANNONE_LEVEL3 2
@@ -36,7 +51,6 @@ typedef struct Player
 	int bomb_quantity;
 	int cannon_limit;
 	int score;
-	char* combat_design;
 } PLAYER;
 
 typedef struct Cannon
@@ -77,6 +91,7 @@ typedef struct ShopItem
 	int life_plus;
 	int hp_recover;
 	int score_buff;
+	int buff_on;
 	int cooldown_time;
 	int combat_color;
 	char* combat_design;
@@ -106,10 +121,18 @@ typedef struct EnemyCannon
 	int move_interval;
 } ENEMY_CANNON;
 
+// 게임 기록용 구조체
+typedef struct Record
+{
+	int life_plus;
+	int hp_recover;
+} RECORD;
+
 // 함수 정리완료
 // 초기설정, 기능
-void init_variables(PLAYER*, CANNON*, BOMB*, DROP_ITEM*, SHOP_ITEM*, ENEMY*);
+void init_variables(PLAYER*, CANNON*, BOMB*, DROP_ITEM*, SHOP_ITEM*, ENEMY*, RECORD*);
 void load_data(SHOP_ITEM*);
+void save_data(PLAYER*, SHOP_ITEM*, RECORD*);
 
 // UI 출력
 void draw_status(PLAYER*, SHOP_ITEM*);

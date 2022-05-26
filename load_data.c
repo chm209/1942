@@ -53,28 +53,34 @@ void load_data(SHOP_ITEM* shop_item)
 		if (atoi(row[4]) != 0)
 		{
 			shop_item->combat_color = RED;
+			shop_item->combat_design = COMBAT2;
 		}
 		else if (atoi(row[5]) != 0)
 		{
 			shop_item->combat_color = BLUE;
+			shop_item->combat_design = COMBAT3;
 		}
 		else if (atoi(row[6]) != 0)
 		{
 			shop_item->combat_color = YELLOW;
+			shop_item->combat_design = COMBAT4;
 		}
 
 		// 캐논 색상
 		if (atoi(row[7]) != 0)
 		{
 			shop_item->cannon_color = RED;
+			shop_item->cannon_design = CANNON2;
 		}
 		else if (atoi(row[8]) != 0)
 		{
 			shop_item->cannon_color = BLUE;
+			shop_item->cannon_design = CANNON3;
 		}
 		else if (atoi(row[9]) != 0)
 		{
 			shop_item->cannon_color = YELLOW;
+			shop_item->cannon_design = CANNON4;
 		}
 	}
 	mysql_free_result(result);

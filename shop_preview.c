@@ -87,9 +87,9 @@ void shop_preview(int list_num)
 		gotoxy(59, 20);
 		printf("[-*-]");
 		gotoxy(80, 20);
-		set_color(12);
+		set_color(RED);
 		printf("<-*->");
-		set_color(15);
+		set_color(WHITE);
 		break;
 	case 12:
 		gotoxy(59, 5);
@@ -107,9 +107,9 @@ void shop_preview(int list_num)
 		gotoxy(59, 20);
 		printf("[-*-]");
 		gotoxy(80, 20);
-		set_color(9);
+		set_color(BLUE);
 		printf("{:*:}");
-		set_color(15);
+		set_color(WHITE);
 		break;
 	case 14:
 		gotoxy(59, 5);
@@ -127,9 +127,9 @@ void shop_preview(int list_num)
 		gotoxy(59, 20);
 		printf("[-*-]");
 		gotoxy(80, 20);
-		set_color(14);
+		set_color(YELLOW);
 		printf("H:*:H");
-		set_color(15);
+		set_color(WHITE);
 		break;
 	case 16:
 		gotoxy(59, 5);
@@ -145,11 +145,11 @@ void shop_preview(int list_num)
 		gotoxy(59, 18);
 		printf("변경전\t\t변경후");
 		gotoxy(59, 20);
-		printf("γ ψ Ψ");
+		printf("ⅰ ⅱ ⅲ");
 		gotoxy(80, 20);
-		set_color(12);
+		set_color(RED);
 		printf("γ ψ Ψ");
-		set_color(15);
+		set_color(WHITE);
 		break;
 	case 18:
 		gotoxy(59, 5);
@@ -165,11 +165,11 @@ void shop_preview(int list_num)
 		gotoxy(59, 18);
 		printf("변경전\t\t변경후");
 		gotoxy(59, 20);
-		printf("＋ ± ÷");
+		printf("ⅰ ⅱ ⅲ");
 		gotoxy(80, 20);
-		set_color(9);
+		set_color(BLUE);
 		printf("＋ ± ÷");
-		set_color(15);
+		set_color(WHITE);
 		break;
 	case 20:
 		gotoxy(59, 5);
@@ -185,11 +185,11 @@ void shop_preview(int list_num)
 		gotoxy(59, 18);
 		printf("변경전\t\t변경후");
 		gotoxy(59, 20);
-		printf("★ ♠ ♣");
+		printf("ⅰ ⅱ ⅲ");
 		gotoxy(80, 20);
-		set_color(14);
+		set_color(YELLOW);
 		printf("★ ♠ ♣");
-		set_color(15);
+		set_color(WHITE);
 		break;
 	case 22:
 		gotoxy(59, 5);

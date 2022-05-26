@@ -157,6 +157,7 @@ int login_db(int sign)
 			}
 			mysql_free_result(result);
 
+			/*
 			// 기록 불러오기
 			sprintf(query, "select * from ranking where id = '%s'", id);
 			query_stat = mysql_query(connection, query);
@@ -172,7 +173,6 @@ int login_db(int sign)
 			while ((row = mysql_fetch_row(result)) != NULL)
 			{
 				// 불러오기 성공
-				user.best_score = atoi(row[1]);
 				user.use_item[0] = atoi(row[2]);
 				user.use_item[1] = atoi(row[3]);
 				user.use_item[2] = atoi(row[4]);
@@ -180,7 +180,7 @@ int login_db(int sign)
 				is_successed = TRUE;
 			}
 			mysql_free_result(result);
-
+			*/
 			mysql_close(connection);
 			return SUCCESS;
 		}

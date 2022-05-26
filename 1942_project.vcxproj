@@ -175,6 +175,7 @@
     <ClCompile Include="draw_owned_item.c" />
     <ClCompile Include="ranking.c" />
     <ClCompile Include="ranking_db.c" />
+    <ClCompile Include="save_data.c" />
     <ClCompile Include="set_color.c" />
     <ClCompile Include="shop.c" />
     <ClCompile Include="shop_db.c" />

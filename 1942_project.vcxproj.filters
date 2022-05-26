@@ -159,6 +159,9 @@
     <ClCompile Include="draw_bomb.c">
       <Filter>소스 파일\game\draw</Filter>
     </ClCompile>
+    <ClCompile Include="save_data.c">
+      <Filter>소스 파일\game\db</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
