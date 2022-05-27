@@ -4,7 +4,7 @@
 #include "game.h"
 #include "common.h"
 
-void enemy_status(ENEMY* enemy, BOMB* bomb, PLAYER* player, CANNON* cannon, int state)
+void enemy_status(ENEMY* enemy, BOMB* bomb, PLAYER* player, CANNON* cannon, SHOP_ITEM*  shop_item, int state)
 {
 	switch (state)
 	{
@@ -99,10 +99,24 @@ void enemy_status(ENEMY* enemy, BOMB* bomb, PLAYER* player, CANNON* cannon, int 
 							switch (enemy->design[j])
 							{
 							case 0:
-								player->score += 100;
+								if (shop_item->buff_on == TRUE)
+								{
+									player->score += 300;
+								}
+								else
+								{
+									player->score += 100;
+								}
 								break;
 							case 1:
-								player->score += 200;
+								if (shop_item->buff_on == TRUE)
+								{
+									player->score += 500;
+								}
+								else
+								{
+									player->score += 200;
+								}
 								break;
 							}
 
@@ -132,10 +146,24 @@ void enemy_status(ENEMY* enemy, BOMB* bomb, PLAYER* player, CANNON* cannon, int 
 					switch (enemy->design[i])
 					{
 					case 0:
-						player->score += 10;
+						if (shop_item->buff_on == TRUE)
+						{
+							player->score += 150;
+						}
+						else
+						{
+							player->score += 50;
+						}
 						break;
 					case 1:
-						player->score += 20;
+						if (shop_item->buff_on == TRUE)
+						{
+							player->score += 200;
+						}
+						else
+						{
+							player->score += 60;
+						}
 						break;
 					}
 				}
@@ -150,10 +178,24 @@ void enemy_status(ENEMY* enemy, BOMB* bomb, PLAYER* player, CANNON* cannon, int 
 					switch (enemy->design[i])
 					{
 					case 0:
-						player->score += 10;
+						if (shop_item->buff_on == TRUE)
+						{
+							player->score += 150;
+						}
+						else
+						{
+							player->score += 50;
+						}
 						break;
 					case 1:
-						player->score += 20;
+						if (shop_item->buff_on == TRUE)
+						{
+							player->score += 200;
+						}
+						else
+						{
+							player->score += 60;
+						}
 						break;
 					}
 				}

@@ -59,7 +59,7 @@ void save_data(PLAYER* player, SHOP_ITEM* shop_item)
 		user.score = player->score;
 
 		// 추가 점수 아이템이 있을때는 자동 적용
-		if (user.item[2] > 0)
+		if (user.item[2] != shop_item->score_buff)
 		{
 			if ((user.item[0] != shop_item->life_plus) && (user.item[1] != shop_item->hp_recover))
 			{

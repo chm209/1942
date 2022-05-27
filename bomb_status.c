@@ -2,7 +2,7 @@
 #include "game.h"
 #include "common.h"
 
-void bomb_status(BOMB* bomb, ENEMY* enemy, PLAYER* player, int state)
+void bomb_status(BOMB* bomb, ENEMY* enemy, PLAYER* player, SHOP_ITEM* shop_item, int state)
 {
 	switch (state)
 	{
@@ -26,10 +26,24 @@ void bomb_status(BOMB* bomb, ENEMY* enemy, PLAYER* player, int state)
 							switch (enemy->design[j])
 							{
 							case 0:
-								player->score += 10;
+								if (shop_item->buff_on == TRUE)
+								{
+									player->score += 100;
+								}
+								else
+								{
+									player->score += 10;
+								}
 								break;
 							case 1:
-								player->score += 20;
+								if (shop_item->buff_on == TRUE)
+								{
+									player->score += 200;
+								}
+								else
+								{
+									player->score += 20;
+								}
 								break;
 							}
 						}

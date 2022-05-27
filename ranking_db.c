@@ -243,8 +243,8 @@ void ranking_db(int is_logined)
 		while ((row = mysql_fetch_row(result)) != NULL)
 		{
 			set_color(atoi(row[5]));
-			gotoxy(37, 3);
-			printf(": %s", row[0]);
+			gotoxy(39, 3);
+			printf("%s", row[0]);
 			set_color(15);
 
 			gotoxy(72, 3);

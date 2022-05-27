@@ -140,7 +140,7 @@ void cannon_status(CANNON*);
 
 // 气藕 包访
 void bomb_move(BOMB*);
-void bomb_status(BOMB*, ENEMY*, PLAYER*, int);
+void bomb_status(BOMB*, ENEMY*, PLAYER*, SHOP_ITEM* , int);
 void bCannon_status(BOMB*, int);
 void bCannon_move(BOMB*);
 
@@ -152,6 +152,6 @@ void item_status(DROP_ITEM*, PLAYER*, CANNON*, SHOP_ITEM*, int);
 // 利焙 包访
 void enemy_gen(ENEMY*, int);
 void enemy_move(ENEMY*);
-void enemy_status(ENEMY*, BOMB*, PLAYER*, CANNON*, int);
+void enemy_status(ENEMY*, BOMB*, PLAYER*, CANNON*, SHOP_ITEM*, int);
 void eCannon_status(ENEMY*, PLAYER*, BOMB*, CANNON*, int);
 void eCannon_move(ENEMY*);

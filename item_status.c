@@ -19,7 +19,14 @@ void item_status(DROP_ITEM* drop_item, PLAYER* player, CANNON* cannon, SHOP_ITEM
 						gotoxy(drop_item->pos_x[i], drop_item->pos_y[i]);
 						printf("   ");
 						drop_item->condition[i] = FALSE;
-						player->score += 10;
+						if (shop_item->buff_on == TRUE)
+						{
+							player->score += 50;
+						}
+						else
+						{
+							player->score += 10;
+						}
 
 						switch (drop_item->type[i])
 						{

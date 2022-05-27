@@ -130,7 +130,6 @@ void game(void)
 			if (do_exit == 23) // 네
 			{
 				system("cls");
-				// 결과창
 				draw_end_game(player, shop_item);
 				save_data(player, shop_item);
 				free(player);
@@ -254,22 +253,22 @@ void game(void)
 		eCannon_status(enemy, player, bomb, cannon, 4);
 		
 		// 폭탄 - 적 충돌
-		bomb_status(bomb, enemy, player, 0);
+		bomb_status(bomb, enemy, player, shop_item, 0);
 
 		// 폭탄이 천장에 도달하면 삭제
-		bomb_status(bomb, enemy, player, 1);
+		bomb_status(bomb, enemy, player, shop_item, 1);
 
 		// 적군이 바닥에 도달하면 삭제
-		enemy_status(enemy, bomb, player, cannon, 0);
+		enemy_status(enemy, bomb, player, cannon, shop_item, 0);
 
 		// 플레이어 - 적 충돌
-		enemy_status(enemy, bomb, player, cannon, 1);
+		enemy_status(enemy, bomb, player, cannon, shop_item, 1);
 		
 		// 총알 - 적 충돌
-		enemy_status(enemy, bomb, player, cannon, 2);
+		enemy_status(enemy, bomb, player, cannon, shop_item, 2);
 		
 		// 폭탄 총알 - 적 충돌
-		enemy_status(enemy, bomb, player, cannon, 3);
+		enemy_status(enemy, bomb, player, cannon, shop_item, 3);
 		
 		// 총알이 천장에 도달하면 삭제
 		cannon_status(cannon);
@@ -292,8 +291,8 @@ void game(void)
 		// 게임 종료 검사
 		if (player->life == 0 && player->hp == 0)
 		{
+			draw_end_game(player, shop_item);
 			save_data(player, shop_item);
-			// 결과창
 			free(player);
 			free(cannon);
 			free(bomb->bomb_cannon[0]);

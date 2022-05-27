@@ -303,7 +303,7 @@ void draw_content(int screen_num)
 		gotoxy(5, 7);
 		printf("고유 색상: ");
 		gotoxy(33, 3);
-		printf("이름");
+		printf("이름: ");
 		gotoxy(33, 5);
 		printf("포인트");
 		gotoxy(64, 3);
