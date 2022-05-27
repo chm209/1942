@@ -34,6 +34,14 @@ void eCannon_move(ENEMY* enemy)
 				gotoxy(enemy->enemy_cannon[i]->pos_x[j], enemy->enemy_cannon[i]->pos_y[j]);
 				printf("¢´");
 			}
+			if (enemy->enemy_cannon[i]->condition[j] == TRUE && enemy->pattern[i] == 4)
+			{
+				gotoxy(enemy->enemy_cannon[i]->pos_x[j], enemy->enemy_cannon[i]->pos_y[j]);
+				printf("  ");
+				enemy->enemy_cannon[i]->pos_y[j]++;
+				gotoxy(enemy->enemy_cannon[i]->pos_x[j], enemy->enemy_cannon[i]->pos_y[j]);
+				printf("W");
+			}
 		}
 	}
 }

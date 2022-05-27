@@ -10,7 +10,7 @@ void game(void)
 	system("cls");
 
 	// 게임 시간 변수
-	int frame_time = 0;
+	int frame_time = 750;
 	int pause_flag = FALSE;
 
 	// 구조체 변수
@@ -170,7 +170,7 @@ void game(void)
 		}
 
 		// 폭탄 공격 - Z키
-		if ((GetAsyncKeyState(0x5A) & 0x8000) && frame_time > 0)
+		if ((GetAsyncKeyState(0x5A) & 0x0001) && frame_time > 0)
 		{
 			if (player->bomb_quantity > 0 && (bomb->condition[0] == FALSE && bomb->condition[1] == FALSE))
 			{
@@ -181,7 +181,7 @@ void game(void)
 		}
 
 		// 생명 추가 - X키
-		if (((GetAsyncKeyState(0x58) & 0x8000) && frame_time > 1) && (shop_item->cooldown_time == 0 && shop_item->life_plus > 0))
+		if (((GetAsyncKeyState(0x58) & 0x0001) && frame_time > 1) && (shop_item->cooldown_time == 0 && shop_item->life_plus > 0))
 		{
 			player->life++;
 			player->score -= 50;
@@ -191,7 +191,7 @@ void game(void)
 			if (player->bomb_quantity > 0)
 			{
 				bomb->condition[0] = TRUE;
-				bomb->condition[1] = TRUE;
+				bomb->condition[1] = TRUE; 
 			}
 			else
 			{
@@ -200,7 +200,7 @@ void game(void)
 		}
 
 		// 체력 회복 - C키
-		if (((GetAsyncKeyState(0x43) & 0x8000) && frame_time > 1) && (shop_item->hp_recover > 0 && player->hp < 3))
+		if (((GetAsyncKeyState(0x43) & 0x0001) && frame_time > 1) && (shop_item->hp_recover > 0 && player->hp < 3))
 		{
 			shop_item->hp_recover--;
 			player->hp++;

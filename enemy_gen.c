@@ -23,7 +23,7 @@ void enemy_gen(ENEMY* enemy, int frame_time)
 				is_created = TRUE;
 			}
 
-			if ((frame_time >= 90 && frame_time <= 360) && (frame_time - 90) % 90 == 0)\
+			if ((frame_time >= 90 && frame_time <= 360) && (frame_time - 90) % 90 == 0)
 			{
 				enemy->pos_x[i] = 50;
 				enemy->pos_y[i] = 1;
@@ -57,7 +57,7 @@ void enemy_gen(ENEMY* enemy, int frame_time)
 				is_created = TRUE;
 			}
 
-			if (frame_time == 650)
+			if (frame_time == 600)
 			{
 				enemy->pos_x[i] = 36;
 				enemy->pos_y[i] = 1;
@@ -77,6 +77,44 @@ void enemy_gen(ENEMY* enemy, int frame_time)
 				}
 				is_created = TRUE;
 			}
+
+			if (frame_time == 780)
+			{
+				enemy->pos_x[i] = 13;
+				enemy->pos_y[i] = 0;
+				enemy->pos_x[i + 1] = 25;
+				enemy->pos_y[i + 1] = 0;
+
+				for (int j = i; j < i + 2; j++)
+				{
+					enemy->condition[j] = TRUE;
+					enemy->design[j] = 2;
+					enemy->pattern[j] = 4; // 등장해서 얼마간 공격하고 다시 위로 올라가서 사라짐
+					enemy->move_count[j] = 0;
+					enemy->move_interval[j] = 0;
+					enemy->hp[j] = 5;
+				}
+				is_created = TRUE;
+			}
+
+			if (frame_time == 980)
+			{
+				enemy->pos_x[i] = 31;
+				enemy->pos_y[i] = 0;
+				enemy->pos_x[i + 1] = 43;
+				enemy->pos_y[i + 1] = 0;
+
+				for (int j = i; j < i + 2; j++)
+				{
+					enemy->condition[j] = TRUE;
+					enemy->design[j] = 2;
+					enemy->pattern[j] = 4; // 등장해서 얼마간 공격하고 다시 위로 올라가서 사라짐
+					enemy->move_count[j] = 0;
+					enemy->move_interval[j] = 0;
+					enemy->hp[j] = 5;
+				}
+				is_created = TRUE;
+			}
 		}
 		if (is_created == TRUE)
 		{
@@ -88,6 +126,9 @@ void enemy_gen(ENEMY* enemy, int frame_time)
 				break;
 			case 1:
 				printf("<XVX>");
+				break;
+			case 2:
+				printf("[TWT]");
 				break;
 			}
 			break;

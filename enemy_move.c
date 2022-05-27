@@ -126,6 +126,54 @@ void enemy_move(ENEMY* enemy)
 				}
 			}
 
+			// 아래로 갔다가 다시 올라오기
+			if (enemy->pattern[i] == 4)
+			{
+				if (enemy->move_count[i] == 1)
+				{
+					// 자기 턴이 오면 진행
+					if ((enemy->move_interval[i] > 150) && (enemy->move_interval[i] % 35 == 0))
+					{
+						// 다시 뒤로 돌아가는 패턴이라서 여기서 처리
+						if (enemy->pos_y[i] == 0)
+						{
+							gotoxy(enemy->pos_x[i], enemy->pos_y[i]);
+							printf("     ");
+							enemy->pos_x[i] = 0;
+							enemy->pos_y[i] = 0;
+							enemy->condition[i] = FALSE;
+						}
+						else
+						{
+							enemy->pos_y[i]--;
+						}
+						// 다시 뒤로 돌아가야하기 때문에 턴수를 초기화 하지 않음
+					}
+					else
+					{
+						enemy->move_interval[i]++;
+					}
+				}
+				else
+				{
+					// 자기 턴이 오면 진행
+					if (enemy->move_interval[i] == 5)
+					{
+						enemy->pos_y[i]++;
+						if (enemy->pos_y[i] > 4)
+						{
+							enemy->move_count[i]++;
+						}
+						// 턴 초기화
+						enemy->move_interval[i] = 0;
+					}
+					else
+					{
+						enemy->move_interval[i]++;
+					}
+				}
+			}
+
 			gotoxy(enemy->pos_x[i], enemy->pos_y[i]);
 			switch (enemy->design[i])
 			{
@@ -134,6 +182,9 @@ void enemy_move(ENEMY* enemy)
 				break;
 			case 1:
 				printf("<XVX>");
+				break;
+			case 2:
+				printf("[TWT]");
 				break;
 			}
 		}

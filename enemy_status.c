@@ -118,6 +118,16 @@ void enemy_status(ENEMY* enemy, BOMB* bomb, PLAYER* player, CANNON* cannon, SHOP
 									player->score += 200;
 								}
 								break;
+							case 2:
+								if (shop_item->buff_on == TRUE)
+								{
+									player->score += 500;
+								}
+								else
+								{
+									player->score += 200;
+								}
+								break;
 							}
 
 							gotoxy(cannon->pos_x[i], cannon->pos_y[i]);
@@ -165,6 +175,16 @@ void enemy_status(ENEMY* enemy, BOMB* bomb, PLAYER* player, CANNON* cannon, SHOP
 							player->score += 60;
 						}
 						break;
+					case 2:
+						if (shop_item->buff_on == TRUE)
+						{
+							player->score += 170;
+						}
+						else
+						{
+							player->score += 53;
+						}
+						break;
 					}
 				}
 
@@ -195,6 +215,16 @@ void enemy_status(ENEMY* enemy, BOMB* bomb, PLAYER* player, CANNON* cannon, SHOP
 						else
 						{
 							player->score += 60;
+						}
+						break;
+					case 2:
+						if (shop_item->buff_on == TRUE)
+						{
+							player->score += 170;
+						}
+						else
+						{
+							player->score += 53;
 						}
 						break;
 					}
