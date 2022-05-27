@@ -162,6 +162,9 @@
     <ClCompile Include="save_data.c">
       <Filter>소스 파일\game\db</Filter>
     </ClCompile>
+    <ClCompile Include="draw_end_game.c">
+      <Filter>소스 파일\game\draw</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">

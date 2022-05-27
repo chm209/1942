@@ -151,6 +151,7 @@
     <ClCompile Include="cursor.c" />
     <ClCompile Include="draw_bomb.c" />
     <ClCompile Include="draw_content.c" />
+    <ClCompile Include="draw_end_game.c" />
     <ClCompile Include="draw_status.c" />
     <ClCompile Include="draw_symbol.c" />
     <ClCompile Include="enemy_gen.c" />

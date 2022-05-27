@@ -4,10 +4,6 @@
 #include "common.h"
 #include "game.h"
 
-	// 게임오버, 클리어시에는 item_list에 사용한 아이템 반영
-	// ranking 테이블에 점수, 사용한 아이템 저장
-	// user 테이블에 점수, 포인터 반영
-
 void game(void)
 {
 	system("mode con: cols=80 lines=30");
@@ -15,6 +11,7 @@ void game(void)
 
 	// 게임 시간 변수
 	int frame_time = 0;
+	int pause_flag = FALSE;
 
 	// 구조체 변수
 	PLAYER* player = malloc(sizeof(PLAYER));
@@ -31,7 +28,7 @@ void game(void)
 	}
 
 	// 구조체 변수 초기화
-	init_variables(player, cannon, bomb, drop_item, shop_item, enemy, record);
+	init_variables(player, cannon, bomb, drop_item, shop_item, enemy);
 
 	// DB에서 데이터를 읽어 초기 정보 세팅
 	load_data(shop_item);
@@ -62,7 +59,7 @@ void game(void)
 		// 함수화, getch()로 감지 등등 전부 반응속도가 떨어지고 툭툭 끊김
 		{
 			// 왼쪽 이동
-			if (GetAsyncKeyState(VK_LEFT) && player->pos_x > LEFT_LIMIT)
+			if ((GetAsyncKeyState(VK_LEFT) & 0x8000) && player->pos_x > LEFT_LIMIT)
 			{
 				gotoxy(player->pos_x, player->pos_y);
 				printf("     ");
@@ -74,7 +71,7 @@ void game(void)
 			}
 
 			// 오른쪽 이동
-			if (GetAsyncKeyState(VK_RIGHT) && player->pos_x < RIGHT_LIMIT)
+			if ((GetAsyncKeyState(VK_RIGHT) & 0x8000) && player->pos_x < RIGHT_LIMIT)
 			{
 				gotoxy(player->pos_x, player->pos_y);
 				printf("     ");
@@ -86,7 +83,7 @@ void game(void)
 			}
 
 			// 위로 이동
-			if (GetAsyncKeyState(VK_UP) && player->pos_y > UP_LIMIT)
+			if ((GetAsyncKeyState(VK_UP) & 0x8000) && player->pos_y > UP_LIMIT)
 			{
 				gotoxy(player->pos_x, player->pos_y);
 				printf("     ");
@@ -98,7 +95,7 @@ void game(void)
 			}
 
 			// 아래로 이동
-			if (GetAsyncKeyState(VK_DOWN) && player->pos_y < DOWN_LIMIT)
+			if ((GetAsyncKeyState(VK_DOWN) & 0x8000) && player->pos_y < DOWN_LIMIT)
 			{
 				gotoxy(player->pos_x, player->pos_y);
 				printf("     ");
@@ -112,7 +109,8 @@ void game(void)
 
 		// 게임 일시 정지
 		// 게임 시작전 눌린 키를 가려내기 위해 frame_time을 검사
-		if (GetAsyncKeyState(VK_ESCAPE) && frame_time > 0)
+		// https://genesis8.tistory.com/138 관련글
+		if ((GetAsyncKeyState(VK_ESCAPE) & 0x0001) && frame_time > 0)
 		{
 			int key = 0;
 			int do_exit = 23;
@@ -132,9 +130,9 @@ void game(void)
 			if (do_exit == 23) // 네
 			{
 				system("cls");
-				save_data(player, shop_item, record);
 				// 결과창
 				draw_end_game(player, shop_item);
+				save_data(player, shop_item);
 				free(player);
 				free(cannon);
 				free(bomb->bomb_cannon[0]);
@@ -158,7 +156,7 @@ void game(void)
 		}
 
 		// 플레이어 공격 - 스페이스바
-		if (GetAsyncKeyState(VK_SPACE) && frame_time > 0)
+		if ((GetAsyncKeyState(VK_SPACE) & 0x8000) && frame_time > 0)
 		{
 			for (int i = 0; i < player->cannon_limit; i++)
 			{
@@ -173,7 +171,7 @@ void game(void)
 		}
 
 		// 폭탄 공격 - Z키
-		if (GetAsyncKeyState(0x5A) && frame_time > 0)
+		if ((GetAsyncKeyState(0x5A) & 0x8000) && frame_time > 0)
 		{
 			if (player->bomb_quantity > 0 && (bomb->condition[0] == FALSE && bomb->condition[1] == FALSE))
 			{
@@ -184,13 +182,12 @@ void game(void)
 		}
 
 		// 생명 추가 - X키
-		if ((GetAsyncKeyState(0x58) && frame_time > 1) && (shop_item->cooldown_time == 0 && shop_item->life_plus > 0))
+		if (((GetAsyncKeyState(0x58) & 0x8000) && frame_time > 1) && (shop_item->cooldown_time == 0 && shop_item->life_plus > 0))
 		{
 			player->life++;
 			player->score -= 50;
 			shop_item->life_plus--;
 			shop_item->cooldown_time = 1000;
-			record->life_plus++;
 
 			if (player->bomb_quantity > 0)
 			{
@@ -204,12 +201,11 @@ void game(void)
 		}
 
 		// 체력 회복 - C키
-		if ((GetAsyncKeyState(0x43) && frame_time > 1) && (shop_item->hp_recover > 0 && player->hp < 3))
+		if (((GetAsyncKeyState(0x43) & 0x8000) && frame_time > 1) && (shop_item->hp_recover > 0 && player->hp < 3))
 		{
 			shop_item->hp_recover--;
 			player->hp++;
 			player->score -= 10;
-			record->hp_recover++;
 		}
 
 		// 적군 생성
@@ -296,7 +292,7 @@ void game(void)
 		// 게임 종료 검사
 		if (player->life == 0 && player->hp == 0)
 		{
-			save_data(player, shop_item, record);
+			save_data(player, shop_item);
 			// 결과창
 			free(player);
 			free(cannon);
@@ -314,6 +310,6 @@ void game(void)
 		}
 
 		frame_time++;
-		Sleep(2);
+		Sleep(22);
 	}
 }

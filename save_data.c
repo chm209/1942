@@ -44,50 +44,55 @@ void save_data(PLAYER* player, SHOP_ITEM* shop_item)
 	// 최고 기록 갱신시 랭킹 테이블 업데이트
 	if (user.score < player->score)
 	{
+		// 기록 갱신전 초기화 해줌
+		// 초기화를 하지않으면 이전 기록이 남아 있어서 따로 업데이트를 해줘야하기 때문에
+		// 어차피 업데이트할거 일괄적으로 초기화 해줌
+		sprintf(query, "update ranking set score = %d, item1 = %d, item2 = %d, item3 = %d where id = '%s'", 0, 0, 0, 0, user.id);
+		query_stat = mysql_query(connection, query);
+		if (query_stat != 0)
+		{
+			system("cls");
+			fprintf(stderr, "%s", mysql_error(&conn));
+			system("pause");
+		}
+
 		user.score = player->score;
 
 		// 추가 점수 아이템이 있을때는 자동 적용
 		if (user.item[2] > 0)
 		{
-			if ((user.item[1] != shop_item->life_plus) && (user.item[2] != shop_item->hp_recover))
+			if ((user.item[0] != shop_item->life_plus) && (user.item[1] != shop_item->hp_recover))
 			{
-				sprintf(query, "update ranking set score = %d, item1 = %d, item2 = %d, item3 = %d where id = '%s'", user.score, \
-					user.item[1] - shop_item->life_plus, user.item[2] - shop_item->hp_recover, user.item[3] - shop_item->score_buff, user.id);
+				sprintf(query, "update ranking set score = %d, item1 = %d, item2 = %d, item3 = %d where id = '%s'", user.score, 1, 1, 1, user.id);
 			}
-			else if ((user.item[1] == shop_item->life_plus) && (user.item[2] != shop_item->hp_recover))
+			else if ((user.item[0] == shop_item->life_plus) && (user.item[1] != shop_item->hp_recover))
 			{
-				sprintf(query, "update ranking set score = %d, item2 = %d, item3 = %d where id = '%s'", user.score, \
-					user.item[2] - shop_item->hp_recover, user.item[3] - shop_item->score_buff, user.id);
+				sprintf(query, "update ranking set score = %d, item2 = %d, item3 = %d where id = '%s'", user.score, 1, 1, user.id);
 			}
-			else if ((user.item[1] != shop_item->life_plus) && (user.item[2] == shop_item->hp_recover))
+			else if ((user.item[0] != shop_item->life_plus) && (user.item[1] == shop_item->hp_recover))
 			{
-				sprintf(query, "update ranking set score = %d, item1 = %d, item3 = %d where id = '%s'", user.score, \
-					user.item[1] - shop_item->life_plus, user.item[3] - shop_item->score_buff, user.id);
+				sprintf(query, "update ranking set score = %d, item1 = %d, item3 = %d where id = '%s'", user.score, 1, 1, user.id);
 			}
-			else if ((user.item[1] == shop_item->life_plus) && (user.item[2] == shop_item->hp_recover))
+			else if ((user.item[0] == shop_item->life_plus) && (user.item[1] == shop_item->hp_recover))
 			{
-				sprintf(query, "update ranking set score = %d, item3 = %d where id = '%s'", user.score, \
-					user.item[3] - shop_item->score_buff, user.id);
+				sprintf(query, "update ranking set score = %d, item3 = %d where id = '%s'", user.score, 1, user.id);
 			}
 		}
 		else
 		{
-			if ((user.item[1] != shop_item->life_plus) && (user.item[2] != shop_item->hp_recover))
+			if ((user.item[0] != shop_item->life_plus) && (user.item[1] != shop_item->hp_recover))
 			{
-				sprintf(query, "update ranking set score = %d, item1 = %d, item2 = %d where id = '%s'", user.score, \
-					user.item[1] - shop_item->life_plus, user.item[2] - shop_item->hp_recover, user.id);
+				sprintf(query, "update ranking set score = %d, item1 = %d, item2 = %d where id = '%s'", user.score, 1, 1, user.id);
 			}
-			else if ((user.item[1] == shop_item->life_plus) && (user.item[2] != shop_item->hp_recover))
+			else if ((user.item[0] == shop_item->life_plus) && (user.item[1] != shop_item->hp_recover))
 			{
-				sprintf(query, "update ranking set score = %d, item2 = %d where id = '%s'", user.score, \
-					user.item[2] - shop_item->hp_recover, user.id);
+				sprintf(query, "update ranking set score = %d, item2 = %d where id = '%s'", user.score, 1, user.id);
 			}
-			else if ((user.item[1] != shop_item->life_plus) && (user.item[2] == shop_item->hp_recover))
+			else if ((user.item[0] != shop_item->life_plus) && (user.item[1] == shop_item->hp_recover))
 			{
-				sprintf(query, "update ranking set score = %d, item1 = %d where id = '%s'", user.score, \
-					user.item[1] - shop_item->life_plus, user.id);
+				sprintf(query, "update ranking set score = %d, item1 = %d where id = '%s'", user.score, 1, user.id);
 			}
-			else if ((user.item[1] == shop_item->life_plus) && (user.item[2] == shop_item->hp_recover))
+			else if ((user.item[0] == shop_item->life_plus) && (user.item[1] == shop_item->hp_recover))
 			{
 				sprintf(query, "update ranking set score = %d where id = '%s'", user.score, user.id);
 			}
@@ -101,8 +106,10 @@ void save_data(PLAYER* player, SHOP_ITEM* shop_item)
 			system("pause");
 		}
 	}
-	user.point = user.point + (player->score * 0.5);
-
+	if ((player->score * 0.5) > 0)
+	{
+		user.point = user.point + (player->score * 0.5);
+	}
 	// 점수와 포인트 기록
 	sprintf(query, "update user set score = %d, point = %d where id = '%s'", user.score, user.point, user.id);
 	query_stat = mysql_query(connection, query);

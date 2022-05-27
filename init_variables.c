@@ -66,7 +66,7 @@ void init_variables(PLAYER* player, CANNON* cannon, BOMB* bomb, DROP_ITEM* drop_
 	shop_item->score_buff = FALSE;
 	shop_item->cooldown_time = 0;
 	shop_item->combat_color = WHITE;
-	shop_item->cannon_design = COMBAT1;
+	shop_item->combat_design = COMBAT1;
 	shop_item->cannon_color = WHITE;
 	shop_item->cannon_design = CANNON1;
 
