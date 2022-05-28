@@ -23,7 +23,9 @@ void ranking_db(int is_logined)
 	{
 		draw_error(0);
 		fprintf(stderr, "%s", mysql_error(&conn));
-		return FAIL;
+		gotoxy(22, 17);
+		system("pause");
+		exit(0);
 	}
 
 	switch (is_logined)
@@ -107,8 +109,9 @@ void ranking_db(int is_logined)
 		{
 			draw_error(2);
 			fprintf(stderr, "%s", mysql_error(&conn));
-			Sleep(3500);
-			return FAIL;
+			gotoxy(22, 17);
+			system("pause");
+			exit(0);
 		}
 
 		mysql_query(connection, "select * from item_list where id = '%s'", user.id);
@@ -229,8 +232,9 @@ void ranking_db(int is_logined)
 		{
 			draw_error(2);
 			fprintf(stderr, "%s", mysql_error(&conn));
-			Sleep(3500);
-			return FAIL;
+			gotoxy(22, 17);
+			system("pause");
+			exit(0);
 		}
 
 		mysql_query(connection, "select * from ranking where id = '%s'", user.id);
@@ -371,5 +375,4 @@ void ranking_db(int is_logined)
 		break;
 	}
 	mysql_close(connection);
-	return FAIL;
 }

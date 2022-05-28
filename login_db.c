@@ -25,7 +25,9 @@ int login_db(int sign)
 	{
 		draw_error(0);
 		fprintf(stderr, "%s", mysql_error(&conn));
-		return FAIL;
+		gotoxy(22, 17);
+		system("pause");
+		exit(0);
 	}
 
 	switch (sign)
@@ -70,8 +72,9 @@ int login_db(int sign)
 			{
 				draw_error(2);
 				fprintf(stderr, "%s", mysql_error(&conn));
-				Sleep(3500);
-				return FAIL;
+				gotoxy(22, 17);
+				system("pause");
+				exit(0);
 			} 
 
 			// 입력받은 아이디를 기준으로 ranking db에 초기값 등록
@@ -81,8 +84,9 @@ int login_db(int sign)
 			{
 				draw_error(2);
 				fprintf(stderr, "%s", mysql_error(&conn));
-				Sleep(3500);
-				return FAIL;
+				gotoxy(22, 17);
+				system("pause");
+				exit(0);
 			}
 			join_success = TRUE;
 		}

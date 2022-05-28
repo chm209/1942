@@ -21,7 +21,9 @@ void load_data(SHOP_ITEM* shop_item)
 	{
 		draw_error(0);
 		fprintf(stderr, "%s", mysql_error(&conn));
-		return FAIL;
+		gotoxy(22, 17);
+		system("pause");
+		exit(0);
 	}
 
 	// 소지 아이템 불러오기
@@ -31,8 +33,9 @@ void load_data(SHOP_ITEM* shop_item)
 	{
 		draw_error(2);
 		fprintf(stderr, "%s", mysql_error(&conn));
-		Sleep(3500);
-		return FAIL;
+		gotoxy(22, 17);
+		system("pause");
+		exit(0);
 	}
 
 	result = mysql_store_result(connection);

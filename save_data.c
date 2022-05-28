@@ -21,7 +21,9 @@ void save_data(PLAYER* player, SHOP_ITEM* shop_item)
 	{
 		draw_error(0);
 		fprintf(stderr, "%s", mysql_error(&conn));
-		return FAIL;
+		gotoxy(22, 17);
+		system("pause");
+		exit(0);
 	}
 
 	// 사용한 아이템 DB에 반영
@@ -118,6 +120,4 @@ void save_data(PLAYER* player, SHOP_ITEM* shop_item)
 	user.item[0] = shop_item->life_plus;
 	user.item[1] = shop_item->hp_recover;
 	user.item[2] = shop_item->score_buff;
-
-	return 0;
 }

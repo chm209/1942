@@ -21,7 +21,9 @@ void shop_db(void)
 	{
 		draw_error(0);
 		fprintf(stderr, "%s", mysql_error(&conn));
-		return FAIL;
+		gotoxy(22, 17);
+		system("pause");
+		exit(0);
 	}
 
 	// c언어에서 '\'나 괄호를 쓰면 줄넘김 할 수 있음
