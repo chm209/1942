@@ -76,6 +76,26 @@ void item_status(DROP_ITEM* drop_item, PLAYER* player, CANNON* cannon, SHOP_ITEM
 								player->cannon_limit++;
 							}
 							break;
+						case 2:
+							if (player->life < 3)
+							{
+								player->life++;
+							}
+							else
+							{
+								player->score += 100;
+							}
+							break;
+						case 3:
+							if (player->hp < 3)
+							{
+								player->hp++;
+							}
+							else
+							{
+								player->score += 90;
+							}
+							break;
 						}
 					}
 				}

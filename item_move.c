@@ -23,6 +23,12 @@ void item_move(DROP_ITEM* drop_item)
 				case 1:
 					printf("[¥£]");
 					break;
+				case 2:
+					printf("[¢¾]");
+					break;
+				case 3:
+					printf("[¡Ú]");
+					break;
 				}
 			}
 			else
