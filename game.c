@@ -345,16 +345,6 @@ void game(void)
 			}
 		}
 
-		// 잔상처럼 남는 적 전투기를 제거하기 위해 100초당 한번씩 화면을 지워준다.
-		if (frame_time % 100 == 0)
-		{
-			for (int i = 0; i < 30; i++)
-			{
-				gotoxy(5, i);
-				printf("                                                   ");
-			}
-		}
-
 		frame_time++;
 		Sleep(18);
 	}

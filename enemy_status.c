@@ -64,25 +64,6 @@ void enemy_status(ENEMY* enemy, BOMB* bomb, PLAYER* player, CANNON* cannon, SHOP
 					{
 						if (enemy->hp[j] > 0)
 						{
-							gotoxy(cannon->pos_x[i], cannon->pos_y[i]);
-							switch (rand() % 5 + 1)
-							{
-							case 1:
-								printf("A");
-								break;
-							case 2:
-								printf("K");
-								break;
-							case 3:
-								printf("¢Í");
-								break;
-							case 4:
-								printf("¡Ú");
-								break;
-							case 5:
-								printf("¡Ø");
-								break;
-							}
 							switch (cannon->upgrade)
 							{
 							case LEVEL0:

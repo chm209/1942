@@ -125,6 +125,11 @@ void shop(void)
 								user.point += 3300;
 							}
 						}
+						else
+						{
+							user.point += 1700;
+							user.item[3]--;
+						}
 						break;
 					// ÆÄ¶û ÆäÀÎÆ®
 					case 12:
@@ -143,6 +148,11 @@ void shop(void)
 								user.item[5] = 0;
 								user.point += 3300;
 							}
+						}
+						else
+						{
+							user.point += 2700;
+							user.item[4]--;
 						}
 						break;
 					// ³ë¶û ÆäÀÎÆ®
@@ -163,6 +173,11 @@ void shop(void)
 								user.point += 2700;
 							}
 						}
+						else
+						{
+							user.point += 3300;
+							user.item[5]--;
+						}
 						break;
 					// »¡°£ ÃÑ¾Ë
 					case 16:
@@ -181,6 +196,11 @@ void shop(void)
 								user.item[8] = 0;
 								user.point += 3300;
 							}
+						}
+						else
+						{
+							user.point += 1700;
+							user.item[6]--;
 						}
 						break;
 					// ÆÄ¶õ ÃÑ¾Ë
@@ -201,6 +221,11 @@ void shop(void)
 								user.point += 3300;
 							}
 						}
+						else
+						{
+							user.point += 2700;
+							user.item[7]--;
+						}
 						break;
 					// ³ë¶õ ÃÑ¾Ë
 					case 20:
@@ -219,6 +244,11 @@ void shop(void)
 								user.item[7] = 0;
 								user.point += 2700;
 							}
+						}
+						else
+						{
+							user.point += 3300;
+							user.item[8]--;
 						}
 						break;
 					case 22:
