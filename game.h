@@ -119,6 +119,7 @@ typedef struct EnemyCannon
 	int pos_y[ENEMY_CANNON_SIZE];
 	int condition[ENEMY_CANNON_SIZE];
 	int move_interval;
+	int move_pattern[ENEMY_CANNON_SIZE];
 } ENEMY_CANNON;
 
 // 함수 정리완료
@@ -133,6 +134,7 @@ void draw_game(int);
 void draw_symbol(int, int, int);
 void draw_bomb(int, int, int);
 void draw_end_game(PLAYER*, SHOP_ITEM*);
+void draw_help(void);
 
 // 캐논 관련
 void cannon_move(CANNON*, SHOP_ITEM*);

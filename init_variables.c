@@ -59,7 +59,7 @@ void init_variables(PLAYER* player, CANNON* cannon, BOMB* bomb, DROP_ITEM* drop_
 	}
 
 	// shop_item 구조체 초기화
-	// 생명, 체력, 추가점수, 스킬 재사용 시간, 전투기 색상, 캐논 색상
+	// 생명, 체력, 추가점수, 추가점수 활성화 확인용, 스킬 재사용 시간, 전투기 색상, 전투기 디자인, 캐논 색상, 캐논 디자인
 	shop_item->life_plus = 0;
 	shop_item->hp_recover = 0;
 	shop_item->score_buff = 0;
@@ -84,12 +84,13 @@ void init_variables(PLAYER* player, CANNON* cannon, BOMB* bomb, DROP_ITEM* drop_
 		enemy->hp[i] = 0;
 		
 		// enemy -> enemy_cannon 구조체 초기화
-		// 좌표 X, Y 값, 발사 확인용, 움직임 속도 조절용
+		// 좌표 X, Y 값, 발사 확인용, 공격 패턴, 움직임 속도 조절용
 		for (int j = 0; j < ENEMY_CANNON_SIZE; j++)
 		{
 			enemy->enemy_cannon[i]->pos_x[i] = 0;
 			enemy->enemy_cannon[i]->pos_y[i] = 0;
 			enemy->enemy_cannon[i]->condition[i] = 0;
+			enemy->enemy_cannon[i]->move_pattern[i] = 0;
 		}
 		enemy->enemy_cannon[i]->move_interval = 0;
 	}

@@ -30,18 +30,18 @@ void draw_status(PLAYER* player, SHOP_ITEM* shop_item)
 	// ÆøÅº Ãâ·Â
 	POS_Y = 14;
 	gotoxy(59, POS_Y);
-	puts("ÆøÅº: ");
+	puts("Z-ÆøÅº: ");
 	draw_symbol(POS_Y, 2, player->bomb_quantity);
 	
 	// ½ºÅ³ - »ý¸í È¸º¹
 	POS_Y = 17;
 	gotoxy(59, POS_Y);
-	puts("+»ý¸í: ");
+	puts("X-»ý¸í: ");
 	draw_symbol(POS_Y, 3, shop_item->life_plus);
 
 	// ½ºÅ³ - HP È¸º¹
 	POS_Y = 20;
 	gotoxy(59, POS_Y);
-	puts("+Ã¼·Â: ");
+	puts("C-Ã¼·Â: ");
 	draw_symbol(POS_Y, 4, shop_item->hp_recover);
 }

@@ -132,7 +132,7 @@ void enemy_move(ENEMY* enemy)
 				if (enemy->move_count[i] == 1)
 				{
 					// 자기 턴이 오면 진행
-					if ((enemy->move_interval[i] > 150) && (enemy->move_interval[i] % 35 == 0))
+					if ((enemy->move_interval[i] > 150) && (enemy->move_interval[i] % 100 == 0))
 					{
 						// 다시 뒤로 돌아가는 패턴이라서 여기서 처리
 						if (enemy->pos_y[i] == 0)
@@ -174,6 +174,35 @@ void enemy_move(ENEMY* enemy)
 				}
 			}
 
+			// 일직선으로 내려감 - 공격은 전방위
+			if (enemy->pattern[i] == 5)
+			{
+				if (enemy->pos_y[i] > 16)
+				{
+					if (enemy->move_interval[i] == 1)
+					{
+						enemy->pos_y[i]++;
+						enemy->move_interval[i] = 0;
+					}
+					else
+					{
+						enemy->move_interval[i]++;
+					}
+				}
+				else
+				{
+					if (enemy->move_interval[i] == 35)
+					{
+						enemy->pos_y[i]++;
+						enemy->move_interval[i] = 0;
+					}
+					else
+					{
+						enemy->move_interval[i]++;
+					}
+				}
+			}
+
 			gotoxy(enemy->pos_x[i], enemy->pos_y[i]);
 			switch (enemy->design[i])
 			{
@@ -185,6 +214,9 @@ void enemy_move(ENEMY* enemy)
 				break;
 			case 2:
 				printf("[TWT]");
+				break;
+			case 3:
+				printf("(pWq)");
 				break;
 			}
 		}

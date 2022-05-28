@@ -30,7 +30,7 @@ void eCannon_status(ENEMY* enemy, PLAYER* player, BOMB* bomb, CANNON* cannon, in
 									printf("*");
 								}
 							}
-							else if (enemy->enemy_cannon[i]->move_interval > 60 && (enemy->pattern[i] == 2 || enemy->pattern[i] == 3))
+							if (enemy->enemy_cannon[i]->move_interval > 60 && (enemy->pattern[i] == 2 || enemy->pattern[i] == 3))
 							{
 								if (enemy->move_count[i] == 3)
 								{
@@ -42,13 +42,35 @@ void eCannon_status(ENEMY* enemy, PLAYER* player, BOMB* bomb, CANNON* cannon, in
 									printf("¢´");
 								}
 							}
-							else if ((enemy->pattern[i] == 4 && enemy->move_count[i] == 1) && (enemy->move_interval[i] < 175))
+							if ((enemy->pattern[i] == 4 && enemy->move_count[i] == 1) && (enemy->move_interval[i] < 175))
 							{
 								enemy->enemy_cannon[i]->pos_x[j] = enemy->pos_x[i] + 2;
 								enemy->enemy_cannon[i]->pos_y[j] = enemy->pos_y[i] + 1;
+								enemy->enemy_cannon[i]->move_interval = 0;
 								enemy->enemy_cannon[i]->condition[j] = TRUE;
 								gotoxy(enemy->enemy_cannon[i]->pos_x[j], enemy->enemy_cannon[i]->pos_y[j]);
 								printf("W");
+							}
+							if (enemy->enemy_cannon[i]->move_interval > 60 && (enemy->pattern[i] == 5 && (enemy->pos_y[i] > 3 && enemy->pos_y[i] < 18)))
+							{
+								enemy->enemy_cannon[i]->pos_x[j] = enemy->pos_x[i] + 2;
+								enemy->enemy_cannon[i]->pos_y[j] = enemy->pos_y[i] + 1;
+								enemy->enemy_cannon[i]->pos_x[j + 1] = enemy->pos_x[i] + 6;
+								enemy->enemy_cannon[i]->pos_y[j + 1] = enemy->pos_y[i];
+								enemy->enemy_cannon[i]->pos_x[j + 2] = enemy->pos_x[i] - 3;
+								enemy->enemy_cannon[i]->pos_y[j + 2] = enemy->pos_y[i];
+								enemy->enemy_cannon[i]->condition[j] = TRUE;
+								enemy->enemy_cannon[i]->condition[j+1] = TRUE;
+								enemy->enemy_cannon[i]->condition[j+2] = TRUE;
+								enemy->enemy_cannon[i]->move_pattern[j + 1] = 1;
+								enemy->enemy_cannon[i]->move_pattern[j + 2] = 2;
+								gotoxy(enemy->enemy_cannon[i]->pos_x[j], enemy->enemy_cannon[i]->pos_y[j]);
+								printf("*");
+								gotoxy(enemy->enemy_cannon[i]->pos_x[j+1], enemy->enemy_cannon[i]->pos_y[j + 1]);
+								printf("*");
+								gotoxy(enemy->enemy_cannon[i]->pos_x[j + 2], enemy->enemy_cannon[i]->pos_y[j + 2]);
+								printf("*");
+								enemy->enemy_cannon[i]->move_interval = 0;
 							}
 						}
 					}
@@ -106,6 +128,20 @@ void eCannon_status(ENEMY* enemy, PLAYER* player, BOMB* bomb, CANNON* cannon, in
 				{
 					gotoxy(enemy->enemy_cannon[i]->pos_x[j], enemy->enemy_cannon[i]->pos_y[j]);
 					printf("    ");
+					enemy->enemy_cannon[i]->condition[j] = FALSE;
+				}
+
+				if (enemy->enemy_cannon[i]->condition[j] == TRUE && enemy->enemy_cannon[i]->pos_x[j] == 5)
+				{
+					gotoxy(enemy->enemy_cannon[i]->pos_x[j], enemy->enemy_cannon[i]->pos_y[j]);
+					printf("  ");
+					enemy->enemy_cannon[i]->condition[j] = FALSE;
+				}
+
+				if (enemy->enemy_cannon[i]->condition[j] == TRUE && enemy->enemy_cannon[i]->pos_x[j] == 55)
+				{
+					gotoxy(enemy->enemy_cannon[i]->pos_x[j], enemy->enemy_cannon[i]->pos_y[j]);
+					printf("  ");
 					enemy->enemy_cannon[i]->condition[j] = FALSE;
 				}
 			}

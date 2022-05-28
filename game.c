@@ -10,7 +10,7 @@ void game(void)
 	system("cls");
 
 	// 게임 시간 변수
-	int frame_time = 750;
+	int frame_time = 0;
 	int pause_flag = FALSE;
 
 	// 구조체 변수
@@ -39,6 +39,8 @@ void game(void)
 		shop_item->score_buff--;
 		shop_item->buff_on = TRUE;
 	}
+	
+	draw_help();
 
 	while (1)
 	{
@@ -129,8 +131,8 @@ void game(void)
 			// 네 선택
 			if (do_exit == 23) // 네
 			{
-				system("cls");
 				draw_end_game(player, shop_item);
+				draw_game(3);
 				save_data(player, shop_item);
 				free(player);
 				free(cannon);
@@ -288,10 +290,11 @@ void game(void)
 			shop_item->cooldown_time--;
 		}
 
-		// 게임 종료 검사
+		// 게임오버 검사
 		if (player->life == 0 && player->hp == 0)
 		{
 			draw_end_game(player, shop_item);
+			draw_game(3);
 			save_data(player, shop_item);
 			free(player);
 			free(cannon);
@@ -308,7 +311,33 @@ void game(void)
 			break;
 		}
 
+		// 게임 클리어 검사
+		if (frame_time == 3800)
+		{
+			draw_end_game(player, shop_item);
+			draw_game(4);
+			save_data(player, shop_item);
+			free(player);
+			free(cannon);
+			free(bomb->bomb_cannon[0]);
+			free(bomb->bomb_cannon[1]);
+			free(bomb);
+			free(drop_item);
+			free(shop_item);
+			for (int i = 0; i < ENEMY_SIZE; i++)
+			{
+				free(enemy->enemy_cannon[i]);
+			}
+			free(enemy);
+			break;
+		}
+
+		if (frame_time % 100 == 0)
+		{
+			system("cls");
+		}
+
 		frame_time++;
-		Sleep(22);
+		Sleep(0);
 	}
 }

@@ -3,14 +3,14 @@
 
 void draw_symbol(int POS_Y, int symbol, int count)
 {
-	int pos_x = 66;
+	int POS_X = 67;
 
-	gotoxy(66, POS_Y);
+	gotoxy(POS_X, POS_Y);
 	printf("          ");
 
 	for (int i = 0; i < count; i++)
 	{
-		gotoxy(pos_x, POS_Y);
+		gotoxy(POS_X, POS_Y);
 		switch (symbol)
 		{
 		case 0:
@@ -29,6 +29,6 @@ void draw_symbol(int POS_Y, int symbol, int count)
 			printf("¢Â");
 			break;
 		}
-		pos_x += 2;
+		POS_X += 2;
 	}
 }

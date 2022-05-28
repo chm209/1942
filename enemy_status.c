@@ -65,7 +65,7 @@ void enemy_status(ENEMY* enemy, BOMB* bomb, PLAYER* player, CANNON* cannon, SHOP
 				{
 					if ((enemy->pos_x[j] <= cannon->pos_x[i] - 1) && (enemy->pos_x[j] + 5) >= cannon->pos_x[i] + 1)
 					{
-						if (enemy->hp[i] > 0)
+						if (enemy->hp[j] > 0)
 						{
 							gotoxy(cannon->pos_x[i], cannon->pos_y[i]);
 							switch (rand() % 5 + 1)
@@ -86,7 +86,10 @@ void enemy_status(ENEMY* enemy, BOMB* bomb, PLAYER* player, CANNON* cannon, SHOP
 								printf("¡Ø");
 								break;
 							}
-							enemy->hp[i]--;
+							gotoxy(cannon->pos_x[i], cannon->pos_y[i]);
+							printf("  ");
+							cannon->condition[i] = FALSE;
+							enemy->hp[j]--;
 						}
 						else
 						{
