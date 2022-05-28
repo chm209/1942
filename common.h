@@ -4,11 +4,13 @@
 #define SUCCESS 1
 #define FALSE 0
 #define FAIL 0
+
 // set_color() 관련
 #define WHITE 15
 #define RED 12
 #define YELLOW 14
 #define BLUE 9
+
 // 키보드 처리 관련
 #define UP 72
 #define DOWN 80
@@ -19,6 +21,7 @@
 #define ESC 27
 
 // 구조체 - 로그인 시점부터 프로그램을 종료할때까지 끝까지 살아있는 구조체
+// 상점 이용, 게임 플레이후 데이터를 갱신 하는 과정에서 기준으로 사용함
 typedef struct User
 {
 	char id[20];

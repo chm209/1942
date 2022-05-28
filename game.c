@@ -11,7 +11,6 @@ void game(void)
 
 	// 게임 시간 변수
 	int frame_time = 0;
-	int pause_flag = FALSE;
 
 	// 구조체 변수
 	PLAYER* player = malloc(sizeof(PLAYER));
@@ -40,13 +39,13 @@ void game(void)
 		shop_item->buff_on = TRUE;
 	}
 	
+	// 게임 시작전 도움말 출력
 	draw_help();
 
 	while (1)
 	{
 		gotoxy(0, 0);
 		printf("%d", frame_time);
-
 		draw_game(0); // 게임 UI 출력
 		draw_status(player, shop_item); // 스탯 출력
 		// 전투기 출력
@@ -312,29 +311,48 @@ void game(void)
 		}
 
 		// 게임 클리어 검사
-		if (frame_time == 3800)
+		if (frame_time == 3800 || frame_time > 3100)
 		{
-			draw_end_game(player, shop_item);
-			draw_game(4);
-			save_data(player, shop_item);
-			free(player);
-			free(cannon);
-			free(bomb->bomb_cannon[0]);
-			free(bomb->bomb_cannon[1]);
-			free(bomb);
-			free(drop_item);
-			free(shop_item);
+			int is_cleared = TRUE;
+
 			for (int i = 0; i < ENEMY_SIZE; i++)
 			{
-				free(enemy->enemy_cannon[i]);
+				if (enemy->condition[i] == TRUE)
+				{
+					is_cleared = FALSE;
+					break;
+				}
 			}
-			free(enemy);
-			break;
+
+			if (is_cleared == TRUE)
+			{
+				draw_end_game(player, shop_item);
+				draw_game(4);
+				save_data(player, shop_item);
+				free(player);
+				free(cannon);
+				free(bomb->bomb_cannon[0]);
+				free(bomb->bomb_cannon[1]);
+				free(bomb);
+				free(drop_item);
+				free(shop_item);
+				for (int i = 0; i < ENEMY_SIZE; i++)
+				{
+					free(enemy->enemy_cannon[i]);
+				}
+				free(enemy);
+				break;
+			}
 		}
 
+		// 잔상처럼 남는 적 전투기를 제거하기 위해 100초당 한번씩 화면을 지워준다.
 		if (frame_time % 100 == 0)
 		{
-			system("cls");
+			for (int i = 0; i < 30; i++)
+			{
+				gotoxy(5, i);
+				printf("                                                   ");
+			}
 		}
 
 		frame_time++;

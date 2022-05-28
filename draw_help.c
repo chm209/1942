@@ -9,4 +9,5 @@ void draw_help(void)
 	draw_game(6);
 	gotoxy(16, 26);
 	system("pause");
+	system("cls");
 }
