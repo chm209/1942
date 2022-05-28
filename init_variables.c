@@ -11,7 +11,7 @@ void init_variables(PLAYER* player, CANNON* cannon, BOMB* bomb, DROP_ITEM* drop_
 	player->life = 1;
 	player->hp = 3;
 	player->bomb_quantity = 1;
-	player->cannon_limit = 2;
+	player->cannon_limit = 1;
 	player->score = 0;
 
 	// cannon 구조체 초기화

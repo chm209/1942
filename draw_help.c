@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "common.h"
+#include "game.h"
 
 void draw_help(void)
 {

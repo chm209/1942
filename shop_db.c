@@ -5,11 +5,6 @@
 #include "common.h"
 #pragma commnet(lib, "libmysql.lib")
 
-#define DB_HOST "127.0.0.1"
-#define DB_USER "root"
-#define DB_PASS "abc123"
-#define DB_NAME "game_db"
-
 void shop_db(void)
 {
 	MYSQL* connection = NULL;

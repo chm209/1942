@@ -51,7 +51,7 @@ void eCannon_status(ENEMY* enemy, PLAYER* player, BOMB* bomb, CANNON* cannon, in
 								gotoxy(enemy->enemy_cannon[i]->pos_x[j], enemy->enemy_cannon[i]->pos_y[j]);
 								printf("W");
 							}
-							if (enemy->enemy_cannon[i]->move_interval > 60 && (enemy->pattern[i] == 5 && (enemy->pos_y[i] > 3 && enemy->pos_y[i] < 18)))
+							if (enemy->enemy_cannon[i]->move_interval > 60 && (enemy->pattern[i] == 5 && (enemy->pos_y[i] > 1 && enemy->pos_y[i] < 18)))
 							{
 								enemy->enemy_cannon[i]->pos_x[j] = enemy->pos_x[i] + 2;
 								enemy->enemy_cannon[i]->pos_y[j] = enemy->pos_y[i] + 1;

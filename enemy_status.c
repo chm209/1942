@@ -30,6 +30,7 @@ void enemy_status(ENEMY* enemy, BOMB* bomb, PLAYER* player, CANNON* cannon, SHOP
 			{
 				if ((enemy->pos_x[i] <= player->pos_x && enemy->pos_x[i] + 5 >= player->pos_x) && enemy->pos_x[i] - 4 <= player->pos_x)
 				{
+					// game.c -> while(1) 마지막에 게임 오버를 체크하며 속도가 빠르기 때문에 게임 오버 처리는 따로 하지 않음
 					if (player->life > 0)
 					{
 						player->life--;
@@ -44,10 +45,6 @@ void enemy_status(ENEMY* enemy, BOMB* bomb, PLAYER* player, CANNON* cannon, SHOP
 						bomb->condition[0] = TRUE;
 						bomb->condition[1] = TRUE;
 						break;
-					}
-					else
-					{
-						// 게임오버
 					}
 					break;
 				}
@@ -71,13 +68,13 @@ void enemy_status(ENEMY* enemy, BOMB* bomb, PLAYER* player, CANNON* cannon, SHOP
 							switch (rand() % 5 + 1)
 							{
 							case 1:
-								printf("0");
+								printf("A");
 								break;
 							case 2:
-								printf("o");
+								printf("K");
 								break;
 							case 3:
-								printf("☆");
+								printf("♨");
 								break;
 							case 4:
 								printf("★");
@@ -86,6 +83,16 @@ void enemy_status(ENEMY* enemy, BOMB* bomb, PLAYER* player, CANNON* cannon, SHOP
 								printf("※");
 								break;
 							}
+							switch (cannon->upgrade)
+							{
+							case LEVEL0:
+								break;
+							case LEVEL1:
+								break;
+							case LEVEL2:
+								break;
+							}
+
 							gotoxy(cannon->pos_x[i], cannon->pos_y[i]);
 							printf("  ");
 							cannon->condition[i] = FALSE;

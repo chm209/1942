@@ -2,7 +2,7 @@
 // 키보드 입력 관련
 #define LEFT_LIMIT 5
 #define RIGHT_LIMIT 51
-#define UP_LIMIT 4
+#define UP_LIMIT 14
 #define DOWN_LIMIT 29
 
 // 공통
@@ -29,9 +29,6 @@
 #define CANNON10 "Ψ"
 #define CANNON11 "÷"
 #define CANNON12 "♣"
-#define CANNONE_LEVEL1 0
-#define CANNONE_LEVEL2 1
-#define CANNONE_LEVEL3 2
 
 // 구조체 변수 관련
 #define CANNON_SIZE 4

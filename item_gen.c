@@ -2,6 +2,20 @@
 #include "common.h"
 #include "game.h"
 
+// +---------------+------+
+// | item gen time | time |
+// +---------------+------+
+// | cannon up     | 700  |
+// | cannon qty+   | 900  |
+// | life+         | 1300 |
+// | hp+           | 1400 |
+// | cannon qty+   | 2000 |
+// | hp+           | 2050 |
+// | cannon up     | 2300 |
+// | cannon qty+   | 2600 |
+// | hp+           | 2900 |
+// +---------------+------+
+
 void item_gen(DROP_ITEM* drop_item, int frame_time)
 {
 	int isCreated = FALSE;

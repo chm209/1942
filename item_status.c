@@ -31,9 +31,9 @@ void item_status(DROP_ITEM* drop_item, PLAYER* player, CANNON* cannon, SHOP_ITEM
 						switch (drop_item->type[i])
 						{
 						case 0:
-							if (cannon->upgrade == CANNONE_LEVEL1)
+							if (cannon->upgrade == LEVEL0)
 							{
-								cannon->upgrade = CANNONE_LEVEL2;
+								cannon->upgrade = LEVEL1;
 								switch (shop_item->cannon_color)
 								{
 								case WHITE:
@@ -50,9 +50,9 @@ void item_status(DROP_ITEM* drop_item, PLAYER* player, CANNON* cannon, SHOP_ITEM
 									break;
 								}
 							}
-							else if (cannon->upgrade == CANNONE_LEVEL2)
+							else if (cannon->upgrade == LEVEL1)
 							{
-								cannon->upgrade = CANNONE_LEVEL3;
+								cannon->upgrade = LEVEL2;
 								switch (shop_item->cannon_color)
 								{
 								case WHITE:
