@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "common.h"
 
 void shop_preview(int list_num)
@@ -9,7 +8,7 @@ void shop_preview(int list_num)
 		gotoxy(59, i);
 		printf("                                     ");
 	}
-
+	
 	gotoxy(59, 4);
 	printf("[아이템 이름]");
 	gotoxy(59, 7);
@@ -133,13 +132,13 @@ void shop_preview(int list_num)
 		break;
 	case 16:
 		gotoxy(59, 5);
-		printf("빨간 총알");
+		printf("빨간 캐논");
 		gotoxy(59, 8);
-		printf("플레이어의 총알 색상을 변경한다.");
+		printf("플레이어의 캐논 색상을 변경한다.");
 		gotoxy(59, 11);
 		printf("1. 다른 색상 구매시 자동 판매");
 		gotoxy(59, 13);
-		printf("2. 총알 디자인 변경");
+		printf("2. 캐논 디자인 변경");
 		gotoxy(59, 15);
 		printf("3. 데미지 차이는 없다.");
 		gotoxy(59, 18);
@@ -153,13 +152,13 @@ void shop_preview(int list_num)
 		break;
 	case 18:
 		gotoxy(59, 5);
-		printf("파란 총알");
+		printf("파란 캐논");
 		gotoxy(59, 8);
-		printf("플레이어의 총알 색상을 변경한다.");
+		printf("플레이어의 캐논 색상을 변경한다.");
 		gotoxy(59, 11);
 		printf("1. 다른 색상 구매시 자동 판매");
 		gotoxy(59, 13);
-		printf("2. 총알 디자인 변경");
+		printf("2. 캐논 디자인 변경");
 		gotoxy(59, 15);
 		printf("3. 데미지 차이는 없다.");
 		gotoxy(59, 18);
@@ -173,13 +172,13 @@ void shop_preview(int list_num)
 		break;
 	case 20:
 		gotoxy(59, 5);
-		printf("노란 총알");
+		printf("노란 캐논");
 		gotoxy(59, 8);
-		printf("플레이어의 총알 색상을 변경한다.");
+		printf("플레이어의 캐논 색상을 변경한다.");
 		gotoxy(59, 11);
 		printf("1. 다른 색상 구매시 자동 판매");
 		gotoxy(59, 13);
-		printf("2. 총알 디자인 변경");
+		printf("2. 캐논 디자인 변경");
 		gotoxy(59, 15);
 		printf("3. 데미지 차이는 없다.");
 		gotoxy(59, 18);

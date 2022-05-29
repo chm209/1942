@@ -299,7 +299,7 @@ void draw_content(int screen_num)
 		gotoxy(5, 3);
 		printf("● 전투기: ");
 		gotoxy(5, 5);
-		printf("총알 모양: ");
+		printf("캐논 모양: ");
 		gotoxy(5, 7);
 		printf("고유 색상: ");
 		gotoxy(33, 3);
@@ -407,11 +407,11 @@ void draw_content(int screen_num)
 		gotoxy(5, 14);
 		printf("노랑 페인트");
 		gotoxy(5, 16);
-		printf("빨간 총알");
+		printf("빨간 캐논");
 		gotoxy(5, 18);
-		printf("파란 총알");
+		printf("파란 캐논");
 		gotoxy(5, 20);
-		printf("노란 총알");
+		printf("노란 캐논");
 		gotoxy(5, 22);
 		printf("랭킹창 꾸미기");
 		gotoxy(5, 24);

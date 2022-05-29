@@ -6,7 +6,7 @@ void bCannon_status(BOMB* bomb, int state)
 {
 	switch (state)
 	{
-	// ÆøÅº ÃÑ¾Ë ¹ß»ç
+	// ÆøÅº Ä³³í ¹ß»ç
 	case 0:
 		for (int i = 0; i < BOMB_CANNON_SIZE; i++)
 		{
@@ -25,7 +25,7 @@ void bCannon_status(BOMB* bomb, int state)
 			}
 		}
 		break;
-	// ÆøÅº ÃÑ¾Ë ÃµÀå µµ´Þ
+	// ÆøÅº Ä³³í ÃµÀå µµ´Þ
 	case 1:
 		for (int i = 0; i < BOMB_CANNON_SIZE; i++)
 		{

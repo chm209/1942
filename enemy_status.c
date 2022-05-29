@@ -1,6 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 #include "game.h"
 #include "common.h"
 
@@ -51,9 +49,8 @@ void enemy_status(ENEMY* enemy, BOMB* bomb, PLAYER* player, CANNON* cannon, SHOP
 			}
 		}
 		break;
-	// 醚舅 - 利 面倒
+	// 某稠 - 利 面倒
 	case 2:
-		srand(time(NULL));
 		for (int i = 0; i < CANNON_SIZE; i++)
 		{
 			for (int j = 0; j < ENEMY_SIZE; j++)
@@ -64,16 +61,6 @@ void enemy_status(ENEMY* enemy, BOMB* bomb, PLAYER* player, CANNON* cannon, SHOP
 					{
 						if (enemy->hp[j] > 0)
 						{
-							switch (cannon->upgrade)
-							{
-							case LEVEL0:
-								break;
-							case LEVEL1:
-								break;
-							case LEVEL2:
-								break;
-							}
-
 							gotoxy(cannon->pos_x[i], cannon->pos_y[i]);
 							printf("  ");
 							cannon->condition[i] = FALSE;
@@ -130,12 +117,12 @@ void enemy_status(ENEMY* enemy, BOMB* bomb, PLAYER* player, CANNON* cannon, SHOP
 			}
 		}
 		break;
-	// 气藕 醚舅 - 利 面倒
+	// 气藕 某稠 - 利 面倒
 	case 3:
 
 		for (int i = 0; i < ENEMY_SIZE; i++)
 		{
-			for (int j = 0; j < ENEMY_CANNON_SIZE; j++)
+			for (int j = 0; j < BOMB_CANNON_SIZE; j++)
 			{
 				if ((bomb->bomb_cannon[0]->condition[j] == TRUE && enemy->condition[i] == TRUE) && bomb->bomb_cannon[0]->pos_y[j] == enemy->pos_y[i])
 				{

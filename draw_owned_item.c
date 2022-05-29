@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "common.h"
 
 void draw_owned_item(void)

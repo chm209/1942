@@ -66,9 +66,6 @@
     <ClCompile Include="ranking.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="game.c">
-      <Filter>소스 파일\game</Filter>
-    </ClCompile>
     <ClCompile Include="enemy_gen.c">
       <Filter>소스 파일\game\enemy</Filter>
     </ClCompile>
@@ -167,6 +164,9 @@
     </ClCompile>
     <ClCompile Include="draw_help.c">
       <Filter>소스 파일\game\draw</Filter>
+    </ClCompile>
+    <ClCompile Include="game.c">
+      <Filter>소스 파일\game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

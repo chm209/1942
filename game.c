@@ -223,13 +223,13 @@ void game(void)
 			bomb_move(bomb);
 		}
 
-		// 총알 이동
+		// 캐논 이동
 		cannon_move(cannon, shop_item);
 
-		// 적군 총알 발사
+		// 적군 캐논 발사
 		eCannon_status(enemy, player, bomb, cannon, 0);
 
-		// 적 총알 이동
+		// 적 캐논 이동
 		eCannon_move(enemy);
 		
 		// 아이템 이동
@@ -241,16 +241,16 @@ void game(void)
 		// 아이템 바닥 충돌
 		item_status(drop_item, player, cannon, shop_item, 1);
 		
-		// 적 총알 플레이어 충돌
+		// 적 캐논 플레이어 충돌
 		eCannon_status(enemy, player, bomb, cannon, 1);
 
-		// 적 총알 바닥 도달
+		// 적 캐논 바닥 도달
 		eCannon_status(enemy, player, bomb, cannon, 2);
 		
-		// 적 총알 플레이어 총알 충돌
+		// 적 캐논 플레이어 캐논 충돌
 		eCannon_status(enemy, player, bomb, cannon, 3);
 		
-		// 폭탄 발사시 적 총알 폭탄 앞에서 삭제
+		// 폭탄 발사시 적 캐논 폭탄 앞에서 삭제
 		eCannon_status(enemy, player, bomb, cannon, 4);
 		
 		// 폭탄 - 적 충돌
@@ -265,22 +265,22 @@ void game(void)
 		// 플레이어 - 적 충돌
 		enemy_status(enemy, bomb, player, cannon, shop_item, 1);
 		
-		// 총알 - 적 충돌
+		// 캐논 - 적 충돌
 		enemy_status(enemy, bomb, player, cannon, shop_item, 2);
 		
-		// 폭탄 총알 - 적 충돌
+		// 폭탄 캐논 - 적 충돌
 		enemy_status(enemy, bomb, player, cannon, shop_item, 3);
 		
-		// 총알이 천장에 도달하면 삭제
+		// 캐논이 천장에 도달하면 삭제
 		cannon_status(cannon);
 		
-		// 폭탄 총알 발사
+		// 폭탄 캐논 발사
 		bCannon_status(bomb, 0);
 
-		// 폭탄 총알 이동
+		// 폭탄 캐논 이동
 		bCannon_move(bomb);
 
-		// 폭탄 총알이 천장에 도달하면 삭제
+		// 폭탄 캐논이 천장에 도달하면 삭제
 		bCannon_status(bomb, 1);
 		
 		// 스킬 재사용 대기

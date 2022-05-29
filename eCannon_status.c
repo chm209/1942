@@ -6,7 +6,7 @@ void eCannon_status(ENEMY* enemy, PLAYER* player, BOMB* bomb, CANNON* cannon, in
 {
 	switch (state)
 	{
-	// 적군 총알 발사
+	// 적군 캐논 발사
 	case 0:
 		for (int i = 0; i < ENEMY_SIZE; i++)
 		{
@@ -79,7 +79,7 @@ void eCannon_status(ENEMY* enemy, PLAYER* player, BOMB* bomb, CANNON* cannon, in
 			}
 		}
 		break;
-	// 적 총알 플레이어 충돌
+	// 적 캐논 플레이어 충돌
 	case 1:
 		for (int i = 0; i < ENEMY_SIZE; i++)
 		{
@@ -118,7 +118,7 @@ void eCannon_status(ENEMY* enemy, PLAYER* player, BOMB* bomb, CANNON* cannon, in
 			}
 		}
 		break;
-	// 적 총알 바닥 도달
+	// 적 캐논 바닥 도달
 	case 2:
 		for (int i = 0; i < ENEMY_SIZE; i++)
 		{
@@ -147,7 +147,7 @@ void eCannon_status(ENEMY* enemy, PLAYER* player, BOMB* bomb, CANNON* cannon, in
 			}
 		}
 		break;
-	// 적 총알 플레이어 총알 충돌
+	// 적 캐논 플레이어 캐논 충돌
 	case 3:
 		for (int i = 0; i < ENEMY_SIZE; i++)
 		{
@@ -172,7 +172,7 @@ void eCannon_status(ENEMY* enemy, PLAYER* player, BOMB* bomb, CANNON* cannon, in
 			}
 		}
 		break;
-	// 폭탄 발사시 적 총알 폭탄 앞에서 삭제
+	// 폭탄 발사시 적 캐논 폭탄 앞에서 삭제
 	case 4:
 		if (bomb->condition[0] == TRUE || bomb->condition[1] == TRUE)
 		{

@@ -102,7 +102,7 @@ void ranking_db(int is_logined)
 		break;
 	// 로그인
 	case TRUE:
-		// 전투기 모양, 총알, 고유색상 출력
+		// 전투기 모양, 캐논, 고유색상 출력
 		sprintf(query, "select * from item_list where id = '%s'", user.id);
 		query_stat = mysql_query(connection, query);
 		if (query_stat != 0)

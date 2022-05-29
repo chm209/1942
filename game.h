@@ -119,7 +119,6 @@ typedef struct EnemyCannon
 	int move_pattern[ENEMY_CANNON_SIZE];
 } ENEMY_CANNON;
 
-// 함수 정리완료
 // 초기설정, DB 불러오기 저장하기
 void init_variables(PLAYER*, CANNON*, BOMB*, DROP_ITEM*, SHOP_ITEM*, ENEMY*);
 void load_data(SHOP_ITEM*);

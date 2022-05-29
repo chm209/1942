@@ -78,10 +78,6 @@ void shop(void)
 							user.point -= 1000;
 							user.item[0]++;
 						}
-						else
-						{
-							// 구매 불가 알림
-						}
 						break;
 					// HP 회복
 					case 6:
@@ -89,10 +85,6 @@ void shop(void)
 						{
 							user.point -= 500;
 							user.item[1]++;
-						}
-						else
-						{
-							// 구매 불가 알림
 						}
 						break;
 					// 추가 점수
@@ -179,7 +171,7 @@ void shop(void)
 							user.item[5]--;
 						}
 						break;
-					// 빨간 총알
+					// 빨간 캐논
 					case 16:
 						if (user.item[6] == 0)
 						{
@@ -203,7 +195,7 @@ void shop(void)
 							user.item[6]--;
 						}
 						break;
-					// 파란 총알
+					// 파란 캐논
 					case 18:
 						if (user.item[7] == 0)
 						{
@@ -227,7 +219,7 @@ void shop(void)
 							user.item[7]--;
 						}
 						break;
-					// 노란 총알
+					// 노란 캐논
 					case 20:
 						if (user.item[8] == 0)
 						{

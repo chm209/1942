@@ -151,7 +151,7 @@ void enemy_gen(ENEMY* enemy, int frame_time)
 				enemy->pos_y[i] = 0;
 				enemy->condition[i] = TRUE;
 				enemy->design[i] = 3;
-				enemy->pattern[i] = 5; // 중앙에서 일직선으로 내려오면서 유저 방향으로 발사
+				enemy->pattern[i] = 5; // 직선으로 내려오면서 정면, 좌우로 공격
 				enemy->move_count[i] = 0;
 				enemy->move_interval[i] = 0;
 				enemy->hp[i] = 10;
@@ -165,7 +165,7 @@ void enemy_gen(ENEMY* enemy, int frame_time)
 				enemy->pos_y[i] = 0;
 				enemy->condition[i] = TRUE;
 				enemy->design[i] = 3;
-				enemy->pattern[i] = 5; // 중앙에서 일직선으로 내려오면서 유저 방향으로 발사
+				enemy->pattern[i] = 5; // 직선으로 내려오면서 정면, 좌우로 공격
 				enemy->move_count[i] = 0;
 				enemy->move_interval[i] = 0;
 				enemy->hp[i] = 10;
@@ -179,7 +179,7 @@ void enemy_gen(ENEMY* enemy, int frame_time)
 				enemy->pos_y[i] = 0;
 				enemy->condition[i] = TRUE;
 				enemy->design[i] = 3;
-				enemy->pattern[i] = 5; // 중앙에서 일직선으로 내려오면서 유저 방향으로 발사
+				enemy->pattern[i] = 5; // 직선으로 내려오면서 정면, 좌우로 공격
 				enemy->move_count[i] = 0;
 				enemy->move_interval[i] = 0;
 				enemy->hp[i] = 10;
