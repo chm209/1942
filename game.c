@@ -346,6 +346,6 @@ void game(void)
 		}
 
 		frame_time++;
-		Sleep(0);
+		Sleep(18);
 	}
 }

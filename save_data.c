@@ -28,7 +28,7 @@ void save_data(PLAYER* player, SHOP_ITEM* shop_item)
 
 	// 사용한 아이템 DB에 반영
 	// c언어에서 '\'나 괄호를 쓰면 줄넘김 할 수 있음
-	sprintf(query, "update item_list set item1 = %d, item2 = %d, item3 = %d", shop_item->life_plus, shop_item->hp_recover, shop_item->score_buff);
+	sprintf(query, "update item_list set item1 = %d, item2 = %d, item3 = %d where id = '%s'", shop_item->life_plus, shop_item->hp_recover, shop_item->score_buff, user.id);
 	query_stat = mysql_query(connection, query);
 	if (query_stat != 0)
 	{
