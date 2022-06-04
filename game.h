@@ -2,7 +2,7 @@
 // 키보드 입력 관련
 #define LEFT_LIMIT 5
 #define RIGHT_LIMIT 51
-#define UP_LIMIT 14
+#define UP_LIMIT 14 // 기본 14, 시연 4
 #define DOWN_LIMIT 29
 
 // 공통

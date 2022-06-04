@@ -346,6 +346,6 @@ void game(void)
 		}
 
 		frame_time++;
-		Sleep(18);
+		Sleep(18); // ºü¸£°Ô 2, Æò±Õ 18
 	}
 }
