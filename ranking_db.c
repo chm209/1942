@@ -61,36 +61,36 @@ void ranking_db(int is_logined)
 			if (atoi(row[2]) != 0 && atoi(row[3]) != 0)
 			{
 				gotoxy(61, POS_Y);
-				printf(", 체력 회복");
+				printf(", 체력회복");
 			}
 			else if (atoi(row[2]) == 0 && atoi(row[3]) != 0)
 			{
 				gotoxy(53, POS_Y);
-				printf("체력 회복");
+				printf("체력회복");
 			}
 
 			if ((atoi(row[2]) != 0 && atoi(row[3]) != 0) && atoi(row[4]) != 0)
 			{
 				gotoxy(72, POS_Y);
-				printf(", 추가점수 적용");
+				printf(", 추가점수");
 			}
 			else if ((atoi(row[2]) == 0 && atoi(row[3]) != 0) && atoi(row[4]) != 0)
 			{
 				gotoxy(62, POS_Y);
-				printf(", 추가점수 적용");
+				printf(", 추가점수");
 			}
 			else if ((atoi(row[2]) != 0 && atoi(row[3]) == 0) && atoi(row[4]) != 0)
 			{
 				gotoxy(61, POS_Y);
-				printf(", 추가점수 적용");
+				printf(", 추가점수");
 			}
 			else if ((atoi(row[2]) == 0 && atoi(row[3]) == 0) && atoi(row[4]) != 0)
 			{
 				gotoxy(53, POS_Y);
-				printf("추가점수 적용");
+				printf("추가점수");
 			}
 
-			if (count == 11)
+			if (count == 12)
 			{
 				break;
 			}
@@ -262,33 +262,33 @@ void ranking_db(int is_logined)
 			if (atoi(row[2]) != 0 && atoi(row[3]) != 0)
 			{
 				gotoxy(56, 7);
-				printf(", 체력 회복");
+				printf(", 체력회복");
 			}
 			else if (atoi(row[2]) == 0 && atoi(row[3]) != 0)
 			{
 				gotoxy(46, 7);
-				printf(": 체력 회복");
+				printf(": 체력회복");
 			}
 
 			if ((atoi(row[2]) != 0 && atoi(row[3]) != 0) && atoi(row[4]) != 0)
 			{
 				gotoxy(67, 7);
-				printf(", 추가점수 적용");
+				printf(", 추가점수");
 			}
 			else if ((atoi(row[2]) == 0 && atoi(row[3]) != 0) && atoi(row[4]) != 0)
 			{
 				gotoxy(57, 7);
-				printf(", 추가점수 적용");
+				printf(", 추가점수");
 			}
 			else if ((atoi(row[2]) != 0 && atoi(row[3]) == 0) && atoi(row[4]) != 0)
 			{
 				gotoxy(56, 7);
-				printf(", 추가점수 적용");
+				printf(", 추가점수");
 			}
 			else if ((atoi(row[2]) == 0 && atoi(row[3]) == 0) && atoi(row[4]) != 0)
 			{
 				gotoxy(46, 7);
-				printf(": 추가점수 적용");
+				printf(": 추가점수");
 			}
 			else if ((atoi(row[2]) == 0 && atoi(row[3]) == 0) && atoi(row[4]) == 0)
 			{
@@ -329,33 +329,33 @@ void ranking_db(int is_logined)
 			if (atoi(row[2]) != 0 && atoi(row[3]) != 0)
 			{
 				gotoxy(61, POS_Y);
-				printf(", 체력 회복");
+				printf(", 체력회복");
 			}
 			else if (atoi(row[2]) == 0 && atoi(row[3]) != 0)
 			{
 				gotoxy(53, POS_Y);
-				printf("체력 회복");
+				printf("체력회복");
 			}
 
 			if ((atoi(row[2]) != 0 && atoi(row[3]) != 0) && atoi(row[4]) != 0)
 			{
 				gotoxy(72, POS_Y);
-				printf(", 추가점수 적용");
+				printf(", 추가점수");
 			}
 			else if ((atoi(row[2]) == 0 && atoi(row[3]) != 0) && atoi(row[4]) != 0)
 			{
 				gotoxy(62, POS_Y);
-				printf(", 추가점수 적용");
+				printf(", 추가점수");
 			}
 			else if ((atoi(row[2]) != 0 && atoi(row[3]) == 0) && atoi(row[4]) != 0)
 			{
 				gotoxy(61, POS_Y);
-				printf(", 추가점수 적용");
+				printf(", 추가점수");
 			}
 			else if ((atoi(row[2]) == 0 && atoi(row[3]) == 0) && atoi(row[4]) != 0)
 			{
 				gotoxy(53, POS_Y);
-				printf("추가점수 적용");
+				printf("추가점수");
 			}
 			else if ((atoi(row[2]) == 0 && atoi(row[3]) == 0) && atoi(row[4]) == 0)
 			{
